@@ -1,0 +1,502 @@
+[
+  {
+    "question": "What does <code>np.arange(5)</code> return?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "array([0, 1, 2, 3, 4])", "correct": true, "feedback": "Correct — np.arange(n) is zero-indexed and stops before n."},
+      {"answer": "array([1, 2, 3, 4, 5])", "correct": false, "feedback": "np.arange starts at 0 by default and excludes the endpoint."},
+      {"answer": "array([0, 1, 2, 3, 4, 5])", "correct": false, "feedback": "This would be np.arange(6) — the endpoint is excluded."},
+      {"answer": "5", "correct": false, "feedback": "np.arange returns an array, not a single number."}
+    ]
+  },
+  {
+    "question": "A student writes <code>mask = arr > 3</code> then <code>np.count_nonzero(mask)</code>. What does this compute?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "The number of elements in arr greater than 3", "correct": true, "feedback": "Correct — count_nonzero counts the True values in the Boolean array."},
+      {"answer": "The sum of all elements greater than 3", "correct": false, "feedback": "That would be arr[mask].sum(), not count_nonzero(mask)."},
+      {"answer": "The largest element in arr", "correct": false, "feedback": "This has nothing to do with finding a maximum."},
+      {"answer": "Whether any element is greater than 3", "correct": false, "feedback": "That would be np.any(mask); count_nonzero gives a count."}
+    ]
+  },
+  {
+    "question": "Which loop pattern correctly accumulates a running total across an experiment?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "Initialize the accumulator before the loop, update it on each pass", "correct": true, "feedback": "Correct — e.g. total = 0 before the loop, then total = total + x inside it."},
+      {"answer": "Initialize the accumulator inside the loop on every pass", "correct": false, "feedback": "This resets the total every iteration instead of accumulating."},
+      {"answer": "Only define the accumulator after the loop finishes", "correct": false, "feedback": "It needs to exist before the loop so it can be updated during each pass."},
+      {"answer": "Use a while loop instead — for loops cannot accumulate values", "correct": false, "feedback": "For loops accumulate values just fine; this isn't a for/while distinction."}
+    ]
+  },
+  {
+    "question": "What is wrong with this line of student code: <code>if dest = 'Boston':</code>",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "It uses assignment (=) instead of comparison (==)", "correct": true, "feedback": "Correct — a single = assigns a value; == checks equality."},
+      {"answer": "It's missing a colon at the end", "correct": false, "feedback": "The colon is present; the problem is the single equals sign."},
+      {"answer": "Strings can't be compared with if statements", "correct": false, "feedback": "Strings can absolutely be compared — the issue is the operator used."},
+      {"answer": "dest must be capitalized as DEST", "correct": false, "feedback": "Variable naming isn't the issue here."}
+    ]
+  },
+  {
+    "question": "In <code>def calculate_dose(dest): ... return 0.004</code>, what does <code>return</code> do?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "Exits the function and passes the value back to the caller", "correct": true, "feedback": "Correct — without return, the function would compute a value but the caller wouldn't receive it."},
+      {"answer": "Prints the value to the screen", "correct": false, "feedback": "print() displays output; return hands a value back to whatever called the function."},
+      {"answer": "Restarts the function from the top", "correct": false, "feedback": "return ends execution of the function; it does not restart it."},
+      {"answer": "Saves the value permanently as a global variable", "correct": false, "feedback": "return doesn't create a global variable — it just passes a value back to the caller."}
+    ]
+  },
+  {
+    "question": "What does <code>make_array(1, 2, 3)</code> create?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "A numpy array containing 1, 2, 3", "correct": true, "feedback": "Correct — make_array is the datascience library's convenience wrapper around np.array."},
+      {"answer": "A datascience Table with one row", "correct": false, "feedback": "make_array builds an array, not a Table."},
+      {"answer": "A Python list", "correct": false, "feedback": "It returns a numpy array, which behaves differently from a plain list (e.g. supports vectorized math)."},
+      {"answer": "A dictionary with keys 1, 2, 3", "correct": false, "feedback": "There are no key-value pairs here — this is an array of numbers."}
+    ]
+  },
+  {
+    "question": "Why does the course require breaking complicated code into multiple cells with comments and markdown?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "It's graded, and it makes debugging with a student much easier", "correct": true, "feedback": "Correct — this is an explicit grading expectation and also the fastest way to help a student find a bug."},
+      {"answer": "Jupyter cannot run more than 5 lines of code per cell", "correct": false, "feedback": "There's no such technical limit — this is a course expectation, not a platform restriction."},
+      {"answer": "It makes the notebook run faster", "correct": false, "feedback": "Cell structure doesn't meaningfully affect runtime — it's about clarity and grading."},
+      {"answer": "It is only a suggestion with no grading impact", "correct": false, "feedback": "The syllabus explicitly expects comments and markdown annotating the work."}
+    ]
+  },
+  {
+    "question": "What does <code>Table.read_table('file.csv')</code> do?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "Loads a CSV file's contents into a Table object", "correct": true, "feedback": "Correct — this is the standard way students load real-world data in this course."},
+      {"answer": "Creates an empty Table with the given filename as its title", "correct": false, "feedback": "It actually reads and loads the file's data, not just its name."},
+      {"answer": "Converts a Table into a CSV file for download", "correct": false, "feedback": "That would be closer to a .to_csv() style export — read_table is for loading, not exporting."},
+      {"answer": "Returns a pandas DataFrame", "correct": false, "feedback": "This course does not use pandas by default — it returns a datascience Table."}
+    ]
+  },
+  {
+    "question": "What does <code>tbl.where('shadowPres', are.equal_to('yes'))</code> return?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "A new Table containing only rows where shadowPres equals 'yes'", "correct": true, "feedback": "Correct — where() filters rows based on the given predicate."},
+      {"answer": "A single Boolean value: True or False", "correct": false, "feedback": "where() returns a filtered Table, not a single Boolean."},
+      {"answer": "The column 'shadowPres' as an array", "correct": false, "feedback": "That would be tbl.column('shadowPres') — where() filters rows instead."},
+      {"answer": "The original table, unmodified", "correct": false, "feedback": "where() returns a new, filtered copy — it does not leave the table unchanged."}
+    ]
+  },
+  {
+    "question": "What is returned by <code>tbl.select(['A', 'B'])</code>?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "A Table containing only columns A and B", "correct": true, "feedback": "Correct — select() keeps specified columns and returns a Table."},
+      {"answer": "An array containing only columns A and B", "correct": false, "feedback": "select() returns a Table, not an array — column() returns an array."},
+      {"answer": "The number of rows shared by columns A and B", "correct": false, "feedback": "select() reshapes columns; it does not compute a count."},
+      {"answer": "A copy of the table with columns A and B removed", "correct": false, "feedback": "That description matches drop(), not select()."}
+    ]
+  },
+  {
+    "question": "What type of object does <code>tbl.column('C')</code> return?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "A numpy array", "correct": true, "feedback": "Correct — .column() extracts raw values as an array, ready for numeric operations."},
+      {"answer": "A Table with a single column", "correct": false, "feedback": "That would be tbl.select('C') — .column() returns an array, not a Table."},
+      {"answer": "A Python list of strings only", "correct": false, "feedback": "It returns a numpy array and can hold numeric or string data depending on the column."},
+      {"answer": "A dictionary mapping row number to value", "correct": false, "feedback": "It's a plain array indexed by position, not a dictionary."}
+    ]
+  },
+  {
+    "question": "What does <code>tbl.sort('col', descending=True)</code> do?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "Returns a new Table with rows ordered from highest to lowest value of 'col'", "correct": true, "feedback": "Correct."},
+      {"answer": "Sorts the Table in place and returns None", "correct": false, "feedback": "sort() returns a new sorted Table rather than modifying in place."},
+      {"answer": "Removes the 'col' column after sorting", "correct": false, "feedback": "sort() does not drop any columns — it only reorders rows."},
+      {"answer": "Sorts columns alphabetically by column name", "correct": false, "feedback": "sort() reorders rows based on values in a column, not the columns themselves."}
+    ]
+  },
+  {
+    "question": "A student uses <code>tbl.with_column('New', arr)</code>. What happens?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "A new Table is returned with an added column named 'New' containing arr's values", "correct": true, "feedback": "Correct — with_column() adds or replaces a column and returns a new Table."},
+      {"answer": "The original Table gains a new row named 'New'", "correct": false, "feedback": "with_column adds a column, not a row."},
+      {"answer": "arr is converted into a Table", "correct": false, "feedback": "arr becomes a column within the existing Table, not a standalone Table."},
+      {"answer": "It deletes any existing column named 'New'", "correct": false, "feedback": "It adds (or overwrites) the column with the given array — deletion isn't the described behavior here."}
+    ]
+  },
+  {
+    "question": "Why is <code>are.equal_to()</code> unreliable when filtering on a floating-point column?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "Floating-point rounding errors mean two 'equal' values may differ at tiny decimal places", "correct": true, "feedback": "Correct — this is exactly why Lab 3 asks students to think through a tolerance-based approach instead."},
+      {"answer": "are.equal_to() only works on string columns", "correct": false, "feedback": "It works on numeric columns too — the issue is precision, not data type support."},
+      {"answer": "Table columns cannot store floats", "correct": false, "feedback": "Table columns can absolutely store floats; the issue is exact equality comparison."},
+      {"answer": "are.equal_to() is deprecated and no longer works", "correct": false, "feedback": "It works fine — the concern is precision, not deprecation."}
+    ]
+  },
+  {
+    "question": "What is the complement rule for probability?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "P(not A) = 1 − P(A)", "correct": true, "feedback": "Correct."},
+      {"answer": "P(not A) = P(A) − 1", "correct": false, "feedback": "This would give a negative probability whenever P(A) < 1 — flip the subtraction order."},
+      {"answer": "P(not A) = P(A)", "correct": false, "feedback": "An event and its complement generally have different probabilities."},
+      {"answer": "P(not A) = 1 / P(A)", "correct": false, "feedback": "That's not the complement rule — this would give values greater than 1 whenever P(A) < 1."}
+    ]
+  },
+  {
+    "question": "If A and B are independent events, what is P(A and B)?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "P(A) × P(B)", "correct": true, "feedback": "Correct — independence means knowing A tells you nothing about B, so their probabilities multiply."},
+      {"answer": "P(A) + P(B)", "correct": false, "feedback": "Addition would be used for 'A or B' under certain conditions, not 'A and B' for independent events."},
+      {"answer": "P(A) − P(B)", "correct": false, "feedback": "Subtraction isn't the rule for combining independent event probabilities."},
+      {"answer": "max(P(A), P(B))", "correct": false, "feedback": "This isn't how independent joint probabilities combine."}
+    ]
+  },
+  {
+    "question": "Why does the groundhog lab run 1,000 simulations rather than just 1?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "More simulations narrow the uncertainty in the estimated p-value", "correct": true, "feedback": "Correct — a single simulation is just one random draw; many simulations build a reliable sampling distribution."},
+      {"answer": "1 simulation would cause a syntax error", "correct": false, "feedback": "Running once is syntactically fine — the issue is statistical reliability, not code errors."},
+      {"answer": "np.random.choice() requires at least 1,000 calls to function", "correct": false, "feedback": "np.random.choice works with any number of calls — 1,000 is a statistical choice, not a technical requirement."},
+      {"answer": "It makes the histogram plot more colorful", "correct": false, "feedback": "The reason is statistical precision, not visual appearance."}
+    ]
+  },
+  {
+    "question": "What does <code>np.random.choice(destination)</code> do, where destination is an array of city names?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "Returns one randomly selected element from the array", "correct": true, "feedback": "Correct."},
+      {"answer": "Returns all elements of the array in random order", "correct": false, "feedback": "Without a second argument, np.random.choice returns just one element, not a shuffled full array."},
+      {"answer": "Sorts the array randomly and returns it", "correct": false, "feedback": "This isn't sorting — it's random sampling of a single element."},
+      {"answer": "Removes a random element from the array permanently", "correct": false, "feedback": "np.random.choice doesn't modify the original array; it just samples from it."}
+    ]
+  },
+  {
+    "question": "What best describes a Monte Carlo simulation, as used in this course?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "Repeating a random process many times and studying the distribution of outcomes", "correct": true, "feedback": "Correct."},
+      {"answer": "A single precise calculation using calculus", "correct": false, "feedback": "Monte Carlo methods rely on repeated random sampling, not a single deterministic calculation."},
+      {"answer": "A method for sorting large datasets efficiently", "correct": false, "feedback": "Sorting is unrelated — Monte Carlo simulation is about repeated random sampling."},
+      {"answer": "A way to visualize a Table using only bar charts", "correct": false, "feedback": "This describes a visualization choice, not a simulation methodology."}
+    ]
+  },
+  {
+    "question": "In the groundhog simulation loop, what do the 'right' and 'wrong' counters represent?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "An accumulator pattern tracking how many random guesses happened to match the prediction rule", "correct": true, "feedback": "Correct — this is the same accumulator pattern used throughout the course, applied to a simulated null world."},
+      {"answer": "The number of syntax errors encountered while running the cell", "correct": false, "feedback": "These variables track simulated outcomes, not code errors."},
+      {"answer": "The real groundhog's actual historical accuracy", "correct": false, "feedback": "These counters track a simulated random world under H0, not real observed data."},
+      {"answer": "A count of how many times the cell has been executed", "correct": false, "feedback": "They reset each simulation and count simulated outcomes, not executions."}
+    ]
+  },
+  {
+    "question": "What is a 'sampling distribution' in the context of this course's simulations?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "The distribution of a statistic (like fraction correct) computed across many repeated simulations", "correct": true, "feedback": "Correct — this is exactly what the 1,000-simulation histograms represent."},
+      {"answer": "The distribution of raw data values in the original dataset", "correct": false, "feedback": "That describes the population or sample distribution, not the sampling distribution of a statistic."},
+      {"answer": "A distribution that only applies to normally distributed data", "correct": false, "feedback": "Sampling distributions are built via simulation and apply regardless of the underlying population shape."},
+      {"answer": "The order in which rows appear in a Table", "correct": false, "feedback": "This has nothing to do with row order — it's about the spread of a computed statistic."}
+    ]
+  },
+  {
+    "question": "What does the null hypothesis (H0) represent in the groundhog example?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "Groundhog predictions are no better than random guessing", "correct": true, "feedback": "Correct."},
+      {"answer": "Groundhogs are definitely accurate weather predictors", "correct": false, "feedback": "That describes the alternative hypothesis (H1), not the null."},
+      {"answer": "There is no relationship between shadow and spring at all costs, proven for certain", "correct": false, "feedback": "H0 is a starting assumption to test, not a proven fact — and hypothesis tests never 'prove' anything with certainty."},
+      {"answer": "The dataset contains errors", "correct": false, "feedback": "H0 is a statistical claim about the effect being tested, not a statement about data quality."}
+    ]
+  },
+  {
+    "question": "What does the p-value measure?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "The probability of a result at least as extreme as observed, assuming H0 is true", "correct": true, "feedback": "Correct — this precise definition matters; it is not simply 'the probability H0 is true.'"},
+      {"answer": "The probability that H0 is true", "correct": false, "feedback": "This is a very common misconception — the p-value assumes H0 is true and asks how extreme the data are, not the probability H0 itself is true."},
+      {"answer": "The probability that H1 is true", "correct": false, "feedback": "The p-value is computed under H0, not H1."},
+      {"answer": "The percentage of correct predictions in the raw data", "correct": false, "feedback": "That describes percent_correct, a different quantity from the p-value."}
+    ]
+  },
+  {
+    "question": "Can a hypothesis test ever 'prove' the alternative hypothesis (H1)?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "No — we can only reject or fail to reject H0, never prove H1", "correct": true, "feedback": "Correct — this is explicitly emphasized in the course materials."},
+      {"answer": "Yes, if the p-value is below 0.05", "correct": false, "feedback": "A small p-value gives evidence against H0, but this is still short of 'proving' H1."},
+      {"answer": "Yes, but only with more than 1,000 simulations", "correct": false, "feedback": "No number of simulations changes the logical structure of hypothesis testing — H1 is never proven, only supported by evidence against H0."},
+      {"answer": "Yes, if the sample size is large enough", "correct": false, "feedback": "Sample size affects statistical power, not whether H1 can be logically 'proven.'"}
+    ]
+  },
+  {
+    "question": "How should a p-value of 0.03 be interpreted using the course's scale?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "Suggestive evidence against H0 (0.01 < p ≤ 0.05)", "correct": true, "feedback": "Correct."},
+      {"answer": "Strong evidence against H0", "correct": false, "feedback": "Strong evidence is reserved for p ≤ 0.01 in the course's scale."},
+      {"answer": "Insufficient evidence to reject H0", "correct": false, "feedback": "That interpretation applies to p > 0.05, not p = 0.03."},
+      {"answer": "Proof that H1 is correct", "correct": false, "feedback": "No p-value threshold constitutes 'proof' of H1."}
+    ]
+  },
+  {
+    "question": "What is the multiple comparisons problem?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "Running many hypothesis tests on the same data inflates the overall false-positive rate", "correct": true, "feedback": "Correct — with 3 tests at α=0.05, P(at least one false positive) ≈ 0.143, not 5%."},
+      {"answer": "A Table cannot have more than one column tested at once", "correct": false, "feedback": "This isn't a technical limitation of Table objects — it's a statistical inference concern."},
+      {"answer": "Simulations become slower with more comparisons", "correct": false, "feedback": "The issue is statistical validity, not computational speed."},
+      {"answer": "Only one p-value can be computed per notebook", "correct": false, "feedback": "Any number of p-values can be computed — the concern is how to interpret many of them together."}
+    ]
+  },
+  {
+    "question": "What is the Bonferroni-corrected significance threshold if the original α is 0.05 and 34 tests are run?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "≈ 0.0015 (0.05 divided by 34)", "correct": true, "feedback": "Correct — α_adjusted = α / n_tests."},
+      {"answer": "0.05 multiplied by 34 ≈ 1.7", "correct": false, "feedback": "The Bonferroni correction divides, it doesn't multiply — multiplying gives a value above 1, which isn't a valid probability threshold."},
+      {"answer": "Still 0.05, unchanged", "correct": false, "feedback": "The whole point of the correction is to adjust the threshold downward given multiple tests."},
+      {"answer": "0.05 minus 34", "correct": false, "feedback": "This would produce a negative number — the correction is a division, not a subtraction."}
+    ]
+  },
+  {
+    "question": "Why does the Bonferroni correction make the significance threshold stricter?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "To account for the fact that running more tests increases the chance of a false positive by luck alone", "correct": true, "feedback": "Correct."},
+      {"answer": "Because larger datasets always need stricter thresholds", "correct": false, "feedback": "The correction is about the number of tests run, not dataset size directly."},
+      {"answer": "To make the math simpler", "correct": false, "feedback": "The correction exists for statistical validity, not computational convenience."},
+      {"answer": "Because p-values above 0.05 are always errors", "correct": false, "feedback": "p-values above 0.05 aren't 'errors' — the correction changes the threshold for what counts as significant."}
+    ]
+  },
+  {
+    "question": "What is the formula for converting a value to standard units?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "(x − mean) / standard deviation", "correct": true, "feedback": "Correct — this centers the data at 0 and scales it to a standard deviation of 1."},
+      {"answer": "(x − mean) × standard deviation", "correct": false, "feedback": "Standard units divide by the standard deviation, not multiply."},
+      {"answer": "(x + mean) / standard deviation", "correct": false, "feedback": "The mean should be subtracted, not added."},
+      {"answer": "x / mean", "correct": false, "feedback": "This isn't standard units — it doesn't reference standard deviation at all."}
+    ]
+  },
+  {
+    "question": "What is the possible range of the correlation coefficient r?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "−1 to 1", "correct": true, "feedback": "Correct — r = −1 is perfect negative correlation, r = 1 is perfect positive correlation."},
+      {"answer": "0 to 1", "correct": false, "feedback": "r can be negative too, indicating an inverse relationship."},
+      {"answer": "−∞ to ∞", "correct": false, "feedback": "Correlation is always bounded between −1 and 1."},
+      {"answer": "0 to 100", "correct": false, "feedback": "That range describes percentages, not the correlation coefficient."}
+    ]
+  },
+  {
+    "question": "A scatter plot shows points rising cleanly from lower-left to upper-right, tightly clustered around a line. What is r likely close to?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "Close to +1", "correct": true, "feedback": "Correct — a tight, positive linear relationship gives r near +1."},
+      {"answer": "Close to −1", "correct": false, "feedback": "A negative r would correspond to a downward-sloping relationship, not an upward one."},
+      {"answer": "Close to 0", "correct": false, "feedback": "r near 0 describes little or no linear relationship — this scatter shows a strong one."},
+      {"answer": "Exactly 2", "correct": false, "feedback": "r cannot exceed 1 in magnitude, so 2 isn't a valid correlation value."}
+    ]
+  },
+  {
+    "question": "In standard units, what is the slope of the regression line equal to?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "The correlation coefficient, r", "correct": true, "feedback": "Correct — this is why standard units make regression calculations so clean."},
+      {"answer": "1, always", "correct": false, "feedback": "The slope in standard units equals r, which varies depending on the strength of the relationship."},
+      {"answer": "The mean of y divided by the mean of x", "correct": false, "feedback": "That's not the definition used in this course — the slope in standard units is r."},
+      {"answer": "The standard deviation of x", "correct": false, "feedback": "Standard deviations are used to convert back to original units, but the standard-units slope itself is r."}
+    ]
+  },
+  {
+    "question": "To convert the regression slope from standard units back to original units, what do you do?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "Multiply r by (SD of y) / (SD of x)", "correct": true, "feedback": "Correct — stretching vertically by SD_y and horizontally by SD_x changes the slope accordingly."},
+      {"answer": "Multiply r by (SD of x) / (SD of y)", "correct": false, "feedback": "This inverts the correct ratio — it should be SD_y over SD_x."},
+      {"answer": "Add the means of x and y to r", "correct": false, "feedback": "Means are used to find the intercept, not to convert the slope."},
+      {"answer": "Divide r by the number of data points", "correct": false, "feedback": "Sample size doesn't factor into converting the slope between unit systems."}
+    ]
+  },
+  {
+    "question": "The regression line always passes through which point?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "(mean of x, mean of y)", "correct": true, "feedback": "Correct — this fact is used to derive the intercept from the slope."},
+      {"answer": "(0, 0)", "correct": false, "feedback": "The regression line passes through the point of averages, not necessarily the origin."},
+      {"answer": "(max of x, max of y)", "correct": false, "feedback": "There's no guarantee the line passes through the maximum values."},
+      {"answer": "(median of x, median of y)", "correct": false, "feedback": "The relevant point uses the means, not the medians."}
+    ]
+  },
+  {
+    "question": "What does a lower RMSE (root mean squared error) indicate?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "A better-fitting prediction, on average", "correct": true, "feedback": "Correct — RMSE measures average prediction error, so smaller is better."},
+      {"answer": "A worse-fitting prediction", "correct": false, "feedback": "This is backwards — lower RMSE means smaller average error, i.e. a better fit."},
+      {"answer": "That the sample size was too small", "correct": false, "feedback": "RMSE reflects prediction accuracy, not directly sample size."},
+      {"answer": "That the model used too many features", "correct": false, "feedback": "RMSE doesn't directly indicate feature count — it measures the size of prediction errors."}
+    ]
+  },
+  {
+    "question": "According to the Central Limit Theorem, what happens to the distribution of the sample mean as sample size grows, regardless of the population's shape?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "It becomes approximately normal (bell-shaped)", "correct": true, "feedback": "Correct — this holds even when the underlying population (like SF salaries) is far from normal."},
+      {"answer": "It becomes identical to the population's own distribution", "correct": false, "feedback": "The sample mean's distribution is typically much narrower and more bell-shaped than the raw population distribution."},
+      {"answer": "It becomes uniform", "correct": false, "feedback": "CLT describes convergence toward a normal shape, not a uniform one."},
+      {"answer": "It stays exactly the same no matter the sample size", "correct": false, "feedback": "The shape and spread of the sample mean's distribution changes with sample size — it becomes tighter and more bell-shaped."}
+    ]
+  },
+  {
+    "question": "As sample size increases, what happens to the variability (SD) of the sample mean?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "It decreases — larger samples give more tightly clustered sample means", "correct": true, "feedback": "Correct — this is a key relationship demonstrated with the salary simulations."},
+      {"answer": "It increases", "correct": false, "feedback": "Larger samples reduce variability of the mean, they don't increase it."},
+      {"answer": "It stays exactly constant", "correct": false, "feedback": "SD of the sample mean shrinks as sample size grows — it does not stay fixed."},
+      {"answer": "It becomes unpredictable", "correct": false, "feedback": "The relationship is a predictable, well-established mathematical pattern (SD shrinks roughly with the square root of n)."}
+    ]
+  },
+  {
+    "question": "What is a bootstrap resample?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "A sample drawn with replacement from an already-observed sample", "correct": true, "feedback": "Correct — bootstrapping treats the observed sample as a stand-in for the population and resamples from it."},
+      {"answer": "A brand new sample collected from the real-world population", "correct": false, "feedback": "Bootstrapping reuses the existing sample rather than collecting new data."},
+      {"answer": "A sample drawn without replacement from the population", "correct": false, "feedback": "Bootstrap resampling specifically uses replacement, and draws from the sample, not the full population."},
+      {"answer": "The average of several different datasets", "correct": false, "feedback": "That describes a kind of ensembling, not the resampling procedure used in bootstrapping."}
+    ]
+  },
+  {
+    "question": "As sample size increases, how does the sample's own standard deviation (not the SD of the mean) behave relative to the population SD?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "It becomes more consistent with (closer to) the population SD", "correct": true, "feedback": "Correct — larger samples better represent the population's true spread."},
+      {"answer": "It diverges further from the population SD", "correct": false, "feedback": "Larger samples typically converge toward the population's true SD, not diverge from it."},
+      {"answer": "It always equals zero", "correct": false, "feedback": "Sample SD reflects real spread in the data and won't be zero unless all values are identical."},
+      {"answer": "It becomes exactly equal to the SD of the sample mean", "correct": false, "feedback": "These are two different quantities: the sample's SD and the SD of the sampling distribution of the mean are related, but not identical."}
+    ]
+  },
+  {
+    "question": "If you take more bootstrap resamples (say 1,000 vs. 500) from the same original sample, what happens to the SD of the resampled means?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "It stays about the same — more resamples improve estimate stability but don't systematically change the SD's underlying value", "correct": true, "feedback": "Correct — increasing the number of resamples estimates the same underlying spread more precisely; it does not shrink the spread the way increasing original sample size would."},
+      {"answer": "It decreases substantially with more resamples", "correct": false, "feedback": "Only increasing the size of the original sample shrinks the SD of the sample mean — resampling more times from the same sample does not."},
+      {"answer": "It increases substantially with more resamples", "correct": false, "feedback": "More resamples doesn't inflate variability — it stabilizes the estimate of the existing spread."},
+      {"answer": "It becomes exactly zero", "correct": false, "feedback": "There's always some inherent variability being estimated — more resamples don't eliminate it."}
+    ]
+  },
+  {
+    "question": "What is the purpose of a bootstrap confidence interval, as used in the 'Age of the Universe' lab?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "To quantify the uncertainty in an estimate (like a regression slope) due to sampling", "correct": true, "feedback": "Correct — resampling repeatedly gives a range of plausible slope estimates, forming the confidence interval."},
+      {"answer": "To make the regression line perfectly straight", "correct": false, "feedback": "Bootstrapping doesn't change the line itself — it quantifies uncertainty around an estimate."},
+      {"answer": "To remove outliers from the dataset", "correct": false, "feedback": "Bootstrapping resamples existing data; it isn't a data-cleaning technique for outliers."},
+      {"answer": "To increase the sample size of the original dataset", "correct": false, "feedback": "Bootstrap resamples are the same size as the original sample — it doesn't create new original data."}
+    ]
+  },
+  {
+    "question": "What is the Euclidean distance between the 2-D points (2,3) and (4,3)?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "2", "correct": true, "feedback": "Correct — sqrt((2-4)^2 + (3-3)^2) = sqrt(4 + 0) = 2."},
+      {"answer": "4", "correct": false, "feedback": "This double-counts the difference — check the formula: sqrt((Δx)^2 + (Δy)^2)."},
+      {"answer": "0", "correct": false, "feedback": "The x-coordinates differ (2 vs. 4), so the distance can't be zero."},
+      {"answer": "6", "correct": false, "feedback": "This overshoots — recompute using sqrt((2-4)^2 + (3-3)^2)."}
+    ]
+  },
+  {
+    "question": "In k-nearest neighbors, what does 'k' refer to?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "The number of nearest neighbors considered when making a prediction", "correct": true, "feedback": "Correct — k is a hyperparameter the modeler chooses and can tune."},
+      {"answer": "The number of features used in the model", "correct": false, "feedback": "That's the length of the features list, a separate concept from k."},
+      {"answer": "The number of rows in the entire dataset", "correct": false, "feedback": "k refers specifically to how many close neighbors are examined, not the dataset size."},
+      {"answer": "The number of times the model is retrained", "correct": false, "feedback": "k controls neighbor count per prediction, not training iterations."}
+    ]
+  },
+  {
+    "question": "In a machine learning model predicting alcohol boiling point from molecular weight, which is the 'target' and which is a 'feature'?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "Boiling point is the target; molecular weight is a feature", "correct": true, "feedback": "Correct — the target is what we're trying to predict; features are the inputs used to predict it."},
+      {"answer": "Molecular weight is the target; boiling point is a feature", "correct": false, "feedback": "This reverses the roles — boiling point is what the model is trying to predict."},
+      {"answer": "Both are features, there is no target in this example", "correct": false, "feedback": "Prediction tasks always have a designated target — here it's boiling point."},
+      {"answer": "Both are targets", "correct": false, "feedback": "Only one variable is typically the target; the rest are features used to predict it."}
+    ]
+  },
+  {
+    "question": "Why is it important to standardize features (convert to standard units) before computing Euclidean distances for kNN, as in the pKa prediction lab?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "Features with larger raw scales would otherwise dominate the distance calculation", "correct": true, "feedback": "Correct — e.g. molecular weight (tens to hundreds) would overwhelm a feature like bond order (values near 1-3) if left unstandardized."},
+      {"answer": "Standardizing makes the model run faster", "correct": false, "feedback": "The concern is about correctness of the distance metric, not computational speed."},
+      {"answer": "It's required by Python syntax", "correct": false, "feedback": "This is a statistical/modeling concern, not a language syntax requirement."},
+      {"answer": "It converts categorical features into numbers", "correct": false, "feedback": "Standardization rescales numeric features — it doesn't encode categorical variables."}
+    ]
+  },
+  {
+    "question": "What is the purpose of splitting data into training and test sets before building a kNN model?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "To evaluate how well the model predicts on data it hasn't seen before", "correct": true, "feedback": "Correct — this checks the quality of predictions on new data rather than just recalling training data."},
+      {"answer": "To reduce the total amount of data needed to run the notebook", "correct": false, "feedback": "The split isn't about data volume — it's about honestly evaluating prediction quality."},
+      {"answer": "Test data is used only for training, and training data for evaluation", "correct": false, "feedback": "This reverses the roles — training data trains the model, test data evaluates it."},
+      {"answer": "It's required so RDKit can visualize molecules", "correct": false, "feedback": "The train/test split is a machine-learning practice unrelated to molecule visualization."}
+    ]
+  },
+  {
+    "question": "In the alcohol boiling-point regression lab, what does the <code>predict_knn</code> function return for a regression target?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "The average of the target values among the k nearest neighbors", "correct": true, "feedback": "Correct — np.average() is applied to the target column of the closest k rows."},
+      {"answer": "The single closest neighbor's exact target value only", "correct": false, "feedback": "That would only apply if k=1 — with k>1 it averages across all k neighbors."},
+      {"answer": "The maximum target value found anywhere in the training set", "correct": false, "feedback": "The function averages the k nearest values; it doesn't scan for a dataset-wide maximum."},
+      {"answer": "A randomly chosen target value from the training set", "correct": false, "feedback": "The prediction is a deterministic average of the k nearest neighbors, not a random pick."}
+    ]
+  },
+  {
+    "question": "If nearest-neighbor regression produces a much higher RMSE than linear regression on the same test set, what does this suggest?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "The linear regression model fits this particular test data better on average", "correct": true, "feedback": "Correct — comparing RMSE across models is exactly how the lab evaluates which approach predicts better."},
+      {"answer": "The nearest-neighbor code must contain a bug", "correct": false, "feedback": "A higher RMSE doesn't necessarily mean a bug — some relationships are simply better captured by a different model type."},
+      {"answer": "RMSE cannot be used to compare different model types", "correct": false, "feedback": "RMSE is specifically useful for comparing prediction quality across different models on the same target."},
+      {"answer": "The value of k must have been set to 0", "correct": false, "feedback": "k=0 wouldn't be a valid choice for kNN — a high RMSE reflects prediction quality, not necessarily an invalid k."}
+    ]
+  },
+  {
+    "question": "What does <code>ROH_data.split(n)</code> do in the machine learning lab?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "Randomly divides the Table into two Tables: one with n rows (training) and the rest (test)", "correct": true, "feedback": "Correct — this is how the course creates train/test sets, e.g. an 80/20 split."},
+      {"answer": "Deletes n rows from the Table permanently", "correct": false, "feedback": "split() partitions the data into two usable Tables; it doesn't delete anything."},
+      {"answer": "Splits a single column into n separate columns", "correct": false, "feedback": "split() divides rows into two Tables, not columns into pieces."},
+      {"answer": "Sorts the Table into n equal groups by value", "correct": false, "feedback": "It's a random row-wise train/test partition, not a value-based grouping."}
+    ]
+  },
+  {
+    "question": "Why must the argument to <code>.split()</code> be wrapped in <code>int()</code>, e.g. <code>int(0.8 * table.num_rows)</code>?",
+    "type": "multiple_choice",
+    "answers": [
+      {"answer": "split() needs a whole number of rows, but 0.8 × num_rows may produce a decimal", "correct": true, "feedback": "Correct — you can't have a fractional number of rows, so int() truncates to a valid row count."},
+      {"answer": "Python cannot multiply a Table by a decimal", "correct": false, "feedback": "The multiplication itself works fine — the issue is that split() specifically requires an integer row count."},
+      {"answer": "int() makes the split truly random", "correct": false, "feedback": "int() only converts to a whole number — randomness in the split comes from split()'s own implementation, not from int()."},
+      {"answer": "Without int(), the Table would lose its column names", "correct": false, "feedback": "Column names are unaffected — the requirement is purely about needing a whole-number row count."}
+    ]
+  }
+]
