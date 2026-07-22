@@ -92,6 +92,86 @@
     border-top:1px solid rgba(255,255,255,0.15);
   }
 
+  /* Accordion nav */
+  nav.sidebar .nav-search{padding:0 24px 14px 24px;}
+  nav.sidebar .nav-search input{
+    width:100%;
+    background:rgba(255,255,255,0.12);
+    border:1px solid rgba(255,255,255,0.25);
+    border-radius:5px;
+    color:#fff;
+    padding:7px 10px;
+    font-size:13px;
+    font-family:var(--sans);
+  }
+  nav.sidebar .nav-search input::placeholder{color:rgba(255,255,255,0.6);}
+  nav.sidebar .nav-search input:focus{outline:none;border-color:#f2c9ce;background:rgba(255,255,255,0.18);}
+
+  nav.sidebar ul.nav-list{list-style:none;margin:0;padding:0;}
+  nav.sidebar li.nav-flat > a{
+    display:block;color:#f4e9ea;text-decoration:none;padding:9px 24px;font-size:14.5px;
+    border-left:3px solid transparent;opacity:.86;
+  }
+  nav.sidebar li.nav-flat > a:hover, nav.sidebar li.nav-flat > a.active{
+    background:rgba(255,255,255,0.1);border-left-color:#f2c9ce;opacity:1;
+  }
+  nav.sidebar details summary{
+    display:flex;align-items:center;justify-content:space-between;gap:8px;
+    padding:9px 24px;font-size:14.5px;color:#f4e9ea;opacity:.86;cursor:pointer;
+    list-style:none;border-left:3px solid transparent;
+  }
+  nav.sidebar details summary::-webkit-details-marker{display:none;}
+  nav.sidebar details summary:hover{background:rgba(255,255,255,0.1);opacity:1;}
+  nav.sidebar details summary .group-link{color:inherit;text-decoration:none;flex:1;}
+  nav.sidebar details summary .group-link.active{font-weight:600;opacity:1;}
+  nav.sidebar details summary .chevron{
+    font-size:9px;transition:transform .18s ease;opacity:.55;flex-shrink:0;
+  }
+  nav.sidebar details[open] summary .chevron{transform:rotate(90deg);}
+  nav.sidebar ul.subnav{list-style:none;margin:0;padding:0 0 6px 0;}
+  nav.sidebar ul.subnav li a{
+    display:block;color:#f4e9ea;text-decoration:none;padding:7px 24px 7px 40px;
+    font-size:13.5px;opacity:.72;border-left:3px solid transparent;
+  }
+  nav.sidebar ul.subnav li a:hover, nav.sidebar ul.subnav li a.active{
+    background:rgba(255,255,255,0.1);border-left-color:#f2c9ce;opacity:1;
+  }
+  nav.sidebar .nav-hidden{display:none !important;}
+
+  /* Reading progress bar */
+  .progress-bar{
+    position:fixed;top:0;left:0;height:3px;width:0%;
+    background:linear-gradient(90deg,var(--maroon),var(--accent));
+    z-index:1000;transition:width .08s linear;
+  }
+
+  /* Mobile top bar (hidden on desktop) */
+  .mobile-topbar{
+    display:none;position:sticky;top:0;z-index:900;background:var(--maroon);color:#fff;
+    padding:10px 14px;align-items:center;gap:12px;
+    font-family:var(--serif);font-size:16px;font-weight:600;
+  }
+  .mobile-topbar button{
+    background:none;border:none;color:#fff;font-size:22px;line-height:1;cursor:pointer;padding:4px 8px;
+  }
+  .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:880;}
+  .sidebar-overlay.visible{display:block;}
+
+  /* Back to top */
+  .back-to-top{
+    position:fixed;bottom:26px;right:26px;width:44px;height:44px;border-radius:50%;
+    background:var(--maroon);color:#fff;border:none;cursor:pointer;font-size:18px;
+    display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,0.25);
+    opacity:0;visibility:hidden;transform:translateY(8px);
+    transition:opacity .2s ease, transform .2s ease, visibility .2s, background .15s ease;
+    z-index:950;
+  }
+  .back-to-top.visible{opacity:1;visibility:visible;transform:translateY(0);}
+  .back-to-top:hover{background:var(--maroon-dark);}
+
+  html{scroll-behavior:smooth;}
+  section.chapter, .hero{scroll-margin-top:56px;}
+
   main{flex:1;min-width:0;}
   .hero{
     background:linear-gradient(135deg,var(--maroon) 0%,var(--maroon-dark) 100%);
@@ -342,13 +422,25 @@
   }
 
   @media (max-width:860px){
+    .mobile-topbar{display:flex;}
     .layout{flex-direction:column;}
-    nav.sidebar{width:100%;height:auto;position:relative;}
+    nav.sidebar{
+      position:fixed;top:0;left:0;bottom:0;width:280px;max-width:82vw;height:100vh;
+      transform:translateX(-100%);transition:transform .25s ease;z-index:900;
+    }
+    nav.sidebar.open{transform:translateX(0);}
     section.chapter, .hero, footer.manual-footer{padding:32px 22px;}
+    section.chapter, .hero{scroll-margin-top:52px;}
   }
 </style>
 </head>
 <body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="mobile-topbar">
+  <button id="sidebarToggle" aria-label="Open navigation">☰</button>
+  <span>EDS CA Manual</span>
+</div>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
 <div class="layout">
 
   <nav class="sidebar" id="sidebar">
@@ -356,35 +448,77 @@
       <div class="eyebrow">SCTC 1013</div>
       <h1>Elements of Data Science<br>CA &amp; Fellow Manual</h1>
     </div>
-    <ul>
-      <li><a href="#overview">Overview</a></li>
-      <li><a href="#policies">1 · Policies</a></li>
-      <li class="sub"><a href="#policies-role">CA / Fellow responsibilities</a></li>
-      <li class="sub"><a href="#policies-student">Student-facing policies</a></li>
-      <li class="sub"><a href="#policies-grading">Grading &amp; late work</a></li>
-      <li class="sub"><a href="#policies-ai">Generative AI policy</a></li>
-      <li><a href="#coding">2 · Coding Review</a></li>
-      <li class="sub"><a href="#coding-table">The datascience Table</a></li>
-      <li class="sub"><a href="#coding-control">Control flow &amp; Booleans</a></li>
-      <li class="sub"><a href="#coding-arange">np.arange() &amp; np.random.choice()</a></li>
-      <li class="sub"><a href="#coding-errors">Common student errors</a></li>
-      <li class="sub"><a href="#coding-matplotlib">Matplotlib quick reference</a></li>
-      <li><a href="#wrangling">3 · Data Wrangling</a></li>
-      <li><a href="#statistics">4 · Statistics</a></li>
-      <li class="sub"><a href="#stats-prob">Sample vs. population, probability</a></li>
-      <li class="sub"><a href="#stats-hyp">Simulation-based hypothesis testing</a></li>
-      <li class="sub"><a href="#stats-regression">Regression, bootstrap, kNN</a></li>
-      <li><a href="#strategies">5 · Strategies for Success</a></li>
-      <li class="sub"><a href="#strategies-classroom">In the classroom</a></li>
-      <li class="sub"><a href="#strategies-office">Office hours &amp; tutoring</a></li>
-      <li><a href="#foundations">6 · Teaching Foundations</a></li>
-      <li class="sub"><a href="#foundations-motivation">What motivates students to learn</a></li>
-      <li class="sub"><a href="#foundations-hierarchy">The hierarchy of learning</a></li>
-      <li class="sub"><a href="#foundations-leader">The teacher as leader</a></li>
-      <li><a href="#cheatsheet">7 · Cheat Sheet</a></li>
+    <div class="nav-search">
+      <input type="text" id="navFilter" placeholder="Filter sections…" autocomplete="off">
+    </div>
+    <ul class="nav-list">
+      <li class="nav-flat"><a href="#overview">Overview</a></li>
+
+      <li class="nav-group">
+        <details>
+          <summary><a href="#policies" class="group-link">1 · Policies</a><span class="chevron">▶</span></summary>
+          <ul class="subnav">
+            <li><a href="#policies-role">CA / Fellow responsibilities</a></li>
+            <li><a href="#policies-student">Student-facing policies</a></li>
+            <li><a href="#policies-grading">Grading &amp; late work</a></li>
+            <li><a href="#policies-ai">Generative AI policy</a></li>
+          </ul>
+        </details>
+      </li>
+
+      <li class="nav-group">
+        <details>
+          <summary><a href="#coding" class="group-link">2 · Coding Review</a><span class="chevron">▶</span></summary>
+          <ul class="subnav">
+            <li><a href="#coding-table">The datascience Table</a></li>
+            <li><a href="#coding-control">Control flow &amp; Booleans</a></li>
+            <li><a href="#coding-arange">np.arange() &amp; np.random.choice()</a></li>
+            <li><a href="#coding-errors">Common student errors</a></li>
+            <li><a href="#coding-matplotlib">Matplotlib quick reference</a></li>
+          </ul>
+        </details>
+      </li>
+
+      <li class="nav-flat"><a href="#wrangling">3 · Data Wrangling</a></li>
+
+      <li class="nav-group">
+        <details>
+          <summary><a href="#statistics" class="group-link">4 · Statistics</a><span class="chevron">▶</span></summary>
+          <ul class="subnav">
+            <li><a href="#stats-prob">Sample vs. population, probability</a></li>
+            <li><a href="#stats-hyp">Simulation-based hypothesis testing</a></li>
+            <li><a href="#stats-regression">Regression, bootstrap, kNN</a></li>
+          </ul>
+        </details>
+      </li>
+
+      <li class="nav-group">
+        <details>
+          <summary><a href="#strategies" class="group-link">5 · Strategies for Success</a><span class="chevron">▶</span></summary>
+          <ul class="subnav">
+            <li><a href="#strategies-classroom">In the classroom</a></li>
+            <li><a href="#strategies-office">Office hours &amp; tutoring</a></li>
+          </ul>
+        </details>
+      </li>
+
+      <li class="nav-group">
+        <details>
+          <summary><a href="#foundations" class="group-link">6 · Teaching Foundations</a><span class="chevron">▶</span></summary>
+          <ul class="subnav">
+            <li><a href="#foundations-motivation">What motivates students to learn</a></li>
+            <li><a href="#foundations-hierarchy">The hierarchy of learning</a></li>
+            <li><a href="#foundations-leader">The teacher as leader</a></li>
+          </ul>
+        </details>
+      </li>
+
+      <li class="nav-flat"><a href="#cheatsheet">7 · Cheat Sheet</a></li>
     </ul>
     <div class="footer-note">Draft prepared July 21, 2026 — built from the course syllabus, Lab 5 (HS pilot), Quiz 05, and the Fellows overview. Not tied to a specific term.</div>
   </nav>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
 
   <main>
     <div class="hero" id="overview">
@@ -1051,17 +1185,65 @@ def distance(pt1, pt2):
 </div>
 
 <script>
-  // Highlight the active sidebar link based on scroll position
-  const links = document.querySelectorAll('nav.sidebar a');
-  const sections = Array.from(links).map(l => document.querySelector(l.getAttribute('href'))).filter(Boolean);
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  const toggleBtn = document.getElementById('sidebarToggle');
+  const progressBar = document.getElementById('progressBar');
+  const backToTop = document.getElementById('backToTop');
+  const navFilter = document.getElementById('navFilter');
+  const links = Array.from(document.querySelectorAll('#sidebar a[href^="#"]'));
+  const sections = links.map(l => document.querySelector(l.getAttribute('href'))).filter(Boolean);
+
+  // ---- Mobile off-canvas drawer ----
+  function openSidebar(){ sidebar.classList.add('open'); overlay.classList.add('visible'); }
+  function closeSidebar(){ sidebar.classList.remove('open'); overlay.classList.remove('visible'); }
+  if (toggleBtn) toggleBtn.addEventListener('click', () => {
+    sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
+  });
+  if (overlay) overlay.addEventListener('click', closeSidebar);
+  links.forEach(a => a.addEventListener('click', () => {
+    if (window.innerWidth <= 860) closeSidebar();
+  }));
+
+  // ---- Scroll: progress bar, active link, auto-expand current section ----
   function onScroll(){
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    if (progressBar) progressBar.style.width = pct + '%';
+    if (backToTop) backToTop.classList.toggle('visible', scrollTop > 600);
+
     let idx = 0;
-    sections.forEach((s,i) => { if (s.getBoundingClientRect().top < 140) idx = i; });
+    sections.forEach((s, i) => { if (s.getBoundingClientRect().top < 140) idx = i; });
     links.forEach(l => l.classList.remove('active'));
-    if (links[idx]) links[idx].classList.add('active');
+    const activeLink = links[idx];
+    if (activeLink) {
+      activeLink.classList.add('active');
+      const details = activeLink.closest('details');
+      if (details && !details.open) details.open = true;
+    }
   }
-  document.addEventListener('scroll', onScroll);
+  document.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
   onScroll();
+
+  if (backToTop) backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // ---- Nav filter ----
+  if (navFilter) navFilter.addEventListener('input', () => {
+    const q = navFilter.value.trim().toLowerCase();
+    document.querySelectorAll('#sidebar .nav-list > li').forEach(li => {
+      if (!q) { li.classList.remove('nav-hidden'); return; }
+      const match = li.textContent.toLowerCase().includes(q);
+      li.classList.toggle('nav-hidden', !match);
+      if (match) {
+        const d = li.querySelector('details');
+        if (d && !d.open) d.open = true;
+      }
+    });
+  });
 </script>
 </body>
 </html>
