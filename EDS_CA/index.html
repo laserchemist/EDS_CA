@@ -1,0 +1,1633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Elements of Data Science — Course Assistant Manual</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  :root{
+    --maroon:#9e1b34;
+    --maroon-dark:#6e1224;
+    --ink:#22201e;
+    --paper:#faf8f4;
+    --panel:#ffffff;
+    --line:#e4ddd2;
+    --accent:#1f6f5c;
+    --accent-soft:#e6f2ef;
+    --code-bg:#2b2a28;
+    --code-text:#f2ede2;
+    --warn-bg:#fff3cd;
+    --warn-line:#d9a441;
+    --tip-bg:#eaf4fb;
+    --tip-line:#2980b9;
+    --good-bg:#f0fff0;
+    --good-line:#3f8f4f;
+    --mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+    --serif:"Source Serif Pro","Georgia",serif;
+    --sans:"Inter","Segoe UI",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:var(--sans);
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.55;
+  }
+  a{color:var(--maroon);}
+  .layout{display:flex;min-height:100vh;}
+
+  /* Sidebar */
+  nav.sidebar{
+    width:260px;
+    flex-shrink:0;
+    background:var(--maroon);
+    color:#f4e9ea;
+    padding:28px 0 28px 0;
+    position:sticky;
+    top:0;
+    height:100vh;
+    overflow-y:auto;
+  }
+  nav.sidebar .brand{
+    padding:0 24px 20px 24px;
+    border-bottom:1px solid rgba(255,255,255,0.18);
+    margin-bottom:14px;
+  }
+  nav.sidebar .brand .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    opacity:.72;
+  }
+  nav.sidebar .brand h1{
+    font-family:var(--serif);
+    font-size:20px;
+    line-height:1.25;
+    margin:6px 0 0 0;
+    font-weight:600;
+  }
+  nav.sidebar ul{list-style:none;margin:0;padding:0;}
+  nav.sidebar .footer-note{
+    padding:16px 24px 0 24px;
+    margin-top:16px;
+    font-size:12px;
+    opacity:.6;
+    border-top:1px solid rgba(255,255,255,0.15);
+  }
+
+  /* Accordion nav */
+  nav.sidebar .nav-search{padding:0 24px 14px 24px;}
+  nav.sidebar .nav-search input{
+    width:100%;
+    background:rgba(255,255,255,0.12);
+    border:1px solid rgba(255,255,255,0.25);
+    border-radius:5px;
+    color:#fff;
+    padding:7px 10px;
+    font-size:13px;
+    font-family:var(--sans);
+  }
+  nav.sidebar .nav-search input::placeholder{color:rgba(255,255,255,0.6);}
+  nav.sidebar .nav-search input:focus{outline:none;border-color:#f2c9ce;background:rgba(255,255,255,0.18);}
+
+  nav.sidebar ul.nav-list{list-style:none;margin:0;padding:0;}
+  nav.sidebar li.nav-flat > a{
+    display:block;color:#f4e9ea;text-decoration:none;padding:9px 24px;font-size:14.5px;
+    border-left:3px solid transparent;opacity:.86;
+  }
+  nav.sidebar li.nav-flat > a:hover, nav.sidebar li.nav-flat > a.active{
+    background:rgba(255,255,255,0.1);border-left-color:#f2c9ce;opacity:1;
+  }
+  /* Group headers use the exact same box model as nav-flat items (block, same
+     padding) rather than flex, so the text's left edge lines up pixel-for-pixel
+     with every other top-level item -- flex/inline layouts can shift text start
+     position inconsistently across browsers, especially once text wraps. */
+  nav.sidebar details{display:block;}
+  nav.sidebar details summary{
+    display:block;
+    position:relative;
+    list-style:none;
+    padding:9px 40px 9px 24px;
+    font-size:14.5px;color:#f4e9ea;opacity:.86;cursor:pointer;
+    border-left:3px solid transparent;
+  }
+  nav.sidebar details summary::-webkit-details-marker{display:none;}
+  nav.sidebar details summary::marker{content:"";}
+  nav.sidebar details summary:hover{background:rgba(255,255,255,0.1);opacity:1;}
+  nav.sidebar details summary .group-link{color:inherit;text-decoration:none;}
+  nav.sidebar details summary .group-link.active{font-weight:600;opacity:1;}
+  nav.sidebar details summary .chevron{
+    position:absolute;right:20px;top:50%;
+    transform:translateY(-50%);
+    font-size:9px;transition:transform .18s ease;opacity:.55;
+  }
+  nav.sidebar details[open] summary .chevron{transform:translateY(-50%) rotate(90deg);}
+  nav.sidebar ul.subnav{list-style:none;margin:0;padding:0 0 6px 0;}
+  nav.sidebar ul.subnav li a{
+    display:block;color:#f4e9ea;text-decoration:none;padding:7px 24px 7px 40px;
+    font-size:13.5px;opacity:.72;border-left:3px solid transparent;
+  }
+  nav.sidebar ul.subnav li a:hover, nav.sidebar ul.subnav li a.active{
+    background:rgba(255,255,255,0.1);border-left-color:#f2c9ce;opacity:1;
+  }
+  nav.sidebar .nav-hidden{display:none !important;}
+
+  /* Reading progress bar */
+  .progress-bar{
+    position:fixed;top:0;left:0;height:3px;width:0%;
+    background:linear-gradient(90deg,var(--maroon),var(--accent));
+    z-index:1000;transition:width .08s linear;
+  }
+
+  /* Mobile top bar (hidden on desktop) */
+  .mobile-topbar{
+    display:none;position:sticky;top:0;z-index:900;background:var(--maroon);color:#fff;
+    padding:10px 14px;align-items:center;gap:12px;
+    font-family:var(--serif);font-size:16px;font-weight:600;
+  }
+  .mobile-topbar button{
+    background:none;border:none;color:#fff;font-size:22px;line-height:1;cursor:pointer;padding:4px 8px;
+  }
+  .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:880;}
+  .sidebar-overlay.visible{display:block;}
+
+  /* Back to top */
+  .back-to-top{
+    position:fixed;bottom:26px;right:26px;width:44px;height:44px;border-radius:50%;
+    background:var(--maroon);color:#fff;border:none;cursor:pointer;font-size:18px;
+    display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,0.25);
+    opacity:0;visibility:hidden;transform:translateY(8px);
+    transition:opacity .2s ease, transform .2s ease, visibility .2s, background .15s ease;
+    z-index:950;
+  }
+  .back-to-top.visible{opacity:1;visibility:visible;transform:translateY(0);}
+  .back-to-top:hover{background:var(--maroon-dark);}
+
+  html{scroll-behavior:smooth;}
+  section.chapter, .hero{scroll-margin-top:56px;}
+
+  main{flex:1;min-width:0;}
+  .hero{
+    background:linear-gradient(135deg,var(--maroon) 0%,var(--maroon-dark) 100%);
+    color:#fff;
+    padding:56px 64px 44px 64px;
+  }
+  .hero .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    opacity:.8;
+  }
+  .hero h1{
+    font-family:var(--serif);
+    font-size:42px;
+    margin:10px 0 12px 0;
+    font-weight:700;
+    max-width:720px;
+  }
+  .hero p.lede{
+    max-width:640px;
+    font-size:16.5px;
+    opacity:.92;
+  }
+  .quick-links{
+    margin-top:22px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .quick-links a{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:#fff;
+    text-decoration:none;
+    background:rgba(255,255,255,0.14);
+    border:1px solid rgba(255,255,255,0.28);
+    border-radius:999px;
+    padding:6px 14px;
+    transition:background .15s ease, border-color .15s ease;
+  }
+  .quick-links a:hover{
+    background:rgba(255,255,255,0.26);
+    border-color:rgba(255,255,255,0.5);
+  }
+
+  section.chapter{
+    padding:52px 64px;
+    max-width:920px;
+    border-bottom:1px solid var(--line);
+  }
+  section.chapter:last-of-type{border-bottom:none;}
+  section.chapter > .kicker{
+    font-family:var(--mono);
+    color:var(--maroon);
+    font-size:12.5px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    margin-bottom:6px;
+  }
+  section.chapter > h2{
+    font-family:var(--serif);
+    font-size:30px;
+    margin:0 0 6px 0;
+    color:var(--maroon-dark);
+  }
+  section.chapter > p.intro{
+    font-size:16px;
+    color:#4a453f;
+    max-width:680px;
+    margin-bottom:32px;
+  }
+  h3{
+    font-family:var(--serif);
+    font-size:21px;
+    color:var(--ink);
+    margin:36px 0 10px 0;
+  }
+  h3:first-of-type{margin-top:0;}
+  h4{font-size:15.5px;margin:20px 0 8px 0;color:var(--maroon-dark);}
+  p{max-width:700px;}
+  ul,ol{max-width:680px;padding-left:22px;}
+  li{margin-bottom:6px;}
+
+  table{
+    border-collapse:collapse;
+    width:100%;
+    max-width:720px;
+    margin:14px 0 24px 0;
+    font-size:14.5px;
+  }
+  th,td{
+    border:1px solid var(--line);
+    padding:8px 12px;
+    text-align:left;
+    vertical-align:top;
+  }
+  th{background:#f1ece1;font-weight:600;}
+  tr:nth-child(even) td{background:#fcfbf8;}
+
+  code{
+    font-family:var(--mono);
+    background:#efe9db;
+    padding:1px 5px;
+    border-radius:3px;
+    font-size:13.5px;
+  }
+  pre{
+    background:var(--code-bg);
+    color:var(--code-text);
+    padding:16px 18px;
+    border-radius:8px;
+    overflow-x:auto;
+    font-size:13.5px;
+    max-width:720px;
+    line-height:1.5;
+  }
+  pre code{background:none;padding:0;color:inherit;}
+
+  /* ---- Code blocks: labeled container + copy button + Python syntax highlighting ---- */
+  .code-block-container{
+    position:relative;
+    margin:0 0 20px 0;
+    max-width:720px;
+    border-radius:8px;
+    overflow:hidden;
+    background:var(--code-bg);
+  }
+  .code-block-container.python-code{border-left:3px solid #4B8BBE;}
+  .code-block-container::before{
+    content:"Code";
+    display:block;
+    font-family:var(--mono);
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:#888;
+    padding:10px 18px 0 18px;
+  }
+  .code-block-container.python-code::before{
+    content:"Python";
+    color:#6fb3f2;
+  }
+  .code-block-container pre.code-block{
+    background:transparent;
+    margin:0;
+    max-width:none;
+  }
+  .code-block code{
+    color:#e0e0e0;
+    background:transparent;
+    display:block;
+    white-space:pre;
+  }
+  .code-block ::selection{background-color:#4d4d4d;color:#ffffff;}
+  .code-block ::-moz-selection{background-color:#4d4d4d;color:#ffffff;}
+
+  .code-copy-button{
+    position:absolute;
+    top:9px;
+    right:12px;
+    background:rgba(255,255,255,0.1);
+    border:none;
+    border-radius:4px;
+    color:#e0e0e0;
+    padding:4px 10px;
+    font-size:11.5px;
+    font-family:var(--sans);
+    cursor:pointer;
+    opacity:0;
+    transition:opacity .2s ease, background .15s ease;
+    z-index:5;
+  }
+  .code-block-container:hover .code-copy-button{opacity:1;}
+  .code-copy-button:hover{background:rgba(255,255,255,0.2);}
+  .code-copy-button:active{background:rgba(255,255,255,0.3);}
+
+  /* Python token colors (py- prefix avoids clashing with other classes) */
+  .py-keyword{color:#ff79c6;}
+  .py-function{color:#6fb3f2;}
+  .py-library{color:#bd93f9;}
+  .py-class{color:#8be9fd;}
+  .py-string{color:#9ee34f;}
+  .py-number{color:#f08d49;}
+  .py-comment{color:#a7a2a9;font-style:italic;}
+
+  /* Material-style resource links (used for reference/handout URLs) */
+  .material-link{
+    background-color:#e6f7ff;
+    color:#0066cc;
+    padding:2px 5px;
+    border-radius:4px;
+    text-decoration:none;
+    border-left:2px solid #0066cc;
+    transition:all .2s ease;
+    display:inline-block;
+  }
+  .material-link:hover{
+    background-color:#d1ecff;
+    box-shadow:0 1px 3px rgba(0,0,0,0.1);
+    transform:translateY(-1px);
+  }
+  .material-link::before{
+    content:"📋 ";
+    margin-right:3px;
+  }
+
+  .video-badge{
+    display:inline-block;
+    font-family:var(--mono);
+    font-size:10px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    padding:2px 7px;
+    border-radius:3px;
+    margin-left:8px;
+    vertical-align:middle;
+    white-space:nowrap;
+  }
+  .video-badge.featured{background:#f2c9ce;color:var(--maroon-dark);}
+  .video-badge.quicktip{background:var(--accent-soft);color:var(--accent);}
+  .card h4 a{color:var(--maroon-dark);text-decoration:none;}
+  .card h4 a:hover{text-decoration:underline;}
+
+  .quiz-launch-card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-left:4px solid var(--accent);
+    border-radius:8px;
+    padding:18px 22px;
+    max-width:700px;
+    margin:14px 0;
+  }
+  .quiz-launch-card h4{margin:0 0 6px 0;font-size:16px;}
+  .quiz-launch-card p{margin:0 0 12px 0;font-size:14px;color:#514c45;}
+  .pull-button{
+    display:inline-block;
+    font-family:var(--sans);
+    font-weight:600;
+    font-size:13.5px;
+    color:#fff;
+    background:var(--accent);
+    text-decoration:none;
+    padding:9px 18px;
+    border-radius:6px;
+    transition:background .15s ease;
+  }
+  .pull-button:hover{background:#164f41;}
+  .pull-button.secondary{
+    background:transparent;
+    color:var(--accent);
+    border:1px solid var(--accent);
+  }
+  .pull-button.secondary:hover{background:var(--accent-soft);}
+
+  .callout{
+    max-width:700px;
+    border-radius:6px;
+    padding:14px 18px;
+    margin:18px 0;
+    font-size:14.5px;
+  }
+  .callout.tip{background:var(--tip-bg);border-left:5px solid var(--tip-line);}
+  .callout.warn{background:var(--warn-bg);border-left:5px solid var(--warn-line);}
+  .callout.good{background:var(--good-bg);border-left:5px solid var(--good-line);}
+  .callout b.label{
+    display:block;
+    font-family:var(--mono);
+    font-size:11.5px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    margin-bottom:6px;
+  }
+
+  .card-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+    gap:14px;
+    max-width:760px;
+    margin:16px 0 28px 0;
+  }
+  .card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:16px 18px;
+  }
+  .card .num{
+    font-family:var(--mono);
+    color:var(--maroon);
+    font-size:12px;
+    letter-spacing:.08em;
+  }
+  .card h4{margin:6px 0 6px 0;}
+  .card p{font-size:13.5px;margin:0;color:#514c45;}
+
+  .stat-strip{
+    display:flex;
+    gap:24px;
+    flex-wrap:wrap;
+    margin:20px 0 26px 0;
+  }
+  .stat{
+    background:var(--accent-soft);
+    border-radius:8px;
+    padding:14px 20px;
+    min-width:140px;
+  }
+  .stat .num{font-family:var(--serif);font-size:26px;color:var(--accent);font-weight:700;}
+  .stat .label{font-size:12.5px;color:#3a5750;}
+
+  .qbox{
+    border:1px solid var(--line);
+    background:var(--panel);
+    border-radius:8px;
+    padding:16px 20px;
+    max-width:700px;
+    margin:14px 0;
+  }
+  .qbox .qtag{
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:#8a5a1f;
+    background:#fbeecf;
+    display:inline-block;
+    padding:2px 8px;
+    border-radius:4px;
+    margin-bottom:8px;
+  }
+
+  .divider-quote{
+    max-width:680px;
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:18px;
+    color:var(--maroon-dark);
+    border-left:4px solid var(--maroon);
+    padding-left:18px;
+    margin:26px 0;
+  }
+  .source-note{
+    font-family:var(--mono);
+    font-size:12px;
+    color:#8a8378;
+    max-width:680px;
+    margin:-6px 0 22px 0;
+  }
+  .quote-strip{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    max-width:700px;
+    margin:16px 0 24px 0;
+  }
+  .quote-strip .q{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-left:4px solid var(--maroon);
+    border-radius:4px;
+    padding:10px 16px;
+    font-size:14.5px;
+  }
+  .quote-strip .q .who{
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--maroon);
+    display:block;
+    margin-top:4px;
+  }
+  .ladder{
+    max-width:700px;
+    margin:16px 0 26px 0;
+  }
+  .ladder .rung{
+    display:flex;
+    gap:16px;
+    align-items:baseline;
+    border-bottom:1px solid var(--line);
+    padding:10px 0;
+  }
+  .ladder .rung:last-child{border-bottom:none;}
+  .ladder .rung .lvl{
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--maroon);
+    width:96px;
+    flex-shrink:0;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+  }
+  .ladder .rung .desc{font-size:14.5px;}
+  .ladder .rung .desc b{color:var(--maroon-dark);}
+
+  footer.manual-footer{
+    padding:40px 64px 70px 64px;
+    font-size:13px;
+    color:#7a7469;
+  }
+
+  @media (max-width:860px){
+    .mobile-topbar{display:flex;}
+    .layout{flex-direction:column;}
+    nav.sidebar{
+      position:fixed;top:0;left:0;bottom:0;width:280px;max-width:82vw;height:100vh;
+      transform:translateX(-100%);transition:transform .25s ease;z-index:900;
+    }
+    nav.sidebar.open{transform:translateX(0);}
+    section.chapter, .hero, footer.manual-footer{padding:32px 22px;}
+    section.chapter, .hero{scroll-margin-top:52px;}
+  }
+</style>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="mobile-topbar">
+  <button id="sidebarToggle" aria-label="Open navigation">☰</button>
+  <span>EDS CA Manual</span>
+</div>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="layout">
+
+  <nav class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="eyebrow">SCTC 1013</div>
+      <h1>Elements of Data Science<br>CA &amp; Fellow Manual</h1>
+    </div>
+    <div class="nav-search">
+      <input type="text" id="navFilter" placeholder="Filter sections…" autocomplete="off">
+    </div>
+    <ul class="nav-list">
+      <li class="nav-flat"><a href="#overview">Overview</a></li>
+
+      <li class="nav-group">
+        <details>
+          <summary><a href="#policies" class="group-link">1 · Policies</a><span class="chevron">▶</span></summary>
+          <ul class="subnav">
+            <li><a href="#policies-role">CA / Fellow responsibilities</a></li>
+            <li><a href="#policies-student">Student-facing policies</a></li>
+            <li><a href="#policies-grading">Grading &amp; late work</a></li>
+            <li><a href="#policies-ai">Generative AI policy</a></li>
+          </ul>
+        </details>
+      </li>
+
+      <li class="nav-group">
+        <details>
+          <summary><a href="#coding" class="group-link">2 · Coding Review</a><span class="chevron">▶</span></summary>
+          <ul class="subnav">
+            <li><a href="#coding-table">The datascience Table</a></li>
+            <li><a href="#coding-control">Control flow &amp; Booleans</a></li>
+            <li><a href="#coding-arange">np.arange() &amp; np.random.choice()</a></li>
+            <li><a href="#coding-math">Math skills variability</a></li>
+            <li><a href="#coding-errors">Common student errors</a></li>
+            <li><a href="#coding-matplotlib">Matplotlib quick reference</a></li>
+          </ul>
+        </details>
+      </li>
+
+      <li class="nav-flat"><a href="#wrangling">3 · Data Wrangling</a></li>
+
+      <li class="nav-group">
+        <details>
+          <summary><a href="#statistics" class="group-link">4 · Statistics</a><span class="chevron">▶</span></summary>
+          <ul class="subnav">
+            <li><a href="#stats-prob">Sample vs. population, probability</a></li>
+            <li><a href="#stats-hyp">Simulation-based hypothesis testing</a></li>
+            <li><a href="#stats-regression">Regression, bootstrap, kNN</a></li>
+          </ul>
+        </details>
+      </li>
+
+      <li class="nav-group">
+        <details>
+          <summary><a href="#strategies" class="group-link">5 · Strategies for Success</a><span class="chevron">▶</span></summary>
+          <ul class="subnav">
+            <li><a href="#strategies-classroom">In the classroom</a></li>
+            <li><a href="#strategies-office">Office hours &amp; tutoring</a></li>
+          </ul>
+        </details>
+      </li>
+
+      <li class="nav-group">
+        <details>
+          <summary><a href="#foundations" class="group-link">6 · Teaching Foundations</a><span class="chevron">▶</span></summary>
+          <ul class="subnav">
+            <li><a href="#foundations-motivation">What motivates students to learn</a></li>
+            <li><a href="#foundations-hierarchy">The hierarchy of learning</a></li>
+            <li><a href="#foundations-leader">The teacher as leader</a></li>
+          </ul>
+        </details>
+      </li>
+
+      <li class="nav-flat"><a href="#cheatsheet">7 · Cheat Sheet</a></li>
+      <li class="nav-flat"><a href="#videos">8 · Video Library</a></li>
+      <li class="nav-flat"><a href="#testyourself">9 · Test Yourself</a></li>
+    </ul>
+    <div class="footer-note">Draft prepared July 21, 2026 — built from the course syllabus, Lab 5 (HS pilot), Quiz 05, and the Fellows overview. Not tied to a specific term.</div>
+  </nav>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
+  <main>
+    <div class="hero" id="overview">
+      <div class="eyebrow">Instructor &amp; Course Assistant Manual</div>
+      <h1>Helping every student get unstuck</h1>
+      <p class="lede">This manual supports Course Assistants and STEM Leadership Fellows working
+      Elements of Data Science (SCTC 1013) — a first-year course that teaches Python, data
+      wrangling, and statistical inference to roughly 550 CST students a year. It covers course
+      policies, the coding and statistical content you'll be asked about most, and practical
+      strategies for supporting students in class and during office hours.</p>
+      <div class="quick-links">
+        <a href="https://sites.temple.edu/data/" target="_blank" rel="noopener">Course site</a>
+        <a href="https://sites.temple.edu/data/syllabus/" target="_blank" rel="noopener">Syllabus</a>
+        <a href="https://laserchemist.github.io/EDS_ppl/" target="_blank" rel="noopener">Course staff</a>
+        <a href="https://inferentialthinking.com/chapters/intro.html" target="_blank" rel="noopener">Inferential Thinking (textbook)</a>
+        <a href="https://laserchemist.github.io/dprimer/" target="_blank" rel="noopener">Data Science Coding Primer</a>
+        <a href="https://www.youtube.com/@DataScienceTipsandTricks-d2w" target="_blank" rel="noopener">Course videos (YouTube)</a>
+        <a href="https://temple.2i2c.cloud" target="_blank" rel="noopener">Jupyter Hub</a>
+      </div>
+    </div>
+
+    <!-- ============ 1. POLICIES ============ -->
+    <section class="chapter" id="policies">
+      <div class="kicker">Section 1</div>
+      <h2>Policies</h2>
+      <p class="intro">Two different things live under "policies," and it matters that you keep
+      them straight: what's expected of <i>you</i> as a CA or Fellow, and what the course expects
+      of <i>students</i>. This section covers your responsibilities first, then the student
+      policies you'll be asked about most.</p>
+
+      <h3 id="policies-role">CA / Fellow responsibilities</h3>
+      <div class="stat-strip">
+        <div class="stat"><div class="num">10</div><div class="label">paid hours / week (monthly stipend)</div></div>
+        <div class="stat"><div class="num">3 hrs</div><div class="label">in one assigned class section</div></div>
+        <div class="stat"><div class="num">3 hrs</div><div class="label">office hours / tutoring, any section</div></div>
+        <div class="stat"><div class="num">1</div><div class="label">lab you become the "expert" resource for</div></div>
+      </div>
+      <ul>
+        <li><b>In-class support</b> — attend the meetings of your one assigned section (this may
+        change during the term) and circulate to help students on the current lab or topic.</li>
+        <li><b>Office hours</b> — 3 hours weekly, in person and/or virtual, open to students from
+        <i>any</i> section, not just your own.</li>
+        <li><b>Preparation</b> — review each lab before your students do, and help build
+        resources (worked examples, hint sheets, short explainers) that support student success.
+        Each CA/Fellow becomes the "expert" on one particular lab and develops materials around
+        it.</li>
+        <li><b>Orientation, training, and weekly 30-minute check-ins</b> with the instructional
+        team — for Fellows this is specifically a Monday check-in.</li>
+      </ul>
+      <p>Fellows are assigned to one lecture section for the term (sections may be reassigned as
+      enrollment shifts) and are expected to actively work the room during class rather than sit
+      at the front — the goal is peer-level support that lowers the activation energy for a
+      student to ask a question.</p>
+
+      <div class="callout good">
+        <b class="label">Where CA responsibilities end and student policy begins</b>
+        Everything above is about your job. Everything below is about the rules students are
+        held to — you need to know these cold so you give consistent answers, but they are not
+        requirements placed on you.
+      </div>
+
+      <h3 id="policies-student">Student-facing policies</h3>
+      <p>What follows is what students are held to — know it well enough to answer a policy
+      question the same way the instructor would, without needing to check the syllabus live.</p>
+
+      <h4 id="policies-grading">Grading &amp; late work</h4>
+      <p>Grade components and their exact weights are detailed in the syllabus (they can shift
+      slightly term to term), but the components themselves are consistent: weekly lab
+      assignments, quizzes, attendance/participation, group activities, and a culminating group
+      project and presentation. Point students to the current syllabus for exact percentages
+      rather than quoting a number from memory.</p>
+
+      <div class="callout warn">
+        <b class="label">Late lab policy — confirm the exact penalty with your instructor</b>
+        A student gets an automatic 2-day extension at a percentage penalty — but don't quote a
+        specific number from memory, since this has varied by term (10% in some past terms, 20%
+        in others). Check the current syllabus or confirm with your instructor before telling a
+        student a figure. What is consistent: anything submitted more than 48 hours after the
+        due date receives <b>no credit</b> — Canvas locks submissions at that point, no
+        exceptions — the lowest lab score is dropped, and non-submission counts as a zero (so
+        encourage students to submit something rather than nothing).
+      </div>
+
+      <div class="callout tip">
+        <b class="label">Quizzes &amp; mini-tests</b>
+        No make-ups are granted for a missed quiz, and the student's lowest quiz score is
+        typically dropped. The format itself varies by instructor: some quizzes are taken online
+        via the Hub and draw a random subset of questions from a larger bank (so two students in
+        the same room may see different questions — don't assume a shared question set when
+        helping); others are administered on paper in class with a single shared question set.
+        Check which format your section uses before describing it to students.
+      </div>
+
+      <p>Submitted work should include comments (<code>#</code>) and markdown explaining
+      reasoning, similar to showing work on a math problem. Encourage students to break
+      complicated code into multiple cells rather than one dense block — this is graded on and
+      also makes debugging with them much easier.</p>
+
+      <h4>Academic honesty</h4>
+      <p>Classmates may discuss data and coding challenges together, but submitted work must be
+      the student's own. Cheating on any graded component results in a zero — and the penalty is
+      the same whether the work was copied <i>from</i> or <i>by</i> the student, so remind
+      students that "just letting a friend see it" carries real risk for both parties.</p>
+
+      <h4 id="policies-ai">Generative AI policy</h4>
+      <div class="callout warn">
+        <b class="label">What the syllabus says</b>
+        Using generative AI to complete lab exercises is discouraged: it negates the point of the
+        exercise, tends to produce code that's hard for the student to modify or debug, and
+        leaves them without the understanding they'll need on quizzes. The course also uses a
+        custom <code>datascience</code> <code>Table</code> API that most generative AI tools
+        were not trained on well, so AI-written code frequently doesn't match what the course
+        actually teaches. Generative AI <i>is</i> considered acceptable as a background tutor —
+        explaining a Python concept like loops or variables — but not for producing assignment
+        answers.
+      </div>
+      <p>As a CA, this is a useful line for students who show up with AI-generated code that
+      "doesn't work": point out that it likely isn't using the <code>datascience</code>
+      <code>Table</code> or the course's conventions, and walk them back to the lab's own pattern
+      instead of debugging the AI's code line-by-line.</p>
+      <div class="callout tip">
+        <b class="label">This tell isn't foolproof</b>
+        A student who explicitly prompts the AI to "use the datascience Table library, not
+        pandas" will get code that looks like the course's own conventions — so a mismatch with
+        <code>Table</code> syntax is a useful signal but not a reliable test on its own.
+        The more durable approach is the same one used elsewhere in this manual: ask the student
+        to explain what a given line does, or how they'd approach the problem on paper first
+        (see the math skills note in Section 2). Code a student can't explain is the real signal,
+        regardless of whether it happens to use the right library.
+      </div>
+    </section>
+
+    <!-- ============ 2. CODING REVIEW ============ -->
+    <section class="chapter" id="coding">
+      <div class="kicker">Section 2</div>
+      <h2>Coding Review</h2>
+      <p class="intro">A refresher on the Python and course-specific constructs students will be
+      using early in the semester. Most incoming students have never coded before (see the
+      survey data in Section 5) — expect to explain basic syntax patiently and often. This
+      course leans much more heavily on the <code>datascience</code> <code>Table</code> plus
+      <code>np.arange()</code> and <code>np.array()</code> than on other array-building
+      shortcuts — keep your own explanations centered on those.</p>
+
+      <h3 id="coding-table">The <code>datascience</code> Table</h3>
+      <p>This course does not start from pandas. Students build and manipulate data almost
+      entirely through the UC Berkeley Data8 <code>datascience</code> library's <code>Table</code>
+      object. This is worth knowing in real depth, since nearly every lab after Week 3 depends on
+      it:</p>
+      <table>
+        <tr><th>Method</th><th>What it does</th><th>Example</th></tr>
+        <tr><td><code>Table()</code></td><td>Create an empty table</td><td><code>t = Table()</code></td></tr>
+        <tr><td><code>.read_table()</code></td><td>Load a table from a file or URL</td><td><code>data = Table.read_table('census.csv')</code></td></tr>
+        <tr><td><code>.with_columns()</code></td><td>Return a new table with columns added or replaced</td><td><code>t = Table().with_columns('N', np.arange(5), 'twoN', np.arange(0,10,2))</code></td></tr>
+        <tr><td><code>.with_row()</code> / <code>.with_rows()</code></td><td>Add one row, or several rows at once</td><td><code>t.with_row([67, "owl_weed"])</code></td></tr>
+        <tr><td><code>.column('C')</code></td><td>Extract column C as a numpy array</td><td><code>t.column('Name')</code></td></tr>
+        <tr><td><code>.select()</code></td><td>Keep only the named columns (returns a Table)</td><td><code>t.select('Months')</code></td></tr>
+        <tr><td><code>.where(col, predicate)</code></td><td>Filter rows matching a predicate</td><td><code>t.where('AGE', are.between(18,25))</code></td></tr>
+        <tr><td><code>.sort(col, descending=True)</code></td><td>Return rows reordered by a column</td><td><code>t.sort('Tornados', descending=True)</code></td></tr>
+        <tr><td><code>.group(col, func)</code></td><td>Group rows by unique values in a column, aggregating with <code>func</code> (defaults to count)</td><td><code>epi.group('country', np.mean)</code></td></tr>
+        <tr><td><code>.sample(n)</code></td><td>Return n rows, randomly sampled <b>with replacement</b></td><td><code>census.sample(100)</code></td></tr>
+        <tr><td><code>.take(n)</code></td><td>Take specific row(s) by position</td><td><code>t.take(0)</code></td></tr>
+        <tr><td><code>.num_rows</code> / <code>.num_columns</code></td><td>Row / column counts</td><td><code>t.num_rows</code></td></tr>
+        <tr><td><code>.hist()</code> / <code>.plot()</code></td><td>Built-in quick histogram or line plot</td><td><code>census.where(1, are.below(100)).plot(1,5)</code></td></tr>
+      </table>
+      <p>The <code>are.</code> predicate family used inside <code>.where()</code> is worth
+      knowing by heart: <code>are.equal_to(v)</code>, <code>are.above(v)</code>,
+      <code>are.below(v)</code>, <code>are.between(a, b)</code>, and <code>are.not_equal_to(v)</code>.</p>
+      <div class="callout warn">
+        <b class="label">A genuinely tricky one: <code>.sample(n)</code> vs. <code>.sample()</code></b>
+        With an argument, <code>.sample(100)</code> draws 100 rows with replacement. Called with
+        <b>no argument at all</b>, <code>.sample()</code> still samples the <i>whole table</i>,
+        with replacement — it does not just return the table unchanged. This surprises students
+        (and CAs) constantly, especially in bootstrap contexts where that behavior is exactly the
+        point but rarely obvious on first read.
+      </div>
+      <p>If a student's error mentions <code>DataFrame</code> or <code>.loc[]</code>, they've
+      likely copied pandas syntax from a generic tutorial or AI tool — redirect them to
+      <code>Table</code> methods, since this course does not use pandas by default.</p>
+
+      <h3 id="coding-control">Booleans, conditionals, and loops</h3>
+      <p>Start any Boolean-filtering explanation with the actual array in front of the student —
+      the pattern is much less cryptic once they can see what's being compared:</p>
+      <div class="code-block-container python-code">
+        <button class="code-copy-button" onclick="copyCodeBlock(this)">Copy</button>
+        <pre class="code-block"><code>arr = <span class="py-library">np</span>.array([1, 5, 7, 8, 3, -1])
+mask = arr &gt; 3
+print(mask)                    <span class="py-comment"># array([False, True, True, True, False, False])</span>
+<span class="py-library">np</span>.count_nonzero(mask)         <span class="py-comment"># 3  -- counts the True values</span></code></pre>
+      </div>
+      <table>
+        <tr><th>Concept</th><th>Pattern students are taught</th></tr>
+        <tr><td>Boolean array filtering</td><td>Build a comparison (<code>arr &gt; 3</code>), then count or index with it</td></tr>
+        <tr><td>Conditionals</td><td><code>if / elif / else</code> — exactly one branch runs</td></tr>
+        <tr><td>Iteration</td><td><code>for x in np.arange(n):</code> with an accumulator variable, or <code>np.append()</code> to build an array</td></tr>
+        <tr><td>Functions</td><td><code>def f(x): ... return ...</code></td></tr>
+      </table>
+      <p>The accumulator pattern below (initialize outside the loop, update inside it) is the
+      single most-reused structure in the course — from radiation-dose totals in Lab 5 to the
+      Monte Carlo simulations used throughout the statistics module:</p>
+      <div class="code-block-container python-code">
+        <button class="code-copy-button" onclick="copyCodeBlock(this)">Copy</button>
+        <pre class="code-block"><code>total_dose = 0                      <span class="py-comment"># initialize accumulator</span>
+<span class="py-keyword">for</span> i <span class="py-keyword">in</span> <span class="py-library">np</span>.arange(num_trips):
+    dest = <span class="py-library">np</span>.random.choice(destination)
+    dose = <span class="py-function">calculate_dose</span>(dest)
+    total_dose = total_dose + dose  <span class="py-comment"># accumulate</span></code></pre>
+      </div>
+
+      <h3 id="coding-arange"><code>np.arange()</code> and <code>np.random.choice()</code> in depth</h3>
+      <p>These two functions alone cover most of what students need for loops and simulation, and
+      it's worth being fluent in their full signatures rather than just the one-argument form:</p>
+      <table>
+        <tr><th>Call</th><th>Behavior</th><th>Example</th></tr>
+        <tr><td><code>np.arange(b)</code></td><td>b-element array starting at 0</td><td><code>np.arange(7)</code> → <code>[0,1,2,3,4,5,6]</code></td></tr>
+        <tr><td><code>np.arange(a, b)</code></td><td>Array from a up to (not including) b</td><td><code>np.arange(1,7)</code> → <code>[1,2,3,4,5,6]</code></td></tr>
+        <tr><td><code>np.arange(a, b, s)</code></td><td>Array from a to b, stepping by s</td><td><code>np.arange(0,10,2)</code> → <code>[0,2,4,6,8]</code></td></tr>
+        <tr><td><code>np.random.choice(arr)</code></td><td>One random element from arr (with replacement, single draw)</td><td><code>np.random.choice(np.arange(1,7))</code> → e.g. <code>5</code></td></tr>
+        <tr><td><code>np.random.choice(arr, n)</code></td><td>n random draws from arr, with replacement by default</td><td><code>np.random.choice(np.arange(1,7), 5)</code> → e.g. <code>[5,3,6,1,3]</code></td></tr>
+      </table>
+      <div class="callout warn">
+        <b class="label">Tricky example 1 — the classic dice off-by-one</b>
+        A student modeling a 6-sided die often writes <code>np.random.choice(np.arange(1,6))</code>
+        — this only ever returns 1 through 5, because <code>np.arange(1,6)</code> stops before 6.
+        A fair die needs <code>np.arange(1,7)</code>. This exact mistake shows up anywhere students
+        model dice, cards, or 1-indexed categories.
+      </div>
+      <div class="callout warn">
+        <b class="label">Tricky example 2 — does <code>np.random.choice</code> sample with or without replacement?</b>
+        By default, <b>with</b> replacement — the same element can be drawn more than once, even
+        within a single call like <code>np.random.choice(suits, 6)</code>. Students modeling
+        something that should <i>not</i> repeat (dealing distinct cards, assigning people to
+        unique groups) need to know this default doesn't match their intuition, and that avoiding
+        repeats requires an explicit <code>replace=False</code> or a different sampling approach
+        entirely.
+      </div>
+
+      <h3 id="coding-math">Math skills variability</h3>
+      <p>Math preparation among incoming students varies enormously, and this is a bigger factor
+      in coding struggles than it first appears. A student who can't translate "probability of
+      A and B" into code usually isn't stuck on Python syntax — they're stuck on the math itself,
+      and the code is just where that gap becomes visible. Watch for this especially in the
+      probability, correlation, and regression material, where the code is short but leans on a
+      formula the student may not actually understand.</p>
+      <div class="callout tip">
+        <b class="label">A habit worth teaching early</b>
+        Before a student writes any code, ask them to work out how they'd solve the problem on
+        paper — by hand, with actual numbers, no variables. If they can't do that, more time
+        spent on the code won't help; the fix is a quick math refresher, not another syntax
+        explanation. If they <i>can</i> do it on paper, translating it into code becomes a much
+        smaller, more mechanical step, and debugging becomes easier for both of you since you can
+        point at exactly which line doesn't match their own by-hand approach.
+      </div>
+
+      <h3 id="coding-errors">Common student errors to watch for</h3>
+      <div class="card-grid">
+        <div class="card"><div class="num">01</div><h4>Ellipsis left in place</h4><p>Labs use <code>...</code> as a fill-in-the-blank. Students sometimes leave it and get a SyntaxError — check for stray <code>...</code> first.</p></div>
+        <div class="card"><div class="num">02</div><h4>Comparing with <code>=</code></h4><p>Using assignment (<code>=</code>) instead of comparison (<code>==</code>) inside an <code>if</code>.</p></div>
+        <div class="card"><div class="num">03</div><h4>Off-by-one with <code>np.arange()</code></h4><p>Confusing <code>np.arange(n)</code> (stops at n−1) with wanting n as an inclusive endpoint — see the dice example above.</p></div>
+        <div class="card"><div class="num">04</div><h4>String vs. category mismatch</h4><p>Typing <code>'yes'</code>/<code>'Yes'</code> inconsistently when comparing to table columns — case sensitivity trips students up constantly.</p></div>
+        <div class="card"><div class="num">05</div><h4>Forgetting to return</h4><p>Writing the right logic inside a function but never returning the value.</p></div>
+        <div class="card"><div class="num">06</div><h4>Re-running cells out of order</h4><p>Especially on quizzes/labs with locking behavior — remind students to Restart &amp; Run All before submitting.</p></div>
+        <div class="card"><div class="num">07</div><h4>Assuming <code>.sample()</code> is a no-op</h4><p>Calling <code>.sample()</code> with no argument still resamples the whole table with replacement — see the callout above.</p></div>
+        <div class="card"><div class="num">08</div><h4>Mixing up array vs. Table return types</h4><p><code>.column()</code> returns an array; <code>.select()</code> returns a Table. Passing a Table where a function expects an array (e.g. into <code>np.average()</code>) is a very common source of cryptic errors.</p></div>
+      </div>
+
+      <h3 id="coding-matplotlib">Matplotlib quick reference</h3>
+      <p>Most labs mix the <code>Table</code>'s own built-in plotting (<code>.hist()</code>,
+      <code>.plot()</code>) with direct <code>matplotlib.pyplot</code> calls for more control.
+      Both show up across the semester, so CAs should be comfortable switching between them.</p>
+      <div class="code-block-container python-code">
+        <button class="code-copy-button" onclick="copyCodeBlock(this)">Copy</button>
+        <pre class="code-block"><code>%matplotlib inline                       <span class="py-comment"># needed once, near the top of a notebook</span>
+<span class="py-keyword">import</span> <span class="py-library">matplotlib.pyplot</span> <span class="py-keyword">as</span> <span class="py-library">plt</span>
+<span class="py-library">plt</span>.style.use(<span class="py-string">'ggplot'</span>)                  <span class="py-comment"># or 'fivethirtyeight' -- cosmetic only</span>
+
+<span class="py-library">plt</span>.scatter(x, y, color=<span class="py-string">"red"</span>, s=<span class="py-number">30</span>, label=<span class="py-string">"training points"</span>)
+<span class="py-library">plt</span>.xlabel(<span class="py-string">"MW [g/mol]"</span>)
+<span class="py-library">plt</span>.ylabel(<span class="py-string">"bp [K]"</span>)
+<span class="py-library">plt</span>.legend()                             <span class="py-comment"># or: plt.legend(bbox_to_anchor=(1.5, 0.8))</span>
+<span class="py-library">plt</span>.annotate(<span class="py-string">"Slope: 2.3"</span>, xy=(<span class="py-number">35</span>, <span class="py-number">510</span>)) <span class="py-comment"># add text at a data coordinate</span>
+<span class="py-library">plt</span>.savefig(<span class="py-string">"scatter.png"</span>)               <span class="py-comment"># save BEFORE plt.show(), not after</span>
+<span class="py-library">plt</span>.show()</code></pre>
+      </div>
+      <table>
+        <tr><th>Call</th><th>Purpose</th></tr>
+        <tr><td><code>plt.scatter(x, y, color=, s=)</code></td><td>Scatter plot; <code>s=</code> controls marker size (can be an array, e.g. sized by a third variable)</td></tr>
+        <tr><td><code>plt.xlabel()</code> / <code>plt.ylabel()</code> / <code>plt.title()</code></td><td>Axis and plot labels</td></tr>
+        <tr><td><code>plt.legend()</code></td><td>Show a legend; <code>bbox_to_anchor</code> moves it outside the plot area</td></tr>
+        <tr><td><code>plt.annotate(text, xy=(x,y))</code></td><td>Place text at a specific data coordinate — used a lot for slope/intercept callouts</td></tr>
+        <tr><td><code>fig, ax = plt.subplots()</code></td><td>Create axes explicitly, needed for side-by-side plots or adding text boxes via <code>ax.text()</code></td></tr>
+        <tr><td><code>plt.savefig()</code></td><td>Must be called <i>before</i> <code>plt.show()</code> — calling it after can save a blank figure</td></tr>
+      </table>
+      <div class="callout tip">
+        <b class="label">Table plotting vs. raw matplotlib</b>
+        <code>tbl.hist('col')</code> and <code>tbl.scatter('x','y')</code> are quick, styled
+        one-liners that work directly off a Table. Reach for raw <code>plt.</code> calls when a
+        student needs more control — custom colors/sizes, annotations, a regression line drawn
+        over a scatter, or multiple series on one axis. Most labs actually do both in the same
+        cell: build the Table plot, then layer a <code>plt.plot()</code> regression line or
+        <code>plt.annotate()</code> on top.
+      </div>
+      <div class="callout warn">
+        <b class="label">Two matplotlib interfaces exist — worth naming explicitly</b>
+        The <code>plt.scatter(...)</code>, <code>plt.xlabel(...)</code> style above is the
+        <b>implicit (pyplot) interface</b> — it quietly tracks a "current" figure/axes behind the
+        scenes, which is exactly why it's approachable for a first-semester student. The
+        <b>explicit (object-oriented) interface</b> — <code>fig, ax = plt.subplots()</code> then
+        <code>ax.scatter(...)</code>, <code>ax.set_xlabel(...)</code> — is what most professional
+        codebases and current online examples actually use, and it scales much better once a
+        student wants multiple subplots or more control. It's also harder for a beginner to parse
+        at first, which is why this course leans on the pyplot style early on. Worth flagging to
+        a stronger student who's confused why their AI-generated or googled example looks
+        different from the lab's own code — they're not wrong, they're just looking at the other
+        interface. See <a class="material-link" href="https://pbpython.com/effective-matplotlib.html" target="_blank" rel="noopener">Effective Matplotlib</a> for a good side-by-side comparison.
+      </div>
+    </section>
+
+    <!-- ============ 3. DATA WRANGLING ============ -->
+    <section class="chapter" id="wrangling">
+      <div class="kicker">Section 3</div>
+      <h2>Data Wrangling</h2>
+      <p class="intro">How students go from a raw <code>.csv</code> to something they can plot,
+      filter, and reason about — the throughline of Module 1 and the backbone of every later lab.</p>
+
+      <h3>The core workflow</h3>
+      <ol>
+        <li><b>Load</b> — <code>Table.read_table('file.csv')</code> from a local file or URL.</li>
+        <li><b>Inspect</b> — view the table, check <code>.num_rows</code>, column names and types.</li>
+        <li><b>Filter</b> — <code>.where(column, are.equal_to(value))</code>, or numeric predicates
+        like <code>are.above(x)</code>.</li>
+        <li><b>Select / reshape</b> — <code>.select()</code> to keep specific columns,
+        <code>.group()</code> to aggregate, <code>.sort()</code> to order rows.</li>
+        <li><b>Combine</b> — <code>.append()</code> to stack rows from two filtered tables (used
+        heavily to build "correct prediction" subsets, e.g. in the groundhog lab).</li>
+        <li><b>Visualize</b> — <code>.hist()</code>, <code>.scatter()</code>, or
+        <code>.plot()</code> methods built into <code>Table</code>.</li>
+      </ol>
+
+      <div class="callout tip">
+        <b class="label">Where this shows up on the syllabus</b>
+        Lab 03 (Environmental Protection Index) is students' first real exposure to loading a
+        .csv and using Table methods. Lab 04 (COVID/RSV/Influenza wastewater data) adds writing
+        their own functions and visualizing time trends. Both are good labs to point struggling
+        students back to as a refresher before Labs 05–07, which assume this workflow is already
+        comfortable.
+      </div>
+
+      <h3>Helping students debug wrangling problems</h3>
+      <ul>
+        <li>Ask them to print the table (or <code>.show(5)</code>) before and after each step —
+        most wrangling bugs are visible the moment you look at intermediate output.</li>
+        <li>Check column name spelling/case — <code>.where()</code> fails silently or errors
+        confusingly if the column name is slightly wrong.</li>
+        <li>Confirm they're filtering <i>before</i> aggregating, not after — a common conceptual
+        error when a group-then-filter and filter-then-group produce different (and both
+        "reasonable-looking") results.</li>
+      </ul>
+    </section>
+
+    <!-- ============ 4. STATISTICS ============ -->
+    <section class="chapter" id="statistics">
+      <div class="kicker">Section 4</div>
+      <h2>Statistics</h2>
+      <p class="intro">The conceptual core of Module 2 and 3 — probability, simulation-based
+      inference, regression, and classification. These ideas are new to almost every student, so
+      expect to re-explain them more than once, in more than one way.</p>
+
+      <h3 id="stats-prob">Sample vs. population, probability &amp; simulation</h3>
+      <p>Almost every stats misunderstanding CAs untangle traces back to one distinction:
+      a <b>population</b> is the entire group of interest (all groundhogs that have ever been
+      observed, every possible dice roll); a <b>sample</b> is the subset actually in hand (the 33
+      groundhogs in the dataset, the 100 dice rolls just simulated). A population value is called
+      a <b>parameter</b>; the corresponding value computed from a sample is a <b>statistic</b>. A
+      sample statistic is an estimate of the population parameter, and — critically — a
+      <i>different</i> sample would give a slightly different statistic purely by chance. That
+      variability from sample to sample is exactly what simulation is built to characterize.</p>
+      <table>
+        <tr><th>Idea</th><th>How it's taught</th></tr>
+        <tr><td>Population vs. sample</td><td>Population = everything; sample = what was actually observed or drawn</td></tr>
+        <tr><td>Parameter vs. statistic</td><td>Parameter describes the population (usually unknown); statistic is computed from the sample (known, but variable)</td></tr>
+        <tr><td>Complement</td><td><code>P(not A) = 1 − P(A)</code></td></tr>
+        <tr><td>Independence</td><td><code>P(A and B) = P(A) × P(B)</code> — knowing A tells you nothing about B</td></tr>
+        <tr><td>Monte Carlo simulation</td><td>Repeat a random process many times (typically 1,000×) and look at the distribution of outcomes</td></tr>
+      </table>
+      <div class="callout tip">
+        <b class="label">Why 1,000 simulations, not 1?</b>
+        A single simulation is just one random draw and tells you little on its own. Repeating
+        it many times builds a <i>sampling distribution</i> — the full range of what pure chance
+        can produce. More simulations narrow the uncertainty in the estimated p-value; 1,000 is a
+        practical compromise between precision and compute time. This is worth walking through
+        visually with students who ask "why not just run it once?"
+      </div>
+
+      <h3 id="stats-hyp">Simulation-based hypothesis testing</h3>
+      <table>
+        <tr><th></th><th>Statement</th></tr>
+        <tr><td>Null (H₀)</td><td>The effect students are testing for is no better than random chance</td></tr>
+        <tr><td>Alternative (H₁)</td><td>There is a real effect</td></tr>
+      </table>
+      <p>Students are taught they can only ever <i>reject</i> H₀ — never "prove" H₁. The p-value
+      is the probability of a result at least as extreme as what was observed, <i>assuming H₀ is
+      true</i>. The course uses a shared interpretation scale:</p>
+      <table>
+        <tr><th>p-value</th><th>Interpretation</th></tr>
+        <tr><td>&gt; 0.05</td><td>Insufficient evidence to reject H₀</td></tr>
+        <tr><td>≤ 0.05</td><td>Suggestive evidence against H₀</td></tr>
+        <tr><td>≤ 0.01</td><td>Strong evidence against H₀</td></tr>
+      </table>
+
+      <p>Mechanically, this is always the same four-step recipe, whether it's groundhogs or
+      anything else:</p>
+      <ol>
+        <li>Simulate many outcomes <i>as if</i> H₀ were true (e.g. random guessing) — this builds
+        a synthetic population of "what chance alone can produce."</li>
+        <li>Compute the same test statistic on each simulated outcome, building up a distribution
+        of statistics under H₀.</li>
+        <li>Compare the <i>actually observed</i> test statistic (from the real sample) to that
+        distribution.</li>
+        <li>The p-value is the proportion of simulated outcomes at least as extreme as the
+        observed one — the shaded tail below.</li>
+      </ol>
+
+      <div class="card" style="max-width:700px;margin:6px 0 8px 0;">
+        <svg viewBox="0 0 640 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+          <line x1="40" y1="220" x2="600" y2="220" stroke="#6b6459" stroke-width="1.5"/>
+          <rect x="40"  y="215" width="34" height="5"   fill="#1f6f5c"/>
+          <rect x="80"  y="205" width="34" height="15"  fill="#1f6f5c"/>
+          <rect x="120" y="185" width="34" height="35"  fill="#1f6f5c"/>
+          <rect x="160" y="155" width="34" height="65"  fill="#1f6f5c"/>
+          <rect x="200" y="120" width="34" height="100" fill="#1f6f5c"/>
+          <rect x="240" y="90"  width="34" height="130" fill="#1f6f5c"/>
+          <rect x="280" y="70"  width="34" height="150" fill="#1f6f5c"/>
+          <rect x="320" y="85"  width="34" height="135" fill="#1f6f5c"/>
+          <rect x="360" y="115" width="34" height="105" fill="#1f6f5c"/>
+          <rect x="400" y="148" width="34" height="72"  fill="#1f6f5c"/>
+          <rect x="440" y="178" width="34" height="42"  fill="#1f6f5c"/>
+          <rect x="480" y="200" width="34" height="20"  fill="#9e1b34" opacity="0.85"/>
+          <rect x="520" y="211" width="34" height="9"   fill="#9e1b34" opacity="0.85"/>
+          <rect x="560" y="216" width="34" height="4"   fill="#9e1b34" opacity="0.85"/>
+          <line x1="479" y1="40" x2="479" y2="220" stroke="#9e1b34" stroke-width="2" stroke-dasharray="6,4"/>
+          <circle cx="479" cy="220" r="5" fill="#9e1b34"/>
+          <text x="479" y="28" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#9e1b34">observed test statistic</text>
+          <text x="545" y="196" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#9e1b34">shaded ≈ p-value</text>
+          <text x="320" y="16" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#4a453f">Simulated outcomes under H₀ (e.g. 1,000 simulations)</text>
+          <text x="320" y="245" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#4a453f">test statistic value</text>
+        </svg>
+      </div>
+      <p class="source-note" style="margin-top:-4px;">The teal bars are the synthetic sampling
+      distribution built by simulation; the maroon bars and dashed line mark the region at least
+      as extreme as the observed statistic. A p-value is exactly the fraction of the teal+maroon
+      area that is maroon.</p>
+
+      <div class="divider-quote">"If the red dot sits well inside the distribution → H₀ not
+      rejected. If it sits in the far tail → reject H₀."</div>
+
+      <h4>One-tailed vs. two-tailed tests</h4>
+      <p>The groundhog p-value above only counts simulated outcomes <i>at or above</i> the
+      observed accuracy — that's a <b>one-tailed (directional) test</b>, appropriate because the
+      question was specifically "are groundhogs <i>better</i> than chance," not "different from
+      chance in either direction." A <b>two-tailed test</b> is for non-directional questions —
+      "is this coin biased at all?" rather than "is this coin biased toward heads?" — and counts
+      outcomes in <i>both</i> tails of the null distribution as evidence against H₀.</p>
+      <div class="callout warn">
+        <b class="label">Why this trips people up</b>
+        Switching between one-tailed and two-tailed roughly doubles or halves the resulting
+        p-value for the same data, since a two-tailed test spreads the same 5% threshold across
+        both ends of the distribution instead of concentrating it in one. If a student's p-value
+        doesn't match yours on the same dataset, check whether you're both counting the same
+        tail(s) before assuming a coding error. The right choice depends entirely on how the
+        question was phrased — directional claims get one tail, "is there any effect at all"
+        claims get two.
+      </div>
+
+      <h4>The multiple comparisons problem (a good stretch topic for strong students)</h4>
+      <p>Running several hypothesis tests on the same data inflates the false-positive rate:
+      with 3 independent tests at α = 0.05, <code>P(at least one false positive) = 1 − 0.95³ ≈
+      0.143</code> — nearly triple the intended 5%. The <b>Bonferroni correction</b> addresses
+      this by dividing the significance threshold by the number of tests run
+      (<code>α_adjusted = α / n_tests</code>). This is a useful concept to have ready if a
+      student notices "wait, didn't we just get lucky testing 33 groundhogs individually?" — that
+      instinct is exactly the point of the lesson.</p>
+
+      <h4>"Significant" doesn't mean "important" — effect size</h4>
+      <p>This is worth being deliberate about, because the everyday meaning of "significant" (big,
+      important, worth caring about) actively misleads students about what the statistical term
+      means. <b>Statistical significance</b> only answers "how likely is a result this extreme to
+      happen by chance" — it says nothing about how large or practically meaningful the effect
+      actually is. With a large enough sample, even a tiny, real-world-irrelevant difference can
+      produce a very small p-value.</p>
+      <div class="callout good">
+        <b class="label">The question to teach alongside the p-value</b>
+        Whenever a student reports "p &lt; 0.05, so it's significant," follow up with: <i>how
+        big is the actual effect, and does that size matter here?</i> That second question is
+        about <b>effect size</b> — a measure of the magnitude of a relationship or difference,
+        independent of sample size. Conveniently, this course already has one on hand: the
+        correlation coefficient <code>r</code> (Section 4, Regression) is itself an effect-size
+        measure, not just a significance test — an r of 0.05 can be statistically significant
+        with enough data while still describing a relationship too weak to act on. Treat
+        significance and effect size as two separate questions a result has to answer, not one.
+      </div>
+
+      <h3 id="stats-regression">Regression, bootstrap confidence intervals, and kNN classification</h3>
+      <ul>
+        <li><b>Correlation &amp; regression</b> — used in Lab 08 (Old Faithful: variance of
+        sample means and correlation) and Lab 09 (estimating the age of the universe from the
+        slope of supernova speed vs. distance).</li>
+        <li><b>Bootstrap confidence intervals</b> — resampling the observed data (with
+        replacement) many times to quantify uncertainty in an estimate, e.g. producing a 95%
+        interval for the age of the universe from repeated slope estimates.</li>
+        <li><b>k-nearest neighbors classification</b> — introduced with the iris flower dataset,
+        then applied to a genuine research question: predicting molecular acidity (pKa) using
+        Euclidean distance between chemical attribute vectors, drawing on real pKa data from
+        Temple's Chemistry department.</li>
+      </ul>
+      <div class="code-block-container python-code">
+        <button class="code-copy-button" onclick="copyCodeBlock(this)">Copy</button>
+        <pre class="code-block"><code><span class="py-comment"># Euclidean distance — the core kNN building block</span>
+d_p_q = <span class="py-library">np</span>.sqrt(sum((<span class="py-library">np</span>.array([<span class="py-number">2</span>,<span class="py-number">3</span>]) - <span class="py-library">np</span>.array([<span class="py-number">4</span>,<span class="py-number">3</span>]))**<span class="py-number">2</span>))
+
+<span class="py-keyword">def</span> <span class="py-function">distance</span>(pt1, pt2):
+    <span class="py-string">"""The distance between two points, represented as arrays."""</span>
+    <span class="py-keyword">return</span> <span class="py-library">np</span>.sqrt(sum((pt1 - pt2)**<span class="py-number">2</span>))</code></pre>
+      </div>
+      <p>Students often confuse "distance" as a physical concept with "distance" as a similarity
+      metric across arbitrary attributes (e.g. molecular weight and pKa together) — a quick
+      diagram of two points in 2-D space, then generalizing to "more dimensions, same idea," is
+      usually the fastest way to unstick this.</p>
+    </section>
+
+    <!-- ============ 5. STRATEGIES FOR SUCCESS ============ -->
+    <section class="chapter" id="strategies">
+      <div class="kicker">Section 5</div>
+      <h2>Strategies for Success</h2>
+      <p class="intro">Practical guidance for supporting students in the classroom and during
+      office hours — grounded in what incoming students actually report about their comfort
+      level with code.</p>
+
+      <div class="stat-strip">
+        <div class="stat"><div class="num">36/40</div><div class="label">students surveyed had never coded in Python before</div></div>
+        <div class="stat"><div class="num">22/40</div><div class="label">rated programming anxiety a 3 or higher (of 5)</div></div>
+      </div>
+      <div class="callout warn">
+        <b class="label">Read this before your first section</b>
+        The overwhelming majority of students arrive with zero programming background, and over
+        half report meaningful anxiety about using code to analyze data. Assume you are usually
+        the first person walking a given student through the experience of a program failing
+        and being fixable — treat every error message as a normal, expected part of the process,
+        out loud, so students absorb that framing from you.
+      </div>
+
+      <h3 id="strategies-classroom">In the classroom</h3>
+      <div class="card-grid">
+        <div class="card"><div class="num">01</div><h4>Roam, don't wait</h4><p>Circulate actively during lab time rather than staying at the front — most anxious students won't raise a hand first.</p></div>
+        <div class="card"><div class="num">02</div><h4>Normalize errors</h4><p>Read the traceback together out loud. Name what kind of error it is before fixing it, so the pattern transfers to the next bug.</p></div>
+        <div class="card"><div class="num">03</div><h4>Ask, don't tell</h4><p>Prompt with a question ("what do you expect this line to return?") before supplying the fix — this is peer instruction, not a lecture.</p></div>
+        <div class="card"><div class="num">04</div><h4>Know your "expert" lab cold</h4><p>You'll be the go-to resource for one lab specifically — have the underlying stats concept, not just the syntax, ready to explain multiple ways.</p></div>
+      </div>
+
+      <h3 id="strategies-office">Office hours &amp; tutoring</h3>
+      <ul>
+        <li>Office hours are open to students from <i>any</i> section, not just your own — expect
+        questions on labs you haven't personally taught that week.</li>
+        <li>Virtual office hours see less demand than in-person; if you're covering a virtual
+        slot with low attendance, use the time to prepare materials for your expert lab rather
+        than treating it as idle time.</li>
+        <li>For quizzes specifically (e.g. Quiz 05), remember the quiz locks the moment the quiz
+        cell is run and allows exactly one attempt per question — a student who says "I want to
+        restart and try again" needs to be told clearly, before they open the quiz, that this
+        isn't possible.</li>
+        <li>Direct students toward the Course Assistant office hours calendar
+        (<a class="material-link" href="https://bit.ly/EDS_CA" target="_blank" rel="noopener">bit.ly/EDS_CA</a>) and remind them that attending three CA office-hour or
+        lab sessions across the semester — one per module — counts toward their participation
+        grade.</li>
+      </ul>
+
+      <div class="callout good">
+        <b class="label">Escalation &amp; check-ins</b>
+        Weekly 30-minute check-ins with the instructional team exist specifically so recurring
+        student difficulties, and your own workload, get surfaced early — use them. If you
+        notice a pattern (e.g. many students in your section stuck on the same conceptual point),
+        that's exactly the kind of thing to bring to the check-in rather than solving one-on-one,
+        repeatedly, all semester.
+      </div>
+    </section>
+
+    <!-- ============ 6. TEACHING FOUNDATIONS ============ -->
+    <section class="chapter" id="foundations">
+      <div class="kicker">Section 6</div>
+      <h2>Teaching Foundations</h2>
+      <p class="intro">The learning-science ideas behind the strategies in Section 5 — why roaming
+      the room, normalizing errors, and asking rather than telling actually work, and what it
+      means to treat the CA/Fellow role itself as a form of leadership.</p>
+
+      <h3 id="foundations-motivation">What motivates students to learn</h3>
+      <p>Ambrose and colleagues' model of student motivation gives CAs a useful diagnostic
+      vocabulary for why a student is or isn't engaging with a lab, beyond "they're not trying."
+      Two factors combine to produce motivation:</p>
+      <ul>
+        <li><b>Value</b> — whether the student sees the goal or outcome as worthwhile.</li>
+        <li><b>Expectancy</b> — whether the student believes they can actually achieve it.
+        Value alone isn't enough: a student who cares about the material but doesn't believe
+        they can succeed at it will still disengage.</li>
+      </ul>
+      <p>Value and expectancy together drive motivation, which leads to goal-directed behavior,
+      which in turn supports learning and performance.</p>
+
+      <div class="callout tip">
+        <b class="label">Efficacy — a second lever inside expectancy</b>
+        Efficacy is the student's belief in their own ability to produce the intended result.
+        Crossed with whether the classroom environment feels supportive, and whether the student
+        sees value in the task, this produces recognizably different student postures: a student
+        with low efficacy in an unsupportive environment who doesn't see value looks
+        <i>rejecting</i>; the same low-efficacy student who does see value looks <i>hopeless</i>
+        rather than rejecting. A high-efficacy student in a supportive environment who sees value
+        is <i>motivated</i> — the target state. The same high-efficacy student in a supportive
+        environment who doesn't yet see value looks <i>evading</i>, not hopeless or rejecting.
+      </div>
+
+      <div class="ladder">
+        <div class="rung"><span class="lvl">Teaching lever</span><span class="desc"><b>Value</b> — connect the lab to something the student already cares about (a real dataset, a visible result, a question they asked). Several labs already do this deliberately — molecular acidity prediction ties directly into Chemistry coursework, for instance.</span></div>
+        <div class="rung"><span class="lvl">Teaching lever</span><span class="desc"><b>Efficacy / expectancy</b> — give the student direct evidence they can succeed: point to a smaller win before the harder question, or show them the same error you just normalized was fixable two labs ago.</span></div>
+        <div class="rung"><span class="lvl">Teaching lever</span><span class="desc"><b>Environment</b> — this is largely in the CA's hands moment to moment. A roaming, non-judgmental, question-first presence is what turns "low efficacy + doesn't see value" from rejecting into merely hopeless, and — over a semester — toward motivated.</span></div>
+      </div>
+
+      <p>Practically: when a student seems checked out, it's worth silently diagnosing which
+      lever is missing before deciding how to intervene. A student who says "this is pointless"
+      has a value problem; a student who says "I just can't do this" has an efficacy problem —
+      and they call for different responses from a CA, not the same generic encouragement.</p>
+
+      <div class="callout warn">
+        <b class="label">A checked-out student may not have a motivation problem at all</b>
+        Sometimes a student who looks disengaged isn't lacking value or efficacy for the lab
+        itself — they're using the in-class work time to study for an upcoming exam in another
+        course entirely, treating lab time as a de facto study hall because the lab feels
+        resumable later while the other exam doesn't. The Value/Expectancy/Environment model
+        above still applies, but the lever being pulled is a competing one outside this class —
+        it's a prioritization problem, not a value or efficacy problem with the lab. The Ambrose
+        framework doesn't have much to say about this directly, and it isn't really solvable by
+        making the lab more appealing. What tends to help is naming it plainly and making the
+        cost of deferring visible — reminding the student what's actually due when, and that lab
+        time not used now becomes harder time to find later — rather than trying harder to
+        motivate them on the content itself.
+      </div>
+      <div class="source-note">Source: Ambrose, S. A., Bridges, M. W., DiPietro, M., Lovett, M. C., &amp; Norman, M. K. (2010). <i>How Learning Works: Seven Research-Based Principles for Smart Teaching</i>. Jossey-Bass — Ch. 3, "What Factors Motivate Students to Learn?"</div>
+
+      <h3 id="foundations-hierarchy">The hierarchy of learning</h3>
+      <p>Bloom's taxonomy of cognitive skills gives a useful check on what level a lab question —
+      or a student's difficulty — is actually operating at. Skills build from concrete recall up
+      to independent creation, and most of the frustration CAs see comes from a mismatch: a
+      student stuck at "remember" being asked an "analyze" question.</p>
+      <div class="ladder">
+        <div class="rung"><span class="lvl">Remember</span><span class="desc">Recall syntax and definitions — what <code>np.arange()</code> does, what a p-value is.</span></div>
+        <div class="rung"><span class="lvl">Understand</span><span class="desc">Explain a concept in their own words — why a p-value is not "the probability H0 is true."</span></div>
+        <div class="rung"><span class="lvl">Apply</span><span class="desc">Use a known method on a new dataset — running the same accumulator-loop pattern on a new simulation.</span></div>
+        <div class="rung"><span class="lvl">Analyze</span><span class="desc">Break a result into parts and relate them — reading a histogram of simulated outcomes against an observed value.</span></div>
+        <div class="rung"><span class="lvl">Evaluate</span><span class="desc">Judge the quality or validity of an approach — deciding whether three hypothesis tests on the same data need a Bonferroni correction.</span></div>
+        <div class="rung"><span class="lvl">Create</span><span class="desc">Design something new — the final group project, where students choose a dataset, question, and method themselves.</span></div>
+      </div>
+      <div class="callout good">
+        <b class="label">Why this matters for CAs</b>
+        If a student can't get an "analyze" or "evaluate" question, first check whether they've
+        actually got the "remember" and "understand" layers solid — jumping straight to
+        re-explaining the harder question usually doesn't stick if the foundation underneath it
+        is shaky. This is also why the reference tables scattered through Section 2–4 of this
+        manual exist: they're the "remember" layer a student can be pointed back to quickly.
+      </div>
+      <div class="source-note">Source: Bloom, B. S. (Ed.). (1956). <i>Taxonomy of Educational Objectives: The Classification of Educational Goals, Handbook I: Cognitive Domain</i>. David McKay; revised by Anderson, L. W., &amp; Krathwohl, D. R. (Eds.). (2001). <i>A Taxonomy for Learning, Teaching, and Assessing</i>. Longman.</div>
+
+      <h3 id="foundations-leader">The teacher as leader</h3>
+      <p>Course Assistants in this program are STEM Leadership Fellows by name, but the
+      leadership framing applies to every CA regardless of title. The role isn't "junior
+      instructor" — it's closer to peer leadership: someone a student is more willing to be
+      vulnerable and uncertain in front of than they might be with faculty, and whose job is
+      specifically to unlock what a student is already capable of rather than to direct or
+      evaluate them.</p>
+      <div class="quote-strip">
+        <div class="q">"Leadership is unlocking people's potential to become better."<span class="who">— Bill Bradley</span></div>
+        <div class="q">A leader earns authority through understanding and trust, rather than demanding it the way a boss demands obedience.<span class="who">— paraphrased from Klaus Balkenhol</span></div>
+        <div class="q">"You manage things; you lead people."<span class="who">— Grace Murray Hopper</span></div>
+        <div class="q">The best leaders lead from within the people they're leading, not from above them.<span class="who">— paraphrased from M. D. Arnold</span></div>
+      </div>
+      <p>Read against the motivation model above, this is a fairly literal description of the CA
+      job: a CA's presence in the room is itself part of a student's "environment" lever, and how
+      a CA responds to a stuck, anxious, or checked-out student is often what determines whether
+      that student experiences the class as rejecting, hopeless, or — with the right support —
+      genuinely motivated. Leading a student well, in this specific sense, looks less like
+      supplying answers and more like the peer-instruction habits already in Section 5: asking
+      before telling, normalizing failure, and being visibly present rather than authoritative.</p>
+      <div class="source-note">Quotes compiled from: HubSpot, "10 Inspirational Leadership Quotes to Motivate Your Team" — blog.hubspot.com/marketing/leadership-styles.</div>
+    </section>
+
+    <!-- ============ 7. CHEAT SHEET ============ -->
+    <section class="chapter" id="cheatsheet">
+      <div class="kicker">Section 7</div>
+      <h2>Cheat Sheet</h2>
+      <p class="intro">The compact, printable reference CAs and students both lean on — reproduced
+      here so it lives alongside the rest of the manual. This mirrors the printed handout;
+      the QR codes on the original are not functional in this format, so the known links are
+      given directly below instead.</p>
+
+      <h3>Fundamental principles</h3>
+      <table>
+        <tr><th>Concept</th><th>What it does</th><th>Example</th></tr>
+        <tr><td><b>Variables</b></td><td>Hold data for analysis with a given data type</td><td><code>a = 10</code><br><code>R = 0.082057</code><br><code>b = [0.5, 1.5, 2.5]</code></td></tr>
+        <tr><td><b>=</b></td><td>Assignment operator — assigns the value(s) resulting from an expression or function to a variable</td><td><code>success = "Try and seek help"</code></td></tr>
+        <tr><td><b>import</b></td><td>Import modules for extra functionality beyond basic Python</td><td><code>import math</code><br><code>import numpy as np</code><br><code>import datascience as *</code></td></tr>
+        <tr><td><b>Functions</b></td><td>Take arguments and transform them. A name followed by parentheses containing comma-separated arguments. Methods are functions attached to a variable with a period.</td><td><code>print("Year", 2024)</code><br><code>max(10, -5.1, 3)</code> → <code>10</code><br><code>text.replace("t","T")</code></td></tr>
+        <tr><td><b>Comparisons</b></td><td>Compare values/variables. Indented code executes conditional on an expression ending in a colon.</td><td><code>if a > 10: print("a is above 10")</code></td></tr>
+        <tr><td><b>Loops</b></td><td>Repeat a portion of code a set number of times. <code>for ... in ...:</code> followed by indented, repeated code.</td><td><code>for i in np.arange(10): print(i, 2**i)</code></td></tr>
+      </table>
+
+      <h3>Data types</h3>
+      <table>
+        <tr><th>Type</th><th>Python name</th><th>Category</th><th>Example</th></tr>
+        <tr><td>string</td><td><code>str</code></td><td>sequence</td><td><code>T = "Temple CST"</code></td></tr>
+        <tr><td>integer</td><td><code>int</code></td><td>numeric</td><td><code>n = 10</code></td></tr>
+        <tr><td>floating point</td><td><code>float</code></td><td>numeric</td><td><code>R = 8.3145</code></td></tr>
+        <tr><td>list</td><td><code>list</code></td><td>sequence</td><td><code>b = [0.5, 1.5, 2.5]</code></td></tr>
+        <tr><td>tuple</td><td><code>tuple</code></td><td>sequence</td><td><code>("apple","banana","cherry")</code></td></tr>
+        <tr><td>array</td><td><code>numpy.ndarray</code></td><td>sequence</td><td><code>np.array([2.5, 3.7, 4.9])</code></td></tr>
+        <tr><td>Table</td><td><code>datascience.tables.Table</code></td><td>—</td><td><code>Table().with_columns("Volume [L]", [22.4, 23.1, 26.4])</code></td></tr>
+      </table>
+
+      <h3>numpy (np)</h3>
+      <table>
+        <tr><th>Function</th><th>Behavior</th><th>Example</th></tr>
+        <tr><td><code>np.arange(b)</code></td><td>b-element array starting at 0</td><td><code>np.arange(7)</code> → <code>[0,1,2,3,4,5,6]</code></td></tr>
+        <tr><td><code>np.arange(a,b,s)</code></td><td>Array from a to b, stepping by s</td><td><code>np.arange(1,7,1)</code> → <code>[1,2,3,4,5,6]</code></td></tr>
+        <tr><td><code>np.array([])</code></td><td>Creates an array from a list</td><td><code>np.array([10,25,75])</code></td></tr>
+        <tr><td><code>np.random.choice()</code></td><td>Randomly selects an element; optional n for multiple elements</td><td><code>np.random.choice(np.arange(1,7,1))</code> → e.g. <code>5</code></td></tr>
+        <tr><td><code>np.count_nonzero()</code></td><td>Counts nonzero (True) elements in its argument</td><td><code>np.count_nonzero(b &gt; 1)</code></td></tr>
+        <tr><td><code>np.mean()</code></td><td>Mean of an array — also <code>np.median()</code>, <code>np.std()</code>, <code>np.max()</code>, <code>np.min()</code></td><td><code>np.mean([1,2,3,4,5,6])</code> → <code>3.5</code></td></tr>
+      </table>
+
+      <h3>datascience Tables</h3>
+      <table>
+        <tr><th>Method</th><th>Returns</th><th>Example</th></tr>
+        <tr><td><code>Table()</code></td><td>Empty table</td><td><code>TempleData = Table()</code></td></tr>
+        <tr><td><code>.read_table()</code></td><td>New table read from a file or URL</td><td><code>data = Table.read_table("census.csv")</code></td></tr>
+        <tr><td><code>.with_columns()</code></td><td>New table with additional or replaced columns</td><td><code>tbl = Table().with_columns("N", np.arange(5), "2*N", np.arange(0,10,2))</code></td></tr>
+        <tr><td><code>.with_row()</code></td><td>Add a row to an existing table</td><td><code>four_flowers.with_row([67,"owl_weed"])</code></td></tr>
+        <tr><td><code>.with_rows()</code></td><td>Add several rows to an existing table</td><td><code>four_flowers.with_rows(other_flowers)</code></td></tr>
+        <tr><td><code>.column()</code></td><td>Extract a column as an array</td><td><code>flowers.column("Name")</code> or <code>flowers["Name"]</code></td></tr>
+        <tr><td><code>.sort("Column", descending=True)</code></td><td>Sorted table</td><td><code>T.sort("Tornados", descending=True)</code></td></tr>
+        <tr><td><code>help()</code></td><td>Help on a method</td><td><code>help(T.select)</code></td></tr>
+        <tr><td><code>.where()</code></td><td>Select rows meeting a condition</td><td><code>T.where("Months", are.equal_to("F"))</code></td></tr>
+        <tr><td><code>are.below() / are.above()</code></td><td>Observations below/above a value</td><td><code>census.where(1, are.below(100)).plot(1,5)</code></td></tr>
+        <tr><td><code>are.equal_to()</code></td><td>Observations equal to a value</td><td><code>census.where("AGE", are.equal_to(73))</code></td></tr>
+        <tr><td><code>are.between(x,y)</code></td><td>Observations between x and y</td><td><code>census.where("AGE", are.between(18,25))</code></td></tr>
+        <tr><td><code>.select()</code></td><td>Select column(s)</td><td><code>T.select("Months")</code></td></tr>
+        <tr><td><code>.group("Column", func)</code></td><td>Groups rows by unique values in a column, aggregating by count or by <code>func</code></td><td><code>epi.group("country", np.mean)</code></td></tr>
+        <tr><td><code>.sample(n)</code></td><td>New table with n rows randomly sampled from the original; <b>without n, samples the whole table with replacement</b></td><td><code>census.sample(100)</code></td></tr>
+        <tr><td><code>.take(n)</code></td><td>Take the nth observation</td><td><code>T.take(0)</code></td></tr>
+        <tr><td><code>.num_rows</code> / <code>.num_columns</code></td><td>Row / column counts</td><td><code>tbl.num_rows</code></td></tr>
+        <tr><td><code>.hist()</code> / <code>.plot()</code></td><td>Histogram / line plot</td><td><code>census.where(1, are.below(100)).plot(1,5)</code></td></tr>
+      </table>
+
+      <h3>Assistance &amp; links</h3>
+      <ul>
+        <li><a class="material-link" href="https://inferentialthinking.com/chapters/intro.html" target="_blank" rel="noopener">Inferential Thinking online text</a></li>
+        <li><a class="material-link" href="https://laserchemist.github.io/dprimer/" target="_blank" rel="noopener">Data Science Coding Primer</a></li>
+        <li><a class="material-link" href="https://laserchemist.github.io/EDS_ppl/" target="_blank" rel="noopener">Course staff page</a></li>
+        <li><a class="material-link" href="https://www.youtube.com/@DataScienceTipsandTricks-d2w" target="_blank" rel="noopener">Course video channel</a></li>
+      </ul>
+      <div class="card-grid">
+        <div class="card"><div class="num">QR</div><h4>EDS Course Assistant &amp; Workshop Calendar</h4><p>Printed cheat sheet has a scannable code; the direct link is the same one referenced in Section 5 — <a class="material-link" href="https://bit.ly/EDS_CA" target="_blank" rel="noopener">bit.ly/EDS_CA</a>.</p></div>
+        <div class="card"><div class="num">QR</div><h4>Log Meeting or Workshop</h4><p>Printed cheat sheet has a scannable code for this form. Link not reproduced here — use the printed handout or ask your instructor for the current URL.</p></div>
+        <div class="card"><div class="num">QR</div><h4>Jupyter Notebook Server</h4><p>Printed cheat sheet has a scannable code; the direct link is <a class="material-link" href="https://bit.ly/EDS_Hub" target="_blank" rel="noopener">bit.ly/EDS_Hub</a>.</p></div>
+      </div>
+    </section>
+
+    <!-- ============ 8. VIDEO LIBRARY ============ -->
+    <section class="chapter" id="videos">
+      <div class="kicker">Section 8</div>
+      <h2>Video Library</h2>
+      <p class="intro">Short instructional videos covering Python, Tables, statistics, and
+      machine learning — most run a few minutes or less, and many are literally 60-second
+      explainers. Good to point a student toward for a quick refresher instead of re-explaining
+      a whole concept from scratch, and good for CAs to skim before your "expert" lab.</p>
+      <p><a class="material-link" href="https://www.youtube.com/@DataScienceTipsandTricks-d2w" target="_blank" rel="noopener">Visit the full channel on YouTube</a></p>
+
+      <h3>🐍 Python Basics &amp; Functions</h3>
+      <p>Loops, functions, and general coding practices.</p>
+      <div class="card-grid">
+        <div class="card"><div class="num">▶</div><h4><a href="https://www.youtube.com/watch?v=BVrNK1rOAsA" target="_blank" rel="noopener">Lab 7 and Functions</a><span class="video-badge featured">Featured</span></h4></div>
+        <div class="card"><div class="num">▶</div><h4><a href="https://www.youtube.com/watch?v=OeifLNRwftY" target="_blank" rel="noopener">Functions are Fun!</a></h4></div>
+        <div class="card"><div class="num">▶</div><h4><a href="https://www.youtube.com/watch?v=umZP0o42yFc" target="_blank" rel="noopener">Tips and Tricks on Functions</a></h4></div>
+        <div class="card"><div class="num">▶</div><h4><a href="https://www.youtube.com/watch?v=3fAK1cXimNE" target="_blank" rel="noopener">Projects and Functions</a></h4></div>
+        <div class="card"><div class="num">▶</div><h4><a href="https://www.youtube.com/watch?v=-MFG1yrr1lk" target="_blank" rel="noopener">For loops in 60 seconds or less</a><span class="video-badge quicktip">Quick Tip</span></h4></div>
+        <div class="card"><div class="num">▶</div><h4><a href="https://www.youtube.com/watch?v=q8zaA_HC5MA" target="_blank" rel="noopener">How to code a math problem in 60 seconds or less</a><span class="video-badge quicktip">Quick Tip</span></h4></div>
+      </div>
+
+      <h3>📊 Tables &amp; Data Manipulation</h3>
+      <p>Working with the datascience Table — essential for almost every lab.</p>
+      <div class="card-grid">
+        <div class="card"><div class="num">▶</div><h4><a href="https://www.youtube.com/watch?v=6k7qDKAGptE" target="_blank" rel="noopener">Tips and Tricks on Tables</a><span class="video-badge featured">Featured</span></h4></div>
+        <div class="card"><div class="num">▶</div><h4><a href="https://www.youtube.com/watch?v=0wKX5g4ArP8" target="_blank" rel="noopener">Table Tips in 5 minutes or less</a></h4></div>
+        <div class="card"><div class="num">▶</div><h4><a href="https://www.youtube.com/watch?v=_RpgSMWyp_U" target="_blank" rel="noopener">How to get data out of a Table in 60 seconds or less</a><span class="video-badge quicktip">Quick Tip</span></h4></div>
+        <div class="card"><div class="num">▶</div><h4><a href="https://www.youtube.com/watch?v=T-qtqIEaDNw" target="_blank" rel="noopener">How to group a Table in 60 sec or less</a><span class="video-badge quicktip">Quick Tip</span></h4></div>
+      </div>
+
+      <h3>📐 Statistics &amp; Probability</h3>
+      <p>Probability, p-values, hypothesis testing, and simulation.</p>
+      <div class="card-grid">
+        <div class="card"><div class="num">▶</div><h4><a href="https://www.youtube.com/watch?v=TjQoD2TZ184" target="_blank" rel="noopener">Probability, p-values, and Python conditional statements</a><span class="video-badge featured">Featured</span></h4></div>
+        <div class="card"><div class="num">▶</div><h4><a href="https://www.youtube.com/watch?v=5LZ2ffru23o" target="_blank" rel="noopener">Tips on simulations</a></h4></div>
+        <div class="card"><div class="num">▶</div><h4><a href="https://www.youtube.com/watch?v=sfxHsvEQncc" target="_blank" rel="noopener">What is a Null hypothesis in 60 seconds or less?</a><span class="video-badge quicktip">Quick Tip</span></h4></div>
+      </div>
+
+      <h3>🤖 Machine Learning</h3>
+      <p>Introduction to machine learning algorithms and concepts.</p>
+      <div class="card-grid">
+        <div class="card"><div class="num">▶</div><h4><a href="https://www.youtube.com/watch?v=ulqMDqylQY0" target="_blank" rel="noopener">Machine Learning Intro: Nearest Neighbors</a><span class="video-badge featured">Featured</span></h4></div>
+      </div>
+    </section>
+
+    <!-- ============ 9. TEST YOURSELF ============ -->
+    <section class="chapter" id="testyourself">
+      <div class="kicker">Section 9</div>
+      <h2>Test Yourself</h2>
+      <p class="intro">Two self-check quizzes spanning this entire manual — good for your first
+      week, and good to revisit anytime. Each pulls the freshest version of the quiz directly
+      from the course repo, so you're never working from a stale copy.</p>
+
+      <div class="callout tip">
+        <b class="label">How the attempts work</b>
+        Each quiz draws 30 questions at random from a bank of 50, and you get <b>3 attempts at
+        the whole quiz</b> — each attempt pulls a fresh set of 30, not the same ones again, so
+        retaking is real practice rather than memorizing one fixed set. Re-running the quiz cell
+        mid-attempt (say, after a kernel restart) always resumes where you left off — it does
+        not use up a new attempt. A new attempt only starts once you've fully finished the
+        previous one. <b>Review the relevant manual sections between attempts</b> rather than
+        immediately retaking — that's the point of having more than one try.
+      </div>
+
+      <h3>Quiz 1 — Coding, Wrangling &amp; Policies</h3>
+      <div class="quiz-launch-card">
+        <h4>Covers Sections 1–3</h4>
+        <p>Policies (CA/Fellow responsibilities and student-facing rules), Coding Review
+        (Python fundamentals, the datascience Table, np.arange()/np.random.choice(), common
+        errors, matplotlib), and Data Wrangling.</p>
+        <a class="pull-button" href="https://temple.2i2c.cloud/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Flaserchemist%2FEDS_CA&urlpath=lab%2Ftree%2FEDS_CA%2FQuiz1_Coding_Wrangling_Policies.ipynb&branch=main" target="_blank" rel="noopener">Launch Quiz 1 on the Hub</a>
+      </div>
+
+      <h3>Quiz 2 — Statistics, Strategies &amp; Teaching Foundations</h3>
+      <div class="quiz-launch-card">
+        <h4>Covers Sections 4–6</h4>
+        <p>Statistics (sample vs. population, simulation-based hypothesis testing, one-/two-tailed
+        tests, effect size, regression, bootstrap, kNN), Strategies for Success, and Teaching
+        Foundations (the Ambrose motivation model, Bloom's taxonomy, teacher as leader).</p>
+        <a class="pull-button" href="https://temple.2i2c.cloud/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Flaserchemist%2FEDS_CA&urlpath=lab%2Ftree%2FEDS_CA%2FQuiz2_Statistics_Teaching.ipynb&branch=main" target="_blank" rel="noopener">Launch Quiz 2 on the Hub</a>
+      </div>
+
+      <p style="margin-top:18px;">
+        <a class="pull-button secondary" href="https://temple.2i2c.cloud/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Flaserchemist%2FEDS_CA&urlpath=lab%2Ftree%2FEDS_CA%2F&branch=main" target="_blank" rel="noopener">Pull the latest CA repo (no specific notebook)</a>
+      </p>
+
+      <div class="callout warn">
+        <b class="label">For whoever maintains this on the Hub</b>
+        Both quiz notebooks need <code>stemds_quiz.py</code>, and their matching
+        <code>questions_quiz*.json</code> bank, present in the same working directory — they're
+        all pulled together by the links above from the root of the repo.
+        <code>stemds_quiz.py</code> stores attempt records in a shared, genuinely writable
+        directory — on this Hub that's <code>shared-public</code>; earlier directory names like
+        <code>shared-readwrite</code> were not reliably writable for students. If that path
+        changes again, it only needs to be updated in one place: the <code>ATTEMPTS_DIR</code>
+        constant at the top of <code>stemds_quiz.py</code>.
+      </div>
+    </section>
+
+    <footer class="manual-footer">
+      Draft manual — Elements of Data Science (SCTC 1013). Not tied to a specific term; built
+      from the course syllabus, the Lab 5 / Quiz 05 pilot notebooks, the STEM Leadership Fellows
+      overview, the CA sign-up form, the Python Review Sheet cheat sheet, the Data Science Tips
+      and Tricks video library, Ambrose et al.'s <i>How Learning Works</i>, Bloom's taxonomy, and
+      a compiled set of leadership quotes.
+      Draft prepared July 21, 2026. Content should be reviewed by the instructional team before
+      wider distribution.
+    </footer>
+  </main>
+</div>
+
+<script>
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  const toggleBtn = document.getElementById('sidebarToggle');
+  const progressBar = document.getElementById('progressBar');
+  const backToTop = document.getElementById('backToTop');
+  const navFilter = document.getElementById('navFilter');
+  const links = Array.from(document.querySelectorAll('#sidebar a[href^="#"]'));
+  const sections = links.map(l => document.querySelector(l.getAttribute('href'))).filter(Boolean);
+
+  // ---- Mobile off-canvas drawer ----
+  function openSidebar(){ sidebar.classList.add('open'); overlay.classList.add('visible'); }
+  function closeSidebar(){ sidebar.classList.remove('open'); overlay.classList.remove('visible'); }
+  if (toggleBtn) toggleBtn.addEventListener('click', () => {
+    sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
+  });
+  if (overlay) overlay.addEventListener('click', closeSidebar);
+  links.forEach(a => a.addEventListener('click', () => {
+    if (window.innerWidth <= 860) closeSidebar();
+  }));
+
+  // ---- Scroll: progress bar, active link, auto-expand current section ----
+  function onScroll(){
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    if (progressBar) progressBar.style.width = pct + '%';
+    if (backToTop) backToTop.classList.toggle('visible', scrollTop > 600);
+
+    let idx = 0;
+    sections.forEach((s, i) => { if (s.getBoundingClientRect().top < 140) idx = i; });
+    links.forEach(l => l.classList.remove('active'));
+    const activeLink = links[idx];
+    if (activeLink) {
+      activeLink.classList.add('active');
+      const details = activeLink.closest('details');
+      if (details && !details.open) details.open = true;
+    }
+  }
+  document.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  onScroll();
+
+  if (backToTop) backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // ---- Nav filter ----
+  if (navFilter) navFilter.addEventListener('input', () => {
+    const q = navFilter.value.trim().toLowerCase();
+    document.querySelectorAll('#sidebar .nav-list > li').forEach(li => {
+      if (!q) { li.classList.remove('nav-hidden'); return; }
+      const match = li.textContent.toLowerCase().includes(q);
+      li.classList.toggle('nav-hidden', !match);
+      if (match) {
+        const d = li.querySelector('details');
+        if (d && !d.open) d.open = true;
+      }
+    });
+  });
+
+  // ---- Copy-to-clipboard for code blocks ----
+  function copyCodeBlock(btn){
+    const container = btn.closest('.code-block-container');
+    const codeEl = container ? container.querySelector('pre.code-block code') : null;
+    if (!codeEl) return;
+    const text = codeEl.innerText;
+    const restoreLabel = () => { btn.textContent = 'Copy'; };
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = 'Copied!';
+      setTimeout(restoreLabel, 1500);
+    }).catch(() => {
+      btn.textContent = 'Press Ctrl/Cmd+C';
+      setTimeout(restoreLabel, 1500);
+    });
+  }
+</script>
+</body>
+</html>

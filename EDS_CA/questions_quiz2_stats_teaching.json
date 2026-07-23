@@ -1,0 +1,1252 @@
+[
+  {
+    "question": "What is the difference between a population and a sample?",
+    "answers": [
+      {
+        "answer": "A population is the entire group of interest; a sample is the subset actually observed or drawn",
+        "correct": true,
+        "feedback": "Correct — e.g. all groundhogs ever observed vs. the 33 in a given dataset."
+      },
+      {
+        "answer": "A population is always smaller than a sample",
+        "correct": false,
+        "feedback": "It's the reverse — the population is the full group, and a sample is a subset of it."
+      },
+      {
+        "answer": "They are two names for exactly the same thing",
+        "correct": false,
+        "feedback": "They're distinct concepts — a sample is drawn from, and used to estimate, the population."
+      },
+      {
+        "answer": "A sample only applies to categorical data, a population only to numeric data",
+        "correct": false,
+        "feedback": "Both concepts apply regardless of data type — the distinction is about scope, not data type."
+      }
+    ]
+  },
+  {
+    "question": "What is the difference between a parameter and a statistic?",
+    "answers": [
+      {
+        "answer": "A parameter describes the population (often unknown); a statistic is computed from a sample (known, but variable)",
+        "correct": true,
+        "feedback": "Correct — a sample statistic is an estimate of the population parameter."
+      },
+      {
+        "answer": "A parameter is computed from a sample; a statistic describes the population",
+        "correct": false,
+        "feedback": "This has it backwards — parameter = population, statistic = sample."
+      },
+      {
+        "answer": "They mean exactly the same thing in statistics",
+        "correct": false,
+        "feedback": "They're deliberately distinct terms for population-level vs. sample-level quantities."
+      },
+      {
+        "answer": "A parameter can only be a percentage, a statistic can only be a count",
+        "correct": false,
+        "feedback": "Both parameters and statistics can take many forms (means, percentages, counts, etc.) — the distinction is population vs. sample, not the kind of number."
+      }
+    ]
+  },
+  {
+    "question": "Why does a sample statistic vary if you draw a different sample from the same population?",
+    "answers": [
+      {
+        "answer": "Sampling variability — chance differences in exactly which observations end up in the sample",
+        "correct": true,
+        "feedback": "Correct — this variability is precisely what simulation-based methods are built to characterize."
+      },
+      {
+        "answer": "It doesn't vary — every sample from the same population gives an identical statistic",
+        "correct": false,
+        "feedback": "Different samples generally give at least slightly different statistics purely by chance."
+      },
+      {
+        "answer": "Only because of human error in data collection",
+        "correct": false,
+        "feedback": "It's expected random variability, not necessarily a mistake in data collection."
+      },
+      {
+        "answer": "Because population parameters themselves change between samples",
+        "correct": false,
+        "feedback": "The population parameter doesn't change — only which particular sample was drawn from it."
+      }
+    ]
+  },
+  {
+    "question": "What is the complement rule of probability?",
+    "answers": [
+      {
+        "answer": "P(not A) = 1 − P(A)",
+        "correct": true,
+        "feedback": "Correct."
+      },
+      {
+        "answer": "P(not A) = P(A) − 1",
+        "correct": false,
+        "feedback": "This can produce negative probabilities — the subtraction order is reversed."
+      },
+      {
+        "answer": "P(not A) = P(A)",
+        "correct": false,
+        "feedback": "An event and its complement generally have different probabilities."
+      },
+      {
+        "answer": "P(not A) = 1 / P(A)",
+        "correct": false,
+        "feedback": "This isn't the complement rule and can produce values above 1."
+      }
+    ]
+  },
+  {
+    "question": "If A and B are independent events, what is P(A and B)?",
+    "answers": [
+      {
+        "answer": "P(A) × P(B)",
+        "correct": true,
+        "feedback": "Correct — independence means knowing A gives no information about B, so probabilities multiply."
+      },
+      {
+        "answer": "P(A) + P(B)",
+        "correct": false,
+        "feedback": "Addition isn't the rule for combining independent joint probabilities."
+      },
+      {
+        "answer": "P(A) − P(B)",
+        "correct": false,
+        "feedback": "Subtraction isn't the rule for independent joint probabilities."
+      },
+      {
+        "answer": "max(P(A), P(B))",
+        "correct": false,
+        "feedback": "This isn't how independent joint probabilities combine."
+      }
+    ]
+  },
+  {
+    "question": "Why does the groundhog lab (and similar labs) run 1,000 simulations rather than just 1?",
+    "answers": [
+      {
+        "answer": "More simulations narrow the uncertainty in the estimated p-value by building a fuller sampling distribution",
+        "correct": true,
+        "feedback": "Correct — a single simulation is just one random draw and tells you little on its own."
+      },
+      {
+        "answer": "A single simulation would cause a runtime error",
+        "correct": false,
+        "feedback": "Running once is technically fine — the issue is statistical reliability, not a coding error."
+      },
+      {
+        "answer": "It makes the resulting histogram more colorful",
+        "correct": false,
+        "feedback": "The reason is statistical precision, not visual appearance."
+      },
+      {
+        "answer": "np.random.choice() requires at least 1,000 calls to function correctly",
+        "correct": false,
+        "feedback": "np.random.choice works with any number of calls — 1,000 is a statistical choice."
+      }
+    ]
+  },
+  {
+    "question": "In the groundhog hypothesis test, what does the null hypothesis (H₀) state?",
+    "answers": [
+      {
+        "answer": "Groundhog predictions are no better than random guessing",
+        "correct": true,
+        "feedback": "Correct."
+      },
+      {
+        "answer": "Groundhogs are definitely accurate weather predictors",
+        "correct": false,
+        "feedback": "That describes the alternative hypothesis (H₁), not the null."
+      },
+      {
+        "answer": "There is no relationship between shadow and spring, proven with certainty",
+        "correct": false,
+        "feedback": "H0 is a testable starting assumption, not something proven with certainty."
+      },
+      {
+        "answer": "The dataset contains a data-entry error",
+        "correct": false,
+        "feedback": "H0 is a statistical claim about the effect, not a claim about data quality."
+      }
+    ]
+  },
+  {
+    "question": "What does a p-value actually measure?",
+    "answers": [
+      {
+        "answer": "The probability of a result at least as extreme as observed, assuming H₀ is true",
+        "correct": true,
+        "feedback": "Correct — this precise definition matters; it is not \"the probability H0 is true.\""
+      },
+      {
+        "answer": "The probability that H₀ is true",
+        "correct": false,
+        "feedback": "This is a very common misconception — the p-value assumes H0 is true and asks how extreme the data are."
+      },
+      {
+        "answer": "The probability that H₁ is true",
+        "correct": false,
+        "feedback": "The p-value is computed under H0, not H1, and doesn't directly give the probability of H1."
+      },
+      {
+        "answer": "The percentage of correct predictions in the raw data",
+        "correct": false,
+        "feedback": "That's a different quantity (e.g. percent_correct) entirely, not the p-value."
+      }
+    ]
+  },
+  {
+    "question": "Can a hypothesis test ever \"prove\" the alternative hypothesis (H₁)?",
+    "answers": [
+      {
+        "answer": "No — you can only reject or fail to reject H₀, never prove H₁",
+        "correct": true,
+        "feedback": "Correct — this is explicitly emphasized throughout the course's statistics material."
+      },
+      {
+        "answer": "Yes, whenever the p-value is below 0.05",
+        "correct": false,
+        "feedback": "A small p-value gives evidence against H0, but this still falls short of \"proving\" H1."
+      },
+      {
+        "answer": "Yes, but only with more than 1,000 simulations",
+        "correct": false,
+        "feedback": "No number of simulations changes the logical structure of hypothesis testing."
+      },
+      {
+        "answer": "Yes, if the sample size is large enough",
+        "correct": false,
+        "feedback": "Sample size affects statistical power, not whether H1 can be logically \"proven.\""
+      }
+    ]
+  },
+  {
+    "question": "Using the course's interpretation scale, how should a p-value of 0.03 be described?",
+    "answers": [
+      {
+        "answer": "Suggestive evidence against H₀ (0.01 < p ≤ 0.05)",
+        "correct": true,
+        "feedback": "Correct."
+      },
+      {
+        "answer": "Strong evidence against H₀",
+        "correct": false,
+        "feedback": "Strong evidence is reserved for p ≤ 0.01 in this course's scale."
+      },
+      {
+        "answer": "Insufficient evidence to reject H₀",
+        "correct": false,
+        "feedback": "That interpretation applies to p > 0.05, not p = 0.03."
+      },
+      {
+        "answer": "Proof that H₁ is correct",
+        "correct": false,
+        "feedback": "No p-value threshold constitutes \"proof\" of H1."
+      }
+    ]
+  },
+  {
+    "question": "What is the correct order of the four-step simulation-based hypothesis testing recipe?",
+    "answers": [
+      {
+        "answer": "Simulate outcomes under H₀ → compute the test statistic for each → compare the observed statistic to that distribution → compute the proportion at least as extreme",
+        "correct": true,
+        "feedback": "Correct — this same four-step structure applies whether it's groundhogs or any other test."
+      },
+      {
+        "answer": "Compute the p-value first, then decide what the null hypothesis should be",
+        "correct": false,
+        "feedback": "H0 must be defined before any simulation or p-value calculation happens, not after."
+      },
+      {
+        "answer": "Collect more real-world data until the result becomes significant",
+        "correct": false,
+        "feedback": "This describes a questionable practice (p-hacking), not the legitimate simulation-based testing recipe."
+      },
+      {
+        "answer": "Simulate outcomes under H₁, then compare to the real H₀ data",
+        "correct": false,
+        "feedback": "The simulation is built assuming H0 is true, not H1 — that's the whole point of the null distribution."
+      }
+    ]
+  },
+  {
+    "question": "In the null-distribution histogram (teal bars) with a shaded maroon tail, what does the shaded region represent?",
+    "answers": [
+      {
+        "answer": "The proportion of simulated outcomes at least as extreme as the observed statistic — the p-value",
+        "correct": true,
+        "feedback": "Correct."
+      },
+      {
+        "answer": "The population mean",
+        "correct": false,
+        "feedback": "The shaded region represents the p-value area, not a mean."
+      },
+      {
+        "answer": "The sample size used in the study",
+        "correct": false,
+        "feedback": "Sample size isn't represented by the shaded area — it's about the tail proportion."
+      },
+      {
+        "answer": "The total number of simulations run",
+        "correct": false,
+        "feedback": "The total simulation count is reflected in the whole histogram, not just the shaded tail."
+      }
+    ]
+  },
+  {
+    "question": "What is the multiple comparisons problem?",
+    "answers": [
+      {
+        "answer": "Running many hypothesis tests on the same data inflates the overall false-positive rate",
+        "correct": true,
+        "feedback": "Correct — with 3 tests at α=0.05, P(at least one false positive) ≈ 0.143, not 5%."
+      },
+      {
+        "answer": "A Table object can't run more than one .where() call",
+        "correct": false,
+        "feedback": "This isn't a technical Table limitation — it's a statistical inference concern."
+      },
+      {
+        "answer": "Simulations run more slowly with more comparisons",
+        "correct": false,
+        "feedback": "The issue is statistical validity, not computational speed."
+      },
+      {
+        "answer": "Only one p-value can ever be computed per notebook",
+        "correct": false,
+        "feedback": "Any number of p-values can be computed — the concern is how to interpret many of them together."
+      }
+    ]
+  },
+  {
+    "question": "What is the Bonferroni-corrected threshold if the original α is 0.05 and 34 tests are run?",
+    "answers": [
+      {
+        "answer": "≈ 0.0015 (0.05 divided by 34)",
+        "correct": true,
+        "feedback": "Correct — α_adjusted = α / n_tests."
+      },
+      {
+        "answer": "0.05 × 34 ≈ 1.7",
+        "correct": false,
+        "feedback": "The correction divides, it doesn't multiply — multiplying gives an invalid probability above 1."
+      },
+      {
+        "answer": "Still 0.05, unchanged",
+        "correct": false,
+        "feedback": "The whole point of the correction is to adjust the threshold downward given multiple tests."
+      },
+      {
+        "answer": "0.05 minus 34",
+        "correct": false,
+        "feedback": "This produces a negative number — the correction is a division, not a subtraction."
+      }
+    ]
+  },
+  {
+    "question": "The groundhog test only counts simulated outcomes at or above the observed accuracy. What kind of test is this?",
+    "answers": [
+      {
+        "answer": "A one-tailed (directional) test",
+        "correct": true,
+        "feedback": "Correct — appropriate because the question was specifically \"are groundhogs better than chance,\" a directional claim."
+      },
+      {
+        "answer": "A two-tailed test",
+        "correct": false,
+        "feedback": "A two-tailed test would count extreme outcomes in both directions, not just one."
+      },
+      {
+        "answer": "Neither one-tailed nor two-tailed — this distinction doesn't apply here",
+        "correct": false,
+        "feedback": "The distinction applies to any hypothesis test, including this one — and it's specifically one-tailed."
+      },
+      {
+        "answer": "A paired test",
+        "correct": false,
+        "feedback": "\"Paired\" refers to a different concept (comparing matched observations), not tail direction."
+      }
+    ]
+  },
+  {
+    "question": "When is a two-tailed test the appropriate choice instead of a one-tailed test?",
+    "answers": [
+      {
+        "answer": "When the question is non-directional — e.g. \"is this coin biased at all?\" rather than \"is it biased toward heads?\"",
+        "correct": true,
+        "feedback": "Correct — two-tailed tests count extremes in both directions of the null distribution."
+      },
+      {
+        "answer": "Whenever the sample size is large",
+        "correct": false,
+        "feedback": "Sample size doesn't determine one-tailed vs. two-tailed — the phrasing of the question does."
+      },
+      {
+        "answer": "Whenever p < 0.05",
+        "correct": false,
+        "feedback": "The choice must be made before looking at the p-value, based on how the question is phrased."
+      },
+      {
+        "answer": "Never — two-tailed tests are considered invalid in this course",
+        "correct": false,
+        "feedback": "Two-tailed tests are a standard, valid choice for non-directional questions."
+      }
+    ]
+  },
+  {
+    "question": "What typically happens to a p-value if you switch a test from one-tailed to two-tailed on the same data?",
+    "answers": [
+      {
+        "answer": "It roughly doubles, since the same 5% threshold is now spread across both tails instead of one",
+        "correct": true,
+        "feedback": "Correct — this is why matching the tail choice to how the question was phrased matters."
+      },
+      {
+        "answer": "It stays exactly the same regardless of tail choice",
+        "correct": false,
+        "feedback": "Switching tails generally changes the p-value noticeably, roughly by a factor of 2."
+      },
+      {
+        "answer": "It always becomes exactly 0.05",
+        "correct": false,
+        "feedback": "There's no rule forcing the p-value to a fixed number when switching tails."
+      },
+      {
+        "answer": "It becomes undefined",
+        "correct": false,
+        "feedback": "The p-value remains well-defined either way — it's just computed differently."
+      }
+    ]
+  },
+  {
+    "question": "What does \"statistical significance\" actually tell you about a result?",
+    "answers": [
+      {
+        "answer": "How likely a result this extreme is to occur by chance — nothing directly about how large or important it is",
+        "correct": true,
+        "feedback": "Correct — this is different from the everyday meaning of \"significant\" as important or big."
+      },
+      {
+        "answer": "That the effect is large and practically important",
+        "correct": false,
+        "feedback": "This is the everyday meaning of \"significant,\" but not what statistical significance actually measures."
+      },
+      {
+        "answer": "That the result is definitely true and can't be a fluke",
+        "correct": false,
+        "feedback": "Even a statistically significant result could still be a chance occurrence — it's a probability statement, not a certainty."
+      },
+      {
+        "answer": "The exact size of the effect being studied",
+        "correct": false,
+        "feedback": "That's what effect size measures — significance is a separate question about likelihood, not magnitude."
+      }
+    ]
+  },
+  {
+    "question": "What is \"effect size,\" and why does it matter alongside a p-value?",
+    "answers": [
+      {
+        "answer": "A measure of the magnitude of a relationship or difference, independent of sample size — a result can be significant but have a tiny, unimportant effect size",
+        "correct": true,
+        "feedback": "Correct — with a large enough sample, even a trivial difference can be statistically significant."
+      },
+      {
+        "answer": "Another name for the p-value itself",
+        "correct": false,
+        "feedback": "Effect size and p-value are two distinct, separate questions a result has to answer."
+      },
+      {
+        "answer": "The total number of participants or observations in the study",
+        "correct": false,
+        "feedback": "That's sample size, which is different from — and can be independent of — effect size."
+      },
+      {
+        "answer": "A measure that only applies to categorical data",
+        "correct": false,
+        "feedback": "Effect size applies broadly, including to numeric relationships like correlation."
+      }
+    ]
+  },
+  {
+    "question": "Why is the correlation coefficient r itself considered an effect-size measure, not just part of a significance test?",
+    "answers": [
+      {
+        "answer": "It directly describes the strength of a relationship, independent of how much data was collected",
+        "correct": true,
+        "feedback": "Correct — an r of 0.05 can be statistically significant with enough data, while still describing a relationship too weak to act on."
+      },
+      {
+        "answer": "Because r always equals the p-value for a correlation test",
+        "correct": false,
+        "feedback": "r and the p-value for a correlation test are related but are not the same quantity."
+      },
+      {
+        "answer": "Because r can only take the values 0 or 1",
+        "correct": false,
+        "feedback": "r ranges continuously from -1 to 1 — that range is exactly what makes it a magnitude measure."
+      },
+      {
+        "answer": "It isn't actually an effect-size measure",
+        "correct": false,
+        "feedback": "r is a commonly cited example of an effect-size measure precisely because it quantifies relationship strength."
+      }
+    ]
+  },
+  {
+    "question": "What is the formula for converting a value to standard units?",
+    "answers": [
+      {
+        "answer": "(x − mean) / standard deviation",
+        "correct": true,
+        "feedback": "Correct — centers data at 0 with a standard deviation of 1."
+      },
+      {
+        "answer": "(x − mean) × standard deviation",
+        "correct": false,
+        "feedback": "Standard units divide by the standard deviation, not multiply."
+      },
+      {
+        "answer": "(x + mean) / standard deviation",
+        "correct": false,
+        "feedback": "The mean should be subtracted, not added."
+      },
+      {
+        "answer": "x / mean",
+        "correct": false,
+        "feedback": "This doesn't reference the standard deviation at all, so it isn't standard units."
+      }
+    ]
+  },
+  {
+    "question": "In standard units, what does the slope of the regression line equal?",
+    "answers": [
+      {
+        "answer": "The correlation coefficient, r",
+        "correct": true,
+        "feedback": "Correct — this is why standard units make regression calculations clean."
+      },
+      {
+        "answer": "Always exactly 1",
+        "correct": false,
+        "feedback": "The slope in standard units equals r, which varies with the strength of the relationship."
+      },
+      {
+        "answer": "The mean of y divided by the mean of x",
+        "correct": false,
+        "feedback": "That's not the definition used here — the standard-units slope is r."
+      },
+      {
+        "answer": "The standard deviation of x",
+        "correct": false,
+        "feedback": "Standard deviations convert the slope back to original units — the standard-units slope itself is r."
+      }
+    ]
+  },
+  {
+    "question": "What is a bootstrap resample?",
+    "answers": [
+      {
+        "answer": "A sample drawn with replacement from an already-observed sample",
+        "correct": true,
+        "feedback": "Correct — bootstrapping treats the observed sample as a stand-in for the population and resamples from it."
+      },
+      {
+        "answer": "A brand-new sample collected directly from the real-world population",
+        "correct": false,
+        "feedback": "Bootstrapping reuses the existing sample rather than collecting new data."
+      },
+      {
+        "answer": "A sample drawn without replacement from the population",
+        "correct": false,
+        "feedback": "Bootstrap resampling specifically uses replacement and draws from the sample, not the full population."
+      },
+      {
+        "answer": "The average of several completely different datasets",
+        "correct": false,
+        "feedback": "That describes a kind of ensembling, not the resampling procedure used in bootstrapping."
+      }
+    ]
+  },
+  {
+    "question": "What is the purpose of a bootstrap confidence interval?",
+    "answers": [
+      {
+        "answer": "To quantify the uncertainty in an estimate (like a regression slope) due to sampling variability",
+        "correct": true,
+        "feedback": "Correct — repeated resampling gives a range of plausible values for the estimate."
+      },
+      {
+        "answer": "To make a regression line perfectly straight",
+        "correct": false,
+        "feedback": "Bootstrapping doesn't change the fitted line itself — it quantifies uncertainty around the estimate."
+      },
+      {
+        "answer": "To remove outliers from a dataset",
+        "correct": false,
+        "feedback": "Bootstrapping resamples existing data — it isn't a data-cleaning technique."
+      },
+      {
+        "answer": "To increase the size of the original dataset permanently",
+        "correct": false,
+        "feedback": "Bootstrap resamples are the same size as the original sample, not a permanent expansion of it."
+      }
+    ]
+  },
+  {
+    "question": "In k-nearest neighbors, what does the parameter k control?",
+    "answers": [
+      {
+        "answer": "The number of nearest neighbors considered when making a prediction",
+        "correct": true,
+        "feedback": "Correct — k is a hyperparameter the modeler can tune."
+      },
+      {
+        "answer": "The number of features used in the model",
+        "correct": false,
+        "feedback": "That's the length of the features list, a separate concept from k."
+      },
+      {
+        "answer": "The total number of rows in the dataset",
+        "correct": false,
+        "feedback": "k refers to how many close neighbors are examined per prediction, not overall dataset size."
+      },
+      {
+        "answer": "The number of times the model is retrained",
+        "correct": false,
+        "feedback": "k controls neighbor count per prediction, not training iterations."
+      }
+    ]
+  },
+  {
+    "question": "Why is standardizing features (converting to standard units) important before computing Euclidean distances for kNN?",
+    "answers": [
+      {
+        "answer": "Otherwise, features with larger raw scales (like molecular weight) would dominate the distance calculation over smaller-scale features (like bond order)",
+        "correct": true,
+        "feedback": "Correct — this is exactly why the pKa prediction lab standardizes its features first."
+      },
+      {
+        "answer": "It makes the model train faster",
+        "correct": false,
+        "feedback": "The concern is correctness of the distance metric, not speed."
+      },
+      {
+        "answer": "It's required by Python syntax",
+        "correct": false,
+        "feedback": "This is a modeling/statistical concern, not a language requirement."
+      },
+      {
+        "answer": "It converts categorical features into numeric ones",
+        "correct": false,
+        "feedback": "Standardization rescales numeric features — it doesn't encode categorical variables."
+      }
+    ]
+  },
+  {
+    "question": "What is the purpose of splitting data into training and test sets before building a kNN model?",
+    "answers": [
+      {
+        "answer": "To evaluate how well the model predicts on data it hasn't seen before",
+        "correct": true,
+        "feedback": "Correct — this checks genuine prediction quality rather than just recalling training data."
+      },
+      {
+        "answer": "To reduce how much data needs to be loaded into the notebook",
+        "correct": false,
+        "feedback": "The split isn't about reducing data volume — it's about honestly evaluating prediction quality."
+      },
+      {
+        "answer": "Test data is used for training, and training data for evaluation",
+        "correct": false,
+        "feedback": "This reverses the roles — training data trains the model, test data evaluates it."
+      },
+      {
+        "answer": "It's a requirement specific to displaying molecular structures",
+        "correct": false,
+        "feedback": "Train/test splitting is a general machine-learning practice, unrelated to molecule visualization."
+      }
+    ]
+  },
+  {
+    "question": "About what fraction of surveyed students reported never having coded in Python before this course?",
+    "answers": [
+      {
+        "answer": "The large majority — roughly 36 out of 40 surveyed",
+        "correct": true,
+        "feedback": "Correct — this is why CAs should assume most students are starting from zero."
+      },
+      {
+        "answer": "Almost none — most students already had programming experience",
+        "correct": false,
+        "feedback": "It's the opposite — the large majority had no prior coding experience."
+      },
+      {
+        "answer": "Exactly half of surveyed students",
+        "correct": false,
+        "feedback": "The actual proportion is much higher than half — closer to 90%."
+      },
+      {
+        "answer": "This wasn't something the course surveyed",
+        "correct": false,
+        "feedback": "This was specifically surveyed and is a key data point for calibrating CA expectations."
+      }
+    ]
+  },
+  {
+    "question": "What's a recommended CA classroom habit, rather than waiting at the front of the room?",
+    "answers": [
+      {
+        "answer": "Actively roam and circulate during lab time, since anxious students often won't raise a hand first",
+        "correct": true,
+        "feedback": "Correct — most students needing help won't proactively ask for it."
+      },
+      {
+        "answer": "Stay seated at the front until a student raises their hand",
+        "correct": false,
+        "feedback": "This is the opposite of the recommended approach — most students who need help won't volunteer first."
+      },
+      {
+        "answer": "Only help students during official office hours, never during class",
+        "correct": false,
+        "feedback": "In-class circulating and support is an explicit part of the CA role, not just office hours."
+      },
+      {
+        "answer": "Answer every question immediately without asking the student anything first",
+        "correct": false,
+        "feedback": "The recommended approach is to ask a guiding question first (peer instruction), not just supply the answer."
+      }
+    ]
+  },
+  {
+    "question": "Which students can attend a given CA's office hours?",
+    "answers": [
+      {
+        "answer": "Students from any section, not just the CA's own assigned section",
+        "correct": true,
+        "feedback": "Correct — office hours are open across all sections."
+      },
+      {
+        "answer": "Only students from the CA's own assigned section",
+        "correct": false,
+        "feedback": "This is the opposite — office hours are explicitly open to all sections."
+      },
+      {
+        "answer": "Only students who have failed a previous lab",
+        "correct": false,
+        "feedback": "There's no such eligibility restriction — office hours are open to any student."
+      },
+      {
+        "answer": "Only graduate students",
+        "correct": false,
+        "feedback": "This is an undergraduate first-year course — office hours are for its own undergraduate students."
+      }
+    ]
+  },
+  {
+    "question": "A quiz locks the moment the quiz cell is run and allows only one attempt per question. What should a CA tell students BEFORE they open it?",
+    "answers": [
+      {
+        "answer": "That restarting the kernel will not give them a new set of questions or another attempt, so they should be prepared before opening it",
+        "correct": true,
+        "feedback": "Correct — this needs to be communicated clearly in advance, not discovered after the fact."
+      },
+      {
+        "answer": "Nothing — this behavior is self-explanatory once they open the quiz",
+        "correct": false,
+        "feedback": "This is exactly the kind of high-stakes, surprising behavior that should be flagged in advance."
+      },
+      {
+        "answer": "That they can always restart for a fresh attempt",
+        "correct": false,
+        "feedback": "This is the opposite of the intended lockout behavior for a strict single-attempt quiz."
+      },
+      {
+        "answer": "That the quiz will auto-save every answer as a draft they can edit later",
+        "correct": false,
+        "feedback": "Locked quizzes specifically do not allow going back to change answers once submitted."
+      }
+    ]
+  },
+  {
+    "question": "If several students in a CA's section are stuck on the exact same conceptual point, what's the best next step?",
+    "answers": [
+      {
+        "answer": "Bring the pattern up at the weekly instructional check-in, rather than solving it one-on-one repeatedly all semester",
+        "correct": true,
+        "feedback": "Correct — check-ins exist specifically to surface recurring difficulties so they can be addressed at the source."
+      },
+      {
+        "answer": "Keep re-explaining it individually to each student as they come up, without mentioning it to the instructional team",
+        "correct": false,
+        "feedback": "This misses the opportunity to fix a shared root cause — recurring patterns should be surfaced at check-ins."
+      },
+      {
+        "answer": "Assume it's a coincidence and take no further action",
+        "correct": false,
+        "feedback": "A recurring pattern across multiple students is exactly the kind of signal worth escalating, not ignoring."
+      },
+      {
+        "answer": "Tell the students to figure it out among themselves without CA involvement",
+        "correct": false,
+        "feedback": "This doesn't address the underlying gap, and misses a chance to improve materials for future students too."
+      }
+    ]
+  },
+  {
+    "question": "Why is \"read the traceback together out loud\" a useful CA habit when a student hits an error?",
+    "answers": [
+      {
+        "answer": "It normalizes errors as a routine, fixable part of coding, and helps the student learn to recognize error types themselves over time",
+        "correct": true,
+        "feedback": "Correct — treating errors as normal (not scary) is especially important for students anxious about coding."
+      },
+      {
+        "answer": "It's mainly a way to save the CA time by not having to explain anything",
+        "correct": false,
+        "feedback": "It's actually a teaching technique, requiring active explanation, not a shortcut to avoid explaining."
+      },
+      {
+        "answer": "Because most errors are unrelated to the actual bug and can be ignored",
+        "correct": false,
+        "feedback": "Tracebacks usually do point toward the actual bug — that's exactly why reading them together is useful."
+      },
+      {
+        "answer": "It's only useful for advanced students, not beginners",
+        "correct": false,
+        "feedback": "This is especially valuable for beginners, who are the majority of students in this course."
+      }
+    ]
+  },
+  {
+    "question": "What does \"peer instruction\" look like in this CA role, as opposed to a lecture-style explanation?",
+    "answers": [
+      {
+        "answer": "Asking a guiding question (e.g. \"what do you expect this line to return?\") before supplying the fix",
+        "correct": true,
+        "feedback": "Correct — this prompts the student to reason it out rather than just receive an answer."
+      },
+      {
+        "answer": "Immediately providing the corrected code without further discussion",
+        "correct": false,
+        "feedback": "This describes direct answer-giving, which is what peer instruction is meant to move away from."
+      },
+      {
+        "answer": "Only working with students who already understand the material well",
+        "correct": false,
+        "feedback": "Peer instruction is meant to help students at all levels, especially those who are struggling."
+      },
+      {
+        "answer": "Requiring students to submit a formal question in writing first",
+        "correct": false,
+        "feedback": "There's no such formal requirement — peer instruction happens through informal, in-the-moment dialogue."
+      }
+    ]
+  },
+  {
+    "question": "According to Ambrose et al.'s model, what two factors combine to produce student motivation?",
+    "answers": [
+      {
+        "answer": "Value and Expectancy",
+        "correct": true,
+        "feedback": "Correct — value (does the student care?) and expectancy (do they believe they can succeed?)."
+      },
+      {
+        "answer": "Grades and attendance",
+        "correct": false,
+        "feedback": "These are outcomes/behaviors, not the underlying motivational factors in Ambrose's model."
+      },
+      {
+        "answer": "Intelligence and prior GPA",
+        "correct": false,
+        "feedback": "The model is about value and expectancy, not fixed traits like intelligence or past grades."
+      },
+      {
+        "answer": "Class size and time of day",
+        "correct": false,
+        "feedback": "These are environmental logistics, not the core Value/Expectancy factors in the model."
+      }
+    ]
+  },
+  {
+    "question": "In the Ambrose motivation model, what does \"Value\" refer to?",
+    "answers": [
+      {
+        "answer": "Whether the student sees the goal or outcome as worthwhile",
+        "correct": true,
+        "feedback": "Correct — value alone isn't enough without expectancy, but it's a necessary piece."
+      },
+      {
+        "answer": "The student's grade point average",
+        "correct": false,
+        "feedback": "GPA isn't what \"Value\" refers to in this model — it's about perceived worth of the task/goal."
+      },
+      {
+        "answer": "How much the course costs in tuition",
+        "correct": false,
+        "feedback": "This isn't a financial concept — it's about the student's perception of the task's worth."
+      },
+      {
+        "answer": "The difficulty level of the material",
+        "correct": false,
+        "feedback": "Difficulty relates more to expectancy/efficacy — value is about whether the goal feels worthwhile."
+      }
+    ]
+  },
+  {
+    "question": "In the Ambrose model, what does \"Efficacy\" specifically refer to?",
+    "answers": [
+      {
+        "answer": "The student's belief in their own ability to produce the intended result",
+        "correct": true,
+        "feedback": "Correct — a sub-component of expectancy."
+      },
+      {
+        "answer": "The objective, measured accuracy of a model's predictions",
+        "correct": false,
+        "feedback": "That's a machine-learning usage of a similar-sounding term — in the motivation model, efficacy is about self-belief."
+      },
+      {
+        "answer": "The number of correct answers on a quiz",
+        "correct": false,
+        "feedback": "Efficacy is about a student's belief in their ability, not a raw score count."
+      },
+      {
+        "answer": "How supportive the classroom environment feels",
+        "correct": false,
+        "feedback": "That's the separate \"Environment\" factor, crossed with efficacy in the model, not efficacy itself."
+      }
+    ]
+  },
+  {
+    "question": "In the Ambrose framework's interactive grid, what student posture results from low efficacy + unsupportive environment + doesn't see value?",
+    "answers": [
+      {
+        "answer": "Rejecting",
+        "correct": true,
+        "feedback": "Correct — this is distinct from \"hopeless,\" which occurs when the student sees value but still has low efficacy in an unsupportive environment."
+      },
+      {
+        "answer": "Motivated",
+        "correct": false,
+        "feedback": "\"Motivated\" is the target state — high efficacy, supportive environment, and sees value — the opposite combination."
+      },
+      {
+        "answer": "Evading",
+        "correct": false,
+        "feedback": "\"Evading\" occurs with high efficacy in a supportive environment but not yet seeing value — a different combination."
+      },
+      {
+        "answer": "Fragile",
+        "correct": false,
+        "feedback": "\"Fragile\" occurs with low efficacy but a supportive environment and sees value — not this combination."
+      }
+    ]
+  },
+  {
+    "question": "What combination of factors produces the \"motivated\" student posture in the Ambrose framework?",
+    "answers": [
+      {
+        "answer": "High efficacy, a supportive environment, and seeing value in the task",
+        "correct": true,
+        "feedback": "Correct — this is the target state the three teaching levers (Value, Efficacy/Expectancy, Environment) aim to produce."
+      },
+      {
+        "answer": "Low efficacy and not seeing value, regardless of environment",
+        "correct": false,
+        "feedback": "That combination produces \"rejecting\" or \"hopeless,\" not \"motivated.\""
+      },
+      {
+        "answer": "High efficacy but an unsupportive environment",
+        "correct": false,
+        "feedback": "An unsupportive environment paired with high efficacy doesn't match \"motivated\" in this framework — environment matters too."
+      },
+      {
+        "answer": "Any student who attends office hours regularly",
+        "correct": false,
+        "feedback": "Attendance isn't how this specific model defines \"motivated\" — it's about the value/efficacy/environment combination."
+      }
+    ]
+  },
+  {
+    "question": "What are the three teaching levers described alongside the Ambrose motivation model?",
+    "answers": [
+      {
+        "answer": "Value, Efficacy/Expectancy, and Environment",
+        "correct": true,
+        "feedback": "Correct — each is something a CA can deliberately act on to shift a student's motivation."
+      },
+      {
+        "answer": "Grading, attendance, and homework",
+        "correct": false,
+        "feedback": "These are course mechanics, not the specific levers described in the Ambrose framework."
+      },
+      {
+        "answer": "Textbook, lecture, and lab",
+        "correct": false,
+        "feedback": "These are course components, not the motivational levers from the model."
+      },
+      {
+        "answer": "Intelligence, effort, and luck",
+        "correct": false,
+        "feedback": "These aren't the levers described — the model specifically names Value, Efficacy/Expectancy, and Environment."
+      }
+    ]
+  },
+  {
+    "question": "A student appears checked out during lab time, but it turns out they're studying for an upcoming organic chemistry exam instead. What does this suggest?",
+    "answers": [
+      {
+        "answer": "It may be a prioritization problem rather than a Value or Efficacy problem with this specific lab",
+        "correct": true,
+        "feedback": "Correct — the Ambrose framework's levers don't directly address competing priorities from other coursework."
+      },
+      {
+        "answer": "The student definitely has low efficacy for this course",
+        "correct": false,
+        "feedback": "This isn't necessarily an efficacy issue at all — it may be about competing time demands, not ability."
+      },
+      {
+        "answer": "The student doesn't see any value in data science as a field",
+        "correct": false,
+        "feedback": "This framing may not apply — the issue could simply be reprioritizing time toward a more urgent deadline elsewhere."
+      },
+      {
+        "answer": "Nothing can be done in this situation",
+        "correct": false,
+        "feedback": "Naming the tradeoff plainly and making the cost of deferring visible can help, even if it's not a value/efficacy fix."
+      }
+    ]
+  },
+  {
+    "question": "What tends to help when a student is treating lab time as a de facto study hall for another class?",
+    "answers": [
+      {
+        "answer": "Naming the situation plainly and making the cost of deferring the lab visible, rather than trying to make the lab itself more appealing",
+        "correct": true,
+        "feedback": "Correct — this is a prioritization issue, not something solved by increasing the lab's perceived value."
+      },
+      {
+        "answer": "Making the lab more fun and engaging",
+        "correct": false,
+        "feedback": "Since the root issue is competing priorities, not disengagement from the lab's content, this doesn't directly address it."
+      },
+      {
+        "answer": "Ignoring it entirely since it will resolve itself",
+        "correct": false,
+        "feedback": "Naming the tradeoff explicitly tends to help more than ignoring it."
+      },
+      {
+        "answer": "Reporting the student for an academic honesty violation",
+        "correct": false,
+        "feedback": "Working on other coursework during unstructured lab time isn't an honesty violation — it's a time-management/prioritization issue."
+      }
+    ]
+  },
+  {
+    "question": "What is the correct order of Bloom's taxonomy, from most concrete/basic to most complex?",
+    "answers": [
+      {
+        "answer": "Remember → Understand → Apply → Analyze → Evaluate → Create",
+        "correct": true,
+        "feedback": "Correct — skills build from concrete recall up to independent creation."
+      },
+      {
+        "answer": "Create → Evaluate → Analyze → Apply → Understand → Remember",
+        "correct": false,
+        "feedback": "This is the taxonomy in reverse order — it actually builds from Remember up to Create."
+      },
+      {
+        "answer": "Understand → Remember → Create → Apply → Evaluate → Analyze",
+        "correct": false,
+        "feedback": "This order doesn't match the established Bloom's taxonomy sequence."
+      },
+      {
+        "answer": "There is no defined order; all levels are equivalent",
+        "correct": false,
+        "feedback": "Bloom's taxonomy specifically describes a hierarchy from simpler to more complex cognitive skills."
+      }
+    ]
+  },
+  {
+    "question": "\"Explain in your own words why a p-value is not the probability that H₀ is true.\" Which Bloom's level does this best match?",
+    "answers": [
+      {
+        "answer": "Understand",
+        "correct": true,
+        "feedback": "Correct — explaining a concept in one's own words is a classic \"Understand\"-level task."
+      },
+      {
+        "answer": "Remember",
+        "correct": false,
+        "feedback": "Remember would be more like reciting the definition verbatim, not explaining it in your own words."
+      },
+      {
+        "answer": "Create",
+        "correct": false,
+        "feedback": "Create involves designing something new, like a final project — this is a more foundational explanatory task."
+      },
+      {
+        "answer": "Evaluate",
+        "correct": false,
+        "feedback": "Evaluate involves judging the validity/quality of an approach — this task is more about basic conceptual explanation."
+      }
+    ]
+  },
+  {
+    "question": "Which Bloom's taxonomy level does the final group project (choosing a dataset, question, and method) best represent?",
+    "answers": [
+      {
+        "answer": "Create",
+        "correct": true,
+        "feedback": "Correct — designing something new from scratch is the top of Bloom's taxonomy."
+      },
+      {
+        "answer": "Remember",
+        "correct": false,
+        "feedback": "Remember is basic recall — the final project is a much more independent, higher-order task."
+      },
+      {
+        "answer": "Apply",
+        "correct": false,
+        "feedback": "Apply is using a known method on a new dataset — the final project is more open-ended than that."
+      },
+      {
+        "answer": "Understand",
+        "correct": false,
+        "feedback": "Understand is explaining a concept — the final project is a more complex, independent design task."
+      }
+    ]
+  },
+  {
+    "question": "A student can't answer an \"analyze\" or \"evaluate\" level question. What should a CA check first?",
+    "answers": [
+      {
+        "answer": "Whether the student's \"remember\" and \"understand\" level foundation is actually solid first",
+        "correct": true,
+        "feedback": "Correct — re-explaining the harder question usually doesn't stick if the foundation underneath it is shaky."
+      },
+      {
+        "answer": "Assume the student just needs to hear the same explanation again, louder or slower",
+        "correct": false,
+        "feedback": "Repeating the same explanation without checking the foundational gap often doesn't help."
+      },
+      {
+        "answer": "Move the student directly to \"create\"-level work to challenge them further",
+        "correct": false,
+        "feedback": "Skipping ahead to a higher level doesn't address a missing foundation lower in the hierarchy."
+      },
+      {
+        "answer": "Conclude the student isn't capable of higher-level thinking",
+        "correct": false,
+        "feedback": "A gap at a lower level doesn't mean the student can't reach higher levels — it means the foundation needs shoring up first."
+      }
+    ]
+  },
+  {
+    "question": "What is the core idea behind framing the CA/Fellow role as a form of \"teacher as leader\"?",
+    "answers": [
+      {
+        "answer": "Leadership here means unlocking a student's existing potential, rather than directing or evaluating them from above",
+        "correct": true,
+        "feedback": "Correct — this framing treats the CA as a peer-level enabler, not an authority figure."
+      },
+      {
+        "answer": "CAs should have formal authority to assign final grades",
+        "correct": false,
+        "feedback": "This isn't about grading authority — it's about a mentoring, potential-unlocking relationship with students."
+      },
+      {
+        "answer": "Leadership means being the strictest enforcer of the rules",
+        "correct": false,
+        "feedback": "The framing specifically contrasts earned trust/support with rule-enforcement or authority-based leadership."
+      },
+      {
+        "answer": "Only STEM Leadership Fellows should think of themselves as leaders, not other CAs",
+        "correct": false,
+        "feedback": "The manual frames this leadership mindset as applying to all CAs, regardless of formal title."
+      }
+    ]
+  },
+  {
+    "question": "Which book/authors introduced the Value/Expectancy/Efficacy motivation model used in this manual?",
+    "answers": [
+      {
+        "answer": "Ambrose, Bridges, DiPietro, Lovett, and Norman — How Learning Works",
+        "correct": true,
+        "feedback": "Correct — specifically Chapter 3, \"What Factors Motivate Students to Learn?\""
+      },
+      {
+        "answer": "Bloom — Taxonomy of Educational Objectives",
+        "correct": false,
+        "feedback": "That's the source for the hierarchy-of-learning content, not the motivation model."
+      },
+      {
+        "answer": "Anderson and Krathwohl",
+        "correct": false,
+        "feedback": "They authored the taxonomy revision, not the Value/Expectancy motivation model."
+      },
+      {
+        "answer": "There is no cited source; it's the manual's own original framework",
+        "correct": false,
+        "feedback": "The motivation model is explicitly attributed to Ambrose et al.'s published work."
+      }
+    ]
+  },
+  {
+    "question": "Why does diagnosing whether a checked-out student has a \"value problem\" vs. an \"efficacy problem\" matter practically?",
+    "answers": [
+      {
+        "answer": "They call for different kinds of CA intervention, not the same generic encouragement",
+        "correct": true,
+        "feedback": "Correct — \"this is pointless\" (value) and \"I just can't do this\" (efficacy) need different responses."
+      },
+      {
+        "answer": "It doesn't matter — the same encouragement works regardless of the underlying cause",
+        "correct": false,
+        "feedback": "The manual specifically distinguishes these because they call for different responses."
+      },
+      {
+        "answer": "It only matters for grading purposes",
+        "correct": false,
+        "feedback": "This distinction is about effective in-the-moment support, not a grading criterion."
+      },
+      {
+        "answer": "It's only relevant for the final group project",
+        "correct": false,
+        "feedback": "This diagnostic distinction applies broadly to day-to-day lab and office-hour support, not just the final project."
+      }
+    ]
+  },
+  {
+    "question": "Based on the Strategies for Success section, which format of office hours tends to see less student demand?",
+    "answers": [
+      {
+        "answer": "Virtual office hours, compared to in-person sessions",
+        "correct": true,
+        "feedback": "Correct — in-person hours tend to be more heavily used; a low-demand virtual slot is a good time to prep materials for your \"expert\" lab instead."
+      },
+      {
+        "answer": "In-person office hours, compared to virtual sessions",
+        "correct": false,
+        "feedback": "This is reversed — in-person sessions tend to see more demand than virtual ones."
+      },
+      {
+        "answer": "Both formats see exactly equal demand",
+        "correct": false,
+        "feedback": "The manual notes an actual difference — virtual sessions see less demand than in-person ones."
+      },
+      {
+        "answer": "Office hour demand isn't discussed in the manual",
+        "correct": false,
+        "feedback": "This is specifically discussed as a practical note for how CAs might use low-demand time slots."
+      }
+    ]
+  }
+]
