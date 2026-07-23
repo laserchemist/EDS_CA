@@ -377,6 +377,23 @@
     margin-right:3px;
   }
 
+  .video-badge{
+    display:inline-block;
+    font-family:var(--mono);
+    font-size:10px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    padding:2px 7px;
+    border-radius:3px;
+    margin-left:8px;
+    vertical-align:middle;
+    white-space:nowrap;
+  }
+  .video-badge.featured{background:#f2c9ce;color:var(--maroon-dark);}
+  .video-badge.quicktip{background:var(--accent-soft);color:var(--accent);}
+  .card h4 a{color:var(--maroon-dark);text-decoration:none;}
+  .card h4 a:hover{text-decoration:underline;}
+
   .callout{
     max-width:700px;
     border-radius:6px;
@@ -573,6 +590,7 @@
             <li><a href="#coding-table">The datascience Table</a></li>
             <li><a href="#coding-control">Control flow &amp; Booleans</a></li>
             <li><a href="#coding-arange">np.arange() &amp; np.random.choice()</a></li>
+            <li><a href="#coding-math">Math skills variability</a></li>
             <li><a href="#coding-errors">Common student errors</a></li>
             <li><a href="#coding-matplotlib">Matplotlib quick reference</a></li>
           </ul>
@@ -614,6 +632,7 @@
       </li>
 
       <li class="nav-flat"><a href="#cheatsheet">7 · Cheat Sheet</a></li>
+      <li class="nav-flat"><a href="#videos">8 · Video Library</a></li>
     </ul>
     <div class="footer-note">Draft prepared July 21, 2026 — built from the course syllabus, Lab 5 (HS pilot), Quiz 05, and the Fellows overview. Not tied to a specific term.</div>
   </nav>
@@ -634,8 +653,8 @@
         <a href="https://sites.temple.edu/data/syllabus/" target="_blank" rel="noopener">Syllabus</a>
         <a href="https://laserchemist.github.io/EDS_ppl/" target="_blank" rel="noopener">Course staff</a>
         <a href="https://inferentialthinking.com/chapters/intro.html" target="_blank" rel="noopener">Inferential Thinking (textbook)</a>
-        <a href="https://laserchemist.github.io/dprimer/intro.html" target="_blank" rel="noopener">Data Science Coding Primer</a>
-        <a href="https://templeu.instructure.com/courses/170427/pages/course-videos" target="_blank" rel="noopener">Course videos (YouTube)</a>
+        <a href="https://laserchemist.github.io/dprimer/" target="_blank" rel="noopener">Data Science Coding Primer</a>
+        <a href="https://www.youtube.com/@DataScienceTipsandTricks-d2w" target="_blank" rel="noopener">Course videos (YouTube)</a>
         <a href="https://temple.2i2c.cloud" target="_blank" rel="noopener">Jupyter Hub</a>
       </div>
     </div>
@@ -692,19 +711,24 @@
       rather than quoting a number from memory.</p>
 
       <div class="callout warn">
-        <b class="label">Late lab policy — know this cold</b>
-        A student gets an automatic 2-day extension at a 20% penalty. Anything submitted more
-        than 48 hours after the due date receives <b>no credit</b> — Canvas locks submissions at
-        that point, no exceptions. Their lowest lab score is dropped, and non-submission counts
-        as a zero (so encourage students to submit something rather than nothing).
+        <b class="label">Late lab policy — confirm the exact penalty with your instructor</b>
+        A student gets an automatic 2-day extension at a percentage penalty — but don't quote a
+        specific number from memory, since this has varied by term (10% in some past terms, 20%
+        in others). Check the current syllabus or confirm with your instructor before telling a
+        student a figure. What is consistent: anything submitted more than 48 hours after the
+        due date receives <b>no credit</b> — Canvas locks submissions at that point, no
+        exceptions — the lowest lab score is dropped, and non-submission counts as a zero (so
+        encourage students to submit something rather than nothing).
       </div>
 
       <div class="callout tip">
         <b class="label">Quizzes &amp; mini-tests</b>
-        No make-ups are granted for a missed quiz. As with labs, the student's lowest quiz score
-        is dropped. Quiz 05, for example, draws 10 questions at random from a bank of 34, so two
-        students in the same room may see different questions — don't assume a shared question
-        set when helping.
+        No make-ups are granted for a missed quiz, and the student's lowest quiz score is
+        typically dropped. The format itself varies by instructor: some quizzes are taken online
+        via the Hub and draw a random subset of questions from a larger bank (so two students in
+        the same room may see different questions — don't assume a shared question set when
+        helping); others are administered on paper in class with a single shared question set.
+        Check which format your section uses before describing it to students.
       </div>
 
       <p>Submitted work should include comments (<code>#</code>) and markdown explaining
@@ -730,10 +754,20 @@
         explaining a Python concept like loops or variables — but not for producing assignment
         answers.
       </div>
-      <p>As a CA, this is a useful line to repeat to students who show up with AI-generated code
-      that "doesn't work": point out that it likely isn't using the <code>datascience</code>
+      <p>As a CA, this is a useful line for students who show up with AI-generated code that
+      "doesn't work": point out that it likely isn't using the <code>datascience</code>
       <code>Table</code> or the course's conventions, and walk them back to the lab's own pattern
       instead of debugging the AI's code line-by-line.</p>
+      <div class="callout tip">
+        <b class="label">This tell isn't foolproof</b>
+        A student who explicitly prompts the AI to "use the datascience Table library, not
+        pandas" will get code that looks like the course's own conventions — so a mismatch with
+        <code>Table</code> syntax is a useful signal but not a reliable test on its own.
+        The more durable approach is the same one used elsewhere in this manual: ask the student
+        to explain what a given line does, or how they'd approach the problem on paper first
+        (see the math skills note in Section 2). Code a student can't explain is the real signal,
+        regardless of whether it happens to use the right library.
+      </div>
     </section>
 
     <!-- ============ 2. CODING REVIEW ============ -->
@@ -840,6 +874,23 @@ print(mask)                    <span class="py-comment"># array([False, True, Tr
         entirely.
       </div>
 
+      <h3 id="coding-math">Math skills variability</h3>
+      <p>Math preparation among incoming students varies enormously, and this is a bigger factor
+      in coding struggles than it first appears. A student who can't translate "probability of
+      A and B" into code usually isn't stuck on Python syntax — they're stuck on the math itself,
+      and the code is just where that gap becomes visible. Watch for this especially in the
+      probability, correlation, and regression material, where the code is short but leans on a
+      formula the student may not actually understand.</p>
+      <div class="callout tip">
+        <b class="label">A habit worth teaching early</b>
+        Before a student writes any code, ask them to work out how they'd solve the problem on
+        paper — by hand, with actual numbers, no variables. If they can't do that, more time
+        spent on the code won't help; the fix is a quick math refresher, not another syntax
+        explanation. If they <i>can</i> do it on paper, translating it into code becomes a much
+        smaller, more mechanical step, and debugging becomes easier for both of you since you can
+        point at exactly which line doesn't match their own by-hand approach.
+      </div>
+
       <h3 id="coding-errors">Common student errors to watch for</h3>
       <div class="card-grid">
         <div class="card"><div class="num">01</div><h4>Ellipsis left in place</h4><p>Labs use <code>...</code> as a fill-in-the-blank. Students sometimes leave it and get a SyntaxError — check for stray <code>...</code> first.</p></div>
@@ -887,6 +938,20 @@ print(mask)                    <span class="py-comment"># array([False, True, Tr
         over a scatter, or multiple series on one axis. Most labs actually do both in the same
         cell: build the Table plot, then layer a <code>plt.plot()</code> regression line or
         <code>plt.annotate()</code> on top.
+      </div>
+      <div class="callout warn">
+        <b class="label">Two matplotlib interfaces exist — worth naming explicitly</b>
+        The <code>plt.scatter(...)</code>, <code>plt.xlabel(...)</code> style above is the
+        <b>implicit (pyplot) interface</b> — it quietly tracks a "current" figure/axes behind the
+        scenes, which is exactly why it's approachable for a first-semester student. The
+        <b>explicit (object-oriented) interface</b> — <code>fig, ax = plt.subplots()</code> then
+        <code>ax.scatter(...)</code>, <code>ax.set_xlabel(...)</code> — is what most professional
+        codebases and current online examples actually use, and it scales much better once a
+        student wants multiple subplots or more control. It's also harder for a beginner to parse
+        at first, which is why this course leans on the pyplot style early on. Worth flagging to
+        a stronger student who's confused why their AI-generated or googled example looks
+        different from the lab's own code — they're not wrong, they're just looking at the other
+        interface. See <a class="material-link" href="https://pbpython.com/effective-matplotlib.html" target="_blank" rel="noopener">Effective Matplotlib</a> for a good side-by-side comparison.
       </div>
     </section>
 
@@ -1028,6 +1093,24 @@ print(mask)                    <span class="py-comment"># array([False, True, Tr
       <div class="divider-quote">"If the red dot sits well inside the distribution → H₀ not
       rejected. If it sits in the far tail → reject H₀."</div>
 
+      <h4>One-tailed vs. two-tailed tests</h4>
+      <p>The groundhog p-value above only counts simulated outcomes <i>at or above</i> the
+      observed accuracy — that's a <b>one-tailed (directional) test</b>, appropriate because the
+      question was specifically "are groundhogs <i>better</i> than chance," not "different from
+      chance in either direction." A <b>two-tailed test</b> is for non-directional questions —
+      "is this coin biased at all?" rather than "is this coin biased toward heads?" — and counts
+      outcomes in <i>both</i> tails of the null distribution as evidence against H₀.</p>
+      <div class="callout warn">
+        <b class="label">Why this trips people up</b>
+        Switching between one-tailed and two-tailed roughly doubles or halves the resulting
+        p-value for the same data, since a two-tailed test spreads the same 5% threshold across
+        both ends of the distribution instead of concentrating it in one. If a student's p-value
+        doesn't match yours on the same dataset, check whether you're both counting the same
+        tail(s) before assuming a coding error. The right choice depends entirely on how the
+        question was phrased — directional claims get one tail, "is there any effect at all"
+        claims get two.
+      </div>
+
       <h4>The multiple comparisons problem (a good stretch topic for strong students)</h4>
       <p>Running several hypothesis tests on the same data inflates the false-positive rate:
       with 3 independent tests at α = 0.05, <code>P(at least one false positive) = 1 − 0.95³ ≈
@@ -1036,6 +1119,25 @@ print(mask)                    <span class="py-comment"># array([False, True, Tr
       (<code>α_adjusted = α / n_tests</code>). This is a useful concept to have ready if a
       student notices "wait, didn't we just get lucky testing 33 groundhogs individually?" — that
       instinct is exactly the point of the lesson.</p>
+
+      <h4>"Significant" doesn't mean "important" — effect size</h4>
+      <p>This is worth being deliberate about, because the everyday meaning of "significant" (big,
+      important, worth caring about) actively misleads students about what the statistical term
+      means. <b>Statistical significance</b> only answers "how likely is a result this extreme to
+      happen by chance" — it says nothing about how large or practically meaningful the effect
+      actually is. With a large enough sample, even a tiny, real-world-irrelevant difference can
+      produce a very small p-value.</p>
+      <div class="callout good">
+        <b class="label">The question to teach alongside the p-value</b>
+        Whenever a student reports "p &lt; 0.05, so it's significant," follow up with: <i>how
+        big is the actual effect, and does that size matter here?</i> That second question is
+        about <b>effect size</b> — a measure of the magnitude of a relationship or difference,
+        independent of sample size. Conveniently, this course already has one on hand: the
+        correlation coefficient <code>r</code> (Section 4, Regression) is itself an effect-size
+        measure, not just a significance test — an r of 0.05 can be statistically significant
+        with enough data while still describing a relationship too weak to act on. Treat
+        significance and effect size as two separate questions a result has to answer, not one.
+      </div>
 
       <h3 id="stats-regression">Regression, bootstrap confidence intervals, and kNN classification</h3>
       <ul>
@@ -1164,6 +1266,21 @@ d_p_q = <span class="py-library">np</span>.sqrt(sum((<span class="py-library">np
       lever is missing before deciding how to intervene. A student who says "this is pointless"
       has a value problem; a student who says "I just can't do this" has an efficacy problem —
       and they call for different responses from a CA, not the same generic encouragement.</p>
+
+      <div class="callout warn">
+        <b class="label">A checked-out student may not have a motivation problem at all</b>
+        Sometimes a student who looks disengaged isn't lacking value or efficacy for the lab
+        itself — they're using the in-class work time to study for an upcoming exam in another
+        course entirely, treating lab time as a de facto study hall because the lab feels
+        resumable later while the other exam doesn't. The Value/Expectancy/Environment model
+        above still applies, but the lever being pulled is a competing one outside this class —
+        it's a prioritization problem, not a value or efficacy problem with the lab. The Ambrose
+        framework doesn't have much to say about this directly, and it isn't really solvable by
+        making the lab more appealing. What tends to help is naming it plainly and making the
+        cost of deferring visible — reminding the student what's actually due when, and that lab
+        time not used now becomes harder time to find later — rather than trying harder to
+        motivate them on the content itself.
+      </div>
       <div class="source-note">Source: Ambrose, S. A., Bridges, M. W., DiPietro, M., Lovett, M. C., &amp; Norman, M. K. (2010). <i>How Learning Works: Seven Research-Based Principles for Smart Teaching</i>. Jossey-Bass — Ch. 3, "What Factors Motivate Students to Learn?"</div>
 
       <h3 id="foundations-hierarchy">The hierarchy of learning</h3>
@@ -1281,9 +1398,9 @@ d_p_q = <span class="py-library">np</span>.sqrt(sum((<span class="py-library">np
       <h3>Assistance &amp; links</h3>
       <ul>
         <li><a class="material-link" href="https://inferentialthinking.com/chapters/intro.html" target="_blank" rel="noopener">Inferential Thinking online text</a></li>
-        <li><a class="material-link" href="https://laserchemist.github.io/dprimer/intro.html" target="_blank" rel="noopener">Data Science Coding Primer</a></li>
+        <li><a class="material-link" href="https://laserchemist.github.io/dprimer/" target="_blank" rel="noopener">Data Science Coding Primer</a></li>
         <li><a class="material-link" href="https://laserchemist.github.io/EDS_ppl/" target="_blank" rel="noopener">Course staff page</a></li>
-        <li><a class="material-link" href="https://templeu.instructure.com/courses/170427/pages/course-videos" target="_blank" rel="noopener">Course video channel</a></li>
+        <li><a class="material-link" href="https://www.youtube.com/@DataScienceTipsandTricks-d2w" target="_blank" rel="noopener">Course video channel</a></li>
       </ul>
       <div class="card-grid">
         <div class="card"><div class="num">QR</div><h4>EDS Course Assistant &amp; Workshop Calendar</h4><p>Printed cheat sheet has a scannable code; the direct link is the same one referenced in Section 5 — <a class="material-link" href="https://bit.ly/EDS_CA" target="_blank" rel="noopener">bit.ly/EDS_CA</a>.</p></div>
@@ -1292,11 +1409,57 @@ d_p_q = <span class="py-library">np</span>.sqrt(sum((<span class="py-library">np
       </div>
     </section>
 
+    <!-- ============ 8. VIDEO LIBRARY ============ -->
+    <section class="chapter" id="videos">
+      <div class="kicker">Section 8</div>
+      <h2>Video Library</h2>
+      <p class="intro">Short instructional videos covering Python, Tables, statistics, and
+      machine learning — most run a few minutes or less, and many are literally 60-second
+      explainers. Good to point a student toward for a quick refresher instead of re-explaining
+      a whole concept from scratch, and good for CAs to skim before your "expert" lab.</p>
+      <p><a class="material-link" href="https://www.youtube.com/@DataScienceTipsandTricks-d2w" target="_blank" rel="noopener">Visit the full channel on YouTube</a></p>
+
+      <h3>🐍 Python Basics &amp; Functions</h3>
+      <p>Loops, functions, and general coding practices.</p>
+      <div class="card-grid">
+        <div class="card"><div class="num">▶</div><h4><a href="https://www.youtube.com/watch?v=BVrNK1rOAsA" target="_blank" rel="noopener">Lab 7 and Functions</a><span class="video-badge featured">Featured</span></h4></div>
+        <div class="card"><div class="num">▶</div><h4><a href="https://www.youtube.com/watch?v=OeifLNRwftY" target="_blank" rel="noopener">Functions are Fun!</a></h4></div>
+        <div class="card"><div class="num">▶</div><h4><a href="https://www.youtube.com/watch?v=umZP0o42yFc" target="_blank" rel="noopener">Tips and Tricks on Functions</a></h4></div>
+        <div class="card"><div class="num">▶</div><h4><a href="https://www.youtube.com/watch?v=3fAK1cXimNE" target="_blank" rel="noopener">Projects and Functions</a></h4></div>
+        <div class="card"><div class="num">▶</div><h4><a href="https://www.youtube.com/watch?v=-MFG1yrr1lk" target="_blank" rel="noopener">For loops in 60 seconds or less</a><span class="video-badge quicktip">Quick Tip</span></h4></div>
+        <div class="card"><div class="num">▶</div><h4><a href="https://www.youtube.com/watch?v=q8zaA_HC5MA" target="_blank" rel="noopener">How to code a math problem in 60 seconds or less</a><span class="video-badge quicktip">Quick Tip</span></h4></div>
+      </div>
+
+      <h3>📊 Tables &amp; Data Manipulation</h3>
+      <p>Working with the datascience Table — essential for almost every lab.</p>
+      <div class="card-grid">
+        <div class="card"><div class="num">▶</div><h4><a href="https://www.youtube.com/watch?v=6k7qDKAGptE" target="_blank" rel="noopener">Tips and Tricks on Tables</a><span class="video-badge featured">Featured</span></h4></div>
+        <div class="card"><div class="num">▶</div><h4><a href="https://www.youtube.com/watch?v=0wKX5g4ArP8" target="_blank" rel="noopener">Table Tips in 5 minutes or less</a></h4></div>
+        <div class="card"><div class="num">▶</div><h4><a href="https://www.youtube.com/watch?v=_RpgSMWyp_U" target="_blank" rel="noopener">How to get data out of a Table in 60 seconds or less</a><span class="video-badge quicktip">Quick Tip</span></h4></div>
+        <div class="card"><div class="num">▶</div><h4><a href="https://www.youtube.com/watch?v=T-qtqIEaDNw" target="_blank" rel="noopener">How to group a Table in 60 sec or less</a><span class="video-badge quicktip">Quick Tip</span></h4></div>
+      </div>
+
+      <h3>📐 Statistics &amp; Probability</h3>
+      <p>Probability, p-values, hypothesis testing, and simulation.</p>
+      <div class="card-grid">
+        <div class="card"><div class="num">▶</div><h4><a href="https://www.youtube.com/watch?v=TjQoD2TZ184" target="_blank" rel="noopener">Probability, p-values, and Python conditional statements</a><span class="video-badge featured">Featured</span></h4></div>
+        <div class="card"><div class="num">▶</div><h4><a href="https://www.youtube.com/watch?v=5LZ2ffru23o" target="_blank" rel="noopener">Tips on simulations</a></h4></div>
+        <div class="card"><div class="num">▶</div><h4><a href="https://www.youtube.com/watch?v=sfxHsvEQncc" target="_blank" rel="noopener">What is a Null hypothesis in 60 seconds or less?</a><span class="video-badge quicktip">Quick Tip</span></h4></div>
+      </div>
+
+      <h3>🤖 Machine Learning</h3>
+      <p>Introduction to machine learning algorithms and concepts.</p>
+      <div class="card-grid">
+        <div class="card"><div class="num">▶</div><h4><a href="https://www.youtube.com/watch?v=ulqMDqylQY0" target="_blank" rel="noopener">Machine Learning Intro: Nearest Neighbors</a><span class="video-badge featured">Featured</span></h4></div>
+      </div>
+    </section>
+
     <footer class="manual-footer">
       Draft manual — Elements of Data Science (SCTC 1013). Not tied to a specific term; built
       from the course syllabus, the Lab 5 / Quiz 05 pilot notebooks, the STEM Leadership Fellows
-      overview, the CA sign-up form, the Python Review Sheet cheat sheet, Ambrose et al.'s
-      <i>How Learning Works</i>, Bloom's taxonomy, and a compiled set of leadership quotes.
+      overview, the CA sign-up form, the Python Review Sheet cheat sheet, the Data Science Tips
+      and Tricks video library, Ambrose et al.'s <i>How Learning Works</i>, Bloom's taxonomy, and
+      a compiled set of leadership quotes.
       Draft prepared July 21, 2026. Content should be reviewed by the instructional team before
       wider distribution.
     </footer>
