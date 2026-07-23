@@ -23,12 +23,23 @@ Two different "attempts" concepts, don't confuse them:
     MAX_QUIZ_ATTEMPTS = times the STUDENT may open/retake the entire quiz. Each new
                         quiz attempt draws a fresh random subset of n_questions from
                         the bank (seeded by user+quiz+attempt#), so a retake isn't
-                        just the same 30 questions again.
+                        just the same 30 questions again. The order of each question's
+                        answer choices is also freshly shuffled every attempt.
 
-Re-running the same cell mid-attempt (e.g. after a kernel restart) always resumes
-the SAME in-progress attempt — it does not consume a new attempt. A new attempt is
-only started once the previous one has been fully completed (every question locked
-in, correct or not) and the student reopens the quiz.
+Re-running the same cell mid-attempt (e.g. after a kernel restart) always resumes the
+SAME in-progress attempt — it does not consume a new attempt. A new attempt is only
+started once the previous one has been fully completed (every question locked in,
+correct or not) and the student reopens the quiz.
+
+File layout (kept deliberately simple/fixed-name for compatibility with
+quiz_dashboard_helpers.py / quiz_instructor_dashboard.ipynb, which expect exactly one
+record file and one state file per student+quiz):
+    {user}_{quiz_id}.json        — whole-quiz attempt record (current attempt #,
+                                    completed flag, full history of past attempts)
+    {user}_{quiz_id}_state.json  — per-question state for the CURRENT attempt only.
+                                    Tagged internally with which attempt it belongs to,
+                                    so a stale file from a finished attempt is never
+                                    mistaken for in-progress state on a new attempt.
 
 Instructor reset (run in any notebook or terminal on the hub)
 ─────────────────────────────────────────────────────────────
@@ -47,7 +58,7 @@ Returns from open_quiz()
     Supports tuple unpacking: score, total = open_quiz(...)
 """
 
-import json, os, time, glob
+import json, os, time, glob, random
 import ipywidgets as widgets
 from IPython.display import display, HTML
 
@@ -84,15 +95,19 @@ _C = dict(
 )
 
 # ── persistence ────────────────────────────────────────────────────────────────
-# Two kinds of files per student+quiz:
-#   record file  — {user}_{quiz_id}.json           whole-quiz attempt history/counter
-#   state file   — {user}_{quiz_id}_state_{n}.json  per-question state for attempt n
+# Exactly two files per student+quiz (fixed names — dashboard tooling depends on
+# this not changing):
+#   record file  — {user}_{quiz_id}.json        whole-quiz attempt history/counter
+#   state file   — {user}_{quiz_id}_state.json   per-question state for the CURRENT
+#                                                 attempt only (tagged with an
+#                                                 "attempt" field so a stale file
+#                                                 from a finished attempt is ignored)
 
 def _record_path(user, quiz_id):
     return os.path.join(ATTEMPTS_DIR, f"{user}_{quiz_id}.json")
 
-def _state_path(user, quiz_id, attempt):
-    return os.path.join(ATTEMPTS_DIR, f"{user}_{quiz_id}_state_{attempt}.json")
+def _state_path(user, quiz_id):
+    return os.path.join(ATTEMPTS_DIR, f"{user}_{quiz_id}_state.json")
 
 def _read_record(user, quiz_id):
     path = _record_path(user, quiz_id)
@@ -109,18 +124,25 @@ def _write_record(user, quiz_id, record):
     os.replace(tmp, _record_path(user, quiz_id))
 
 def _load_question_state(user, quiz_id, attempt):
-    path = _state_path(user, quiz_id, attempt)
+    """Return the persisted per-question state ONLY if it belongs to `attempt`;
+    otherwise None (a stale file from a finished attempt is not resumed)."""
+    path = _state_path(user, quiz_id)
     if not os.path.exists(path):
         return None
     with open(path) as f:
-        return json.load(f)
+        state = json.load(f)
+    if state.get("attempt") != attempt:
+        return None
+    return state
 
 def _save_question_state(user, quiz_id, attempt, state):
+    state = dict(state)
+    state["attempt"] = attempt
     os.makedirs(ATTEMPTS_DIR, exist_ok=True)
-    tmp = _state_path(user, quiz_id, attempt) + ".tmp"
+    tmp = _state_path(user, quiz_id) + ".tmp"
     with open(tmp, "w") as f:
         json.dump(state, f, indent=2)
-    os.replace(tmp, _state_path(user, quiz_id, attempt))
+    os.replace(tmp, _state_path(user, quiz_id))
 
 # ── public instructor tool ─────────────────────────────────────────────────────
 
@@ -139,10 +161,9 @@ def reset_attempt(user, quiz_id=None):
 
     if user == "*":
         targets = glob.glob(os.path.join(ATTEMPTS_DIR, f"*_{quiz_id}.json"))
-        targets += glob.glob(os.path.join(ATTEMPTS_DIR, f"*_{quiz_id}_state_*.json"))
+        targets += glob.glob(os.path.join(ATTEMPTS_DIR, f"*_{quiz_id}_state.json"))
     else:
-        targets = [_record_path(user, quiz_id)]
-        targets += glob.glob(os.path.join(ATTEMPTS_DIR, f"{user}_{quiz_id}_state_*.json"))
+        targets = [_record_path(user, quiz_id), _state_path(user, quiz_id)]
 
     for path in targets:
         if os.path.exists(path):
@@ -370,10 +391,11 @@ def open_quiz(questions_source, name, user,
     quiz_id           : str — overrides module-level QUIZ_ID if given
     max_attempts      : int — overrides module-level MAX_ATTEMPTS (tries PER QUESTION)
     n_questions       : int — if set, randomly select this many questions from the
-                              full bank. Each ATTEMPT gets its own fresh subset
-                              (seeded by username + quiz_id + attempt number), so
-                              kernel restarts mid-attempt restore the same subset,
-                              but a new attempt draws a new one.
+                              full bank. Each ATTEMPT gets its own fresh subset AND
+                              fresh answer-choice order (seeded by username + quiz_id
+                              + attempt number), so kernel restarts mid-attempt
+                              restore the exact same subset/order, but a new attempt
+                              draws new ones.
     max_quiz_attempts : int — overrides module-level MAX_QUIZ_ATTEMPTS (times the
                               WHOLE quiz may be opened/retaken)
 
@@ -396,11 +418,11 @@ def open_quiz(questions_source, name, user,
 
     # ── load / initialize the whole-quiz attempt record ────────────────────
     attempt_number = 1
-    history        = []
     if not is_instructor:
         record = _read_record(user, qid)
         if record is None:
             record = {"quiz_id": qid, "user": user, "name": name,
+                      "timestamp": time.asctime(),
                       "current_attempt": 1, "attempt_completed": False,
                       "history": []}
             _write_record(user, qid, record)
@@ -440,6 +462,7 @@ def open_quiz(questions_source, name, user,
         if record["attempt_completed"]:
             record["current_attempt"] += 1
             record["attempt_completed"] = False
+            record["timestamp"] = time.asctime()
             _write_record(user, qid, record)
 
         attempt_number = record["current_attempt"]
@@ -454,16 +477,26 @@ def open_quiz(questions_source, name, user,
     # ── random subset (seeded per user+quiz+ATTEMPT, so each new attempt gets
     #    a fresh subset, but restarts mid-attempt restore the same one) ──────
     if n_questions and n_questions < len(all_questions):
-        import random as _random
-        _rng = _random.Random(f"{user}:{qid}:{attempt_number}")
+        _rng = random.Random(f"{user}:{qid}:{attempt_number}")
         questions = _rng.sample(all_questions, n_questions)
     else:
-        questions = all_questions
+        questions = list(all_questions)
+
+    # ── shuffle each question's answer-choice ORDER too (deterministic per
+    #    user+quiz+attempt+question), so the correct answer isn't always in
+    #    the same position it happens to be written in the source JSON ──────
+    questions = [dict(q) for q in questions]   # shallow copy; don't mutate the bank
+    for qi, q in enumerate(questions):
+        ans_rng      = random.Random(f"{user}:{qid}:{attempt_number}:{qi}")
+        shuffled_ans = list(q["answers"])
+        ans_rng.shuffle(shuffled_ans)
+        q["answers"] = shuffled_ans
 
     total     = len(questions)
     q_widgets = []
 
-    # Restore per-question state for THIS attempt (kernel-restart-proof)
+    # Restore per-question state for THIS attempt (kernel-restart-proof; a
+    # stale file from a previous, already-finished attempt is ignored)
     persisted = _load_question_state(user, qid, attempt_number) if not is_instructor else None
 
     attempts_left_after_this = max(0, mxqa - attempt_number) if not is_instructor else None
@@ -488,7 +521,8 @@ def open_quiz(questions_source, name, user,
             + f'</div>'
         )
 
-        # Save per-question state for this attempt
+        # Save per-question state for this attempt (single fixed filename,
+        # tagged internally with the attempt number)
         if not is_instructor:
             try:
                 _save_question_state(user, qid, attempt_number, {
@@ -512,10 +546,12 @@ def open_quiz(questions_source, name, user,
                 try:
                     record = _read_record(user, qid) or {
                         "quiz_id": qid, "user": user, "name": name,
+                        "timestamp": time.asctime(),
                         "current_attempt": attempt_number,
                         "attempt_completed": False, "history": []}
                     if not record["attempt_completed"]:
                         record["attempt_completed"] = True
+                        record["timestamp"] = time.asctime()
                         record["history"].append({
                             "attempt": attempt_number, "score": score,
                             "total": total, "timestamp": time.asctime(),

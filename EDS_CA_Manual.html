@@ -1525,18 +1525,23 @@ d_p_q = <span class="py-library">np</span>.sqrt(sum((<span class="py-library">np
 
       <p style="margin-top:18px;">
         <a class="pull-button secondary" href="https://temple.2i2c.cloud/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Flaserchemist%2FEDS_CA&urlpath=lab%2Ftree%2FEDS_CA%2F&branch=main" target="_blank" rel="noopener">Pull the latest CA repo (no specific notebook)</a>
+        <a class="pull-button secondary" href="https://temple.2i2c.cloud/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Flaserchemist%2FEDS_CA&urlpath=lab%2Ftree%2FEDS_CA%2Fquiz_instructor_dashboard.ipynb&branch=main" target="_blank" rel="noopener">Instructor dashboard (attempts, Canvas CSV export)</a>
       </p>
 
       <div class="callout warn">
         <b class="label">For whoever maintains this on the Hub</b>
-        Both quiz notebooks need <code>stemds_quiz.py</code>, and their matching
-        <code>questions_quiz*.json</code> bank, present in the same working directory — they're
-        all pulled together by the links above from the root of the repo.
-        <code>stemds_quiz.py</code> stores attempt records in a shared, genuinely writable
-        directory — on this Hub that's <code>shared-public</code>; earlier directory names like
-        <code>shared-readwrite</code> were not reliably writable for students. If that path
-        changes again, it only needs to be updated in one place: the <code>ATTEMPTS_DIR</code>
-        constant at the top of <code>stemds_quiz.py</code>.
+        Both quiz notebooks need <code>stemds_quiz.py</code>, their matching
+        <code>questions_quiz*.json</code> bank, and <code>lab_submit_canvas.py</code> present in
+        the same working directory — they're all pulled together by the links above from the
+        root of the repo. <code>stemds_quiz.py</code> stores attempt records in a shared,
+        genuinely writable directory — on this Hub that's <code>shared-public</code>; earlier
+        directory names like <code>shared-readwrite</code> were not reliably writable for
+        students. If that path changes again, it needs updating in three places:
+        <code>ATTEMPTS_DIR</code> in <code>stemds_quiz.py</code>, <code>ATTEMPTS_DIR</code>/
+        <code>SUBMISSIONS</code> in <code>quiz_dashboard_helpers.py</code>, and
+        <code>SHARED_JSON</code> in <code>lab_submit_canvas.py</code> — see that repo's README
+        for a credentials-handling caveat on the other two paths in
+        <code>lab_submit_canvas.py</code> before going live with real Canvas/Sheets access.
       </div>
     </section>
 
