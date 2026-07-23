@@ -1,0 +1,452 @@
+[
+  {
+    "question": "What is the total weekly time commitment for a CA/Fellow, and how is it paid?",
+    "answers": [
+      {"answer": "10 hours/week, paid as a monthly stipend", "correct": true, "feedback": "Correct — 10 hrs/week total (in-class + office hours + prep), paid monthly."},
+      {"answer": "3 hours/week, paid hourly", "correct": false, "feedback": "3 hours is just the in-class portion, not the whole commitment, and it's not paid hourly."},
+      {"answer": "20 hours/week, unpaid", "correct": false, "feedback": "CAs are paid, and the commitment is 10 hours, not 20."},
+      {"answer": "It varies entirely by student choice with no set expectation", "correct": false, "feedback": "There's a defined 10 hr/week structure (in-class, office hours, prep)."}
+    ]
+  },
+  {
+    "question": "How does the 10 weekly CA hours break down between in-class and office hours?",
+    "answers": [
+      {"answer": "3 hours in one assigned class section, 3 hours of office hours/tutoring open to any section", "correct": true, "feedback": "Correct — plus preparation and check-in time filling out the rest."},
+      {"answer": "5 hours in class, 5 hours grading", "correct": false, "feedback": "CAs don't grade as part of this role, and the in-class time is 3 hours."},
+      {"answer": "All 10 hours must be in your one assigned section", "correct": false, "feedback": "Office hours are explicitly open to students from any section, not just your own."},
+      {"answer": "10 hours of office hours only, no in-class role", "correct": false, "feedback": "There's a required 3-hour in-class component too."}
+    ]
+  },
+  {
+    "question": "Who can attend a CA's scheduled office hours?",
+    "answers": [
+      {"answer": "Any student in the course, not just students from the CA's own section", "correct": true, "feedback": "Correct — office hours are open across all sections."},
+      {"answer": "Only students from the CA's assigned section", "correct": false, "feedback": "This is the opposite of the actual policy — office hours are open to everyone."},
+      {"answer": "Only students who email ahead of time", "correct": false, "feedback": "No advance email requirement is described — office hours are open drop-in."},
+      {"answer": "Only CAs may attend, not students", "correct": false, "feedback": "Office hours exist specifically for students to get help."}
+    ]
+  },
+  {
+    "question": "What does it mean for a CA to become the \"expert\" on one lab?",
+    "answers": [
+      {"answer": "They review that lab closely ahead of time and develop extra materials/resources around it", "correct": true, "feedback": "Correct — each CA/Fellow owns deeper prep and resource-building for one specific lab."},
+      {"answer": "They are the only CA allowed to answer questions about any lab", "correct": false, "feedback": "All CAs can help with any lab — the \"expert\" role is about deeper prep on one, not exclusivity."},
+      {"answer": "They grade that lab for the whole class", "correct": false, "feedback": "This isn't a grading responsibility — it's about preparation and resource-building."},
+      {"answer": "They must have taken that lab as a student previously", "correct": false, "feedback": "Nothing about prior enrollment is required — it's about current preparation."}
+    ]
+  },
+  {
+    "question": "When are STEM Leadership Fellows' weekly check-ins scheduled?",
+    "answers": [
+      {"answer": "Monday, for 30 minutes", "correct": true, "feedback": "Correct."},
+      {"answer": "Friday, for 2 hours", "correct": false, "feedback": "The check-in is a short 30-minute Monday meeting, not a long Friday session."},
+      {"answer": "There are no scheduled check-ins", "correct": false, "feedback": "Weekly 30-minute check-ins are a stated part of the role."},
+      {"answer": "Only at the end of the semester", "correct": false, "feedback": "Check-ins happen weekly throughout the term, not just once at the end."}
+    ]
+  },
+  {
+    "question": "A student asks you the exact percentage penalty for a late lab. What should you do?",
+    "answers": [
+      {"answer": "Point them to the current syllabus or confirm with the instructor rather than quoting a number from memory", "correct": true, "feedback": "Correct — the exact percentage has varied by term (10% some terms, 20% others), so don't guess."},
+      {"answer": "Tell them it's always 20%", "correct": false, "feedback": "This specific number isn't safe to assume — it has changed between terms."},
+      {"answer": "Tell them there is no late penalty at all", "correct": false, "feedback": "There is a real penalty — the uncertainty is only about the exact percentage, not whether one exists."},
+      {"answer": "Guess based on what feels fair", "correct": false, "feedback": "Policy numbers should come from the syllabus or instructor, not a guess."}
+    ]
+  },
+  {
+    "question": "What happens to a lab submitted more than 48 hours after the deadline?",
+    "answers": [
+      {"answer": "It receives no credit — Canvas locks submissions at that point", "correct": true, "feedback": "Correct — this 48-hour hard cutoff is consistent, unlike the late penalty percentage."},
+      {"answer": "It's accepted with a small additional penalty", "correct": false, "feedback": "Past 48 hours, submissions aren't accepted for credit at all — Canvas locks them out."},
+      {"answer": "It's automatically excused", "correct": false, "feedback": "Non-submission still counts as a zero — it isn't automatically excused."},
+      {"answer": "The student gets an automatic one-week extension instead", "correct": false, "feedback": "The extension window is about 2 days, and after 48 hours the lab is locked out."}
+    ]
+  },
+  {
+    "question": "Two students share their lab work; one copies from the other. What's the grading consequence?",
+    "answers": [
+      {"answer": "Both students receive a zero — the penalty is the same for copying from or letting someone copy", "correct": true, "feedback": "Correct — this symmetry is explicit in the academic honesty policy."},
+      {"answer": "Only the student who copied receives a penalty", "correct": false, "feedback": "The policy applies the same zero to both the copier and the student whose work was copied."},
+      {"answer": "Both receive a warning but no grade penalty the first time", "correct": false, "feedback": "The stated consequence is a zero, not a warning."},
+      {"answer": "Neither is penalized since discussing labs is allowed", "correct": false, "feedback": "Discussing concepts is fine, but submitting copied work as your own is treated as cheating."}
+    ]
+  },
+  {
+    "question": "According to the syllabus, is using generative AI ever acceptable in this course?",
+    "answers": [
+      {"answer": "Yes, as a background tutor explaining concepts (like loops or variables), but not for producing lab answers", "correct": true, "feedback": "Correct — the distinction is between conceptual help and generating graded work."},
+      {"answer": "Yes, for generating full lab solutions as long as the student reads the code afterward", "correct": false, "feedback": "This is exactly the discouraged use — producing assignment answers, not just conceptual explanation."},
+      {"answer": "No, generative AI is banned in all forms", "correct": false, "feedback": "It's discouraged for producing answers, but explicitly allowed as a conceptual tutor."},
+      {"answer": "Only CAs may use generative AI, not students", "correct": false, "feedback": "The policy is about how AI is used (answers vs. concepts), not who is allowed to use it."}
+    ]
+  },
+  {
+    "question": "A CA notices a student's AI-generated code doesn't use datascience Table syntax and assumes that always proves it's AI-written. Why is this assumption risky?",
+    "answers": [
+      {"answer": "A student can explicitly prompt the AI to use datascience Table conventions, producing code that looks like the course's own style", "correct": true, "feedback": "Correct — the mismatch is a useful signal, but not a reliable proof on its own."},
+      {"answer": "AI tools are incapable of writing any Python code at all", "correct": false, "feedback": "AI tools can write Python code; the issue is whether it matches this course's specific conventions."},
+      {"answer": "It's not risky — the Table mismatch is always a reliable test", "correct": false, "feedback": "It's a useful signal, but a student can defeat it simply by asking the AI to use Table syntax."},
+      {"answer": "The datascience Table library doesn't actually exist", "correct": false, "feedback": "The Table library is real and central to this course — that's exactly why its absence is (imperfectly) suspicious."}
+    ]
+  },
+  {
+    "question": "Are all sections' quizzes administered the same way?",
+    "answers": [
+      {"answer": "No — some are taken online via the Hub with a randomized question bank, others are paper quizzes in class with a shared question set", "correct": true, "feedback": "Correct — format varies by instructor, so confirm before describing it to students."},
+      {"answer": "Yes, all quizzes are always online with randomized questions", "correct": false, "feedback": "Some instructors use paper quizzes in class instead."},
+      {"answer": "Yes, all quizzes are always administered on paper", "correct": false, "feedback": "Some instructors use the online randomized-bank format instead."},
+      {"answer": "Quiz format is chosen by the student each time", "correct": false, "feedback": "Format is set by the instructor/section, not chosen by individual students."}
+    ]
+  },
+  {
+    "question": "What does `np.arange(5)` return?",
+    "answers": [
+      {"answer": "array([0, 1, 2, 3, 4])", "correct": true, "feedback": "Correct — zero-indexed, stops before 5."},
+      {"answer": "array([1, 2, 3, 4, 5])", "correct": false, "feedback": "np.arange starts at 0 by default and excludes the endpoint."},
+      {"answer": "array([0, 1, 2, 3, 4, 5])", "correct": false, "feedback": "That would be np.arange(6) — the endpoint is always excluded."},
+      {"answer": "5", "correct": false, "feedback": "np.arange returns an array, not a single number."}
+    ]
+  },
+  {
+    "question": "A student models a fair 6-sided die with `np.random.choice(np.arange(1,6))`. What's wrong?",
+    "answers": [
+      {"answer": "np.arange(1,6) only produces 1 through 5 — the die needs np.arange(1,7)", "correct": true, "feedback": "Correct — this off-by-one mistake shows up anywhere students model dice or 1-indexed categories."},
+      {"answer": "np.random.choice can't take an array as an argument", "correct": false, "feedback": "np.random.choice works fine on arrays — the issue is the range excludes 6."},
+      {"answer": "Nothing is wrong; this correctly models a 6-sided die", "correct": false, "feedback": "It only ever returns values 1–5, never 6."},
+      {"answer": "np.arange always includes both endpoints", "correct": false, "feedback": "np.arange never includes the upper endpoint — that's the actual bug here."}
+    ]
+  },
+  {
+    "question": "What does `np.arange(0, 10, 2)` return?",
+    "answers": [
+      {"answer": "array([0, 2, 4, 6, 8])", "correct": true, "feedback": "Correct — starts at 0, stops before 10, steps by 2."},
+      {"answer": "array([0, 2, 4, 6, 8, 10])", "correct": false, "feedback": "10 is excluded since np.arange never includes the upper endpoint."},
+      {"answer": "array([2, 4, 6, 8, 10])", "correct": false, "feedback": "It starts at 0, not 2, and still excludes 10."},
+      {"answer": "array([0, 5, 10])", "correct": false, "feedback": "The step size is 2, not 5."}
+    ]
+  },
+  {
+    "question": "Does `np.random.choice(arr, 5)` sample with or without replacement by default?",
+    "answers": [
+      {"answer": "With replacement — the same element can be drawn more than once", "correct": true, "feedback": "Correct — this trips up students modeling things that shouldn't repeat (like dealing distinct cards)."},
+      {"answer": "Without replacement — every element drawn is unique", "correct": false, "feedback": "The default is WITH replacement, not without."},
+      {"answer": "It depends on the data type of arr", "correct": false, "feedback": "The default replacement behavior doesn't depend on data type."},
+      {"answer": "It raises an error unless replace= is specified", "correct": false, "feedback": "replace defaults to True; no error is raised if omitted."}
+    ]
+  },
+  {
+    "question": "A student writes `mask = arr > 3` where `arr = np.array([1, 5, 7, 8, 3, -1])`. What is `np.count_nonzero(mask)`?",
+    "answers": [
+      {"answer": "3", "correct": true, "feedback": "Correct — 5, 7, and 8 are the three elements greater than 3."},
+      {"answer": "6", "correct": false, "feedback": "That's the total length of arr, not the count of elements greater than 3."},
+      {"answer": "8", "correct": false, "feedback": "8 is one of the values in the array, not the count of matches."},
+      {"answer": "0", "correct": false, "feedback": "Several elements (5, 7, 8) are indeed greater than 3, so this isn't zero."}
+    ]
+  },
+  {
+    "question": "What's wrong with `if score = 90: print(\"pass\")`?",
+    "answers": [
+      {"answer": "It uses assignment (=) instead of comparison (==)", "correct": true, "feedback": "Correct — a very common early bug."},
+      {"answer": "print() cannot be used inside an if statement", "correct": false, "feedback": "print() works fine inside conditionals — the bug is the operator."},
+      {"answer": "The colon is unnecessary", "correct": false, "feedback": "The colon is required syntax for an if statement — that's not the bug."},
+      {"answer": "Numbers cannot be compared with if", "correct": false, "feedback": "Numeric comparisons in if statements are completely standard — the issue is = vs ==."}
+    ]
+  },
+  {
+    "question": "Why is the accumulator pattern (`total = 0` before a loop, `total = total + x` inside it) so widely reused in this course?",
+    "answers": [
+      {"answer": "It's the same basic structure behind running totals, simulation counters, and Monte Carlo results", "correct": true, "feedback": "Correct — from radiation-dose totals to simulation \"right/wrong\" counters, it's the same pattern each time."},
+      {"answer": "It's required syntax for all Python for-loops", "correct": false, "feedback": "It's a common pattern, not a language requirement — plenty of loops don't use an accumulator."},
+      {"answer": "It only works with np.arange(), not other iterables", "correct": false, "feedback": "The pattern works with any iterable — np.arange() is just commonly used to generate loop counts."},
+      {"answer": "It's specific to the datascience Table library", "correct": false, "feedback": "It's a general Python pattern, used both with and without Table objects."}
+    ]
+  },
+  {
+    "question": "A function is supposed to compute a value but the student forgot to include `return`. What happens when it's called?",
+    "answers": [
+      {"answer": "The function runs but gives back None instead of the intended value", "correct": true, "feedback": "Correct — the logic executes, but nothing is handed back to the caller without return."},
+      {"answer": "Python raises a SyntaxError immediately", "correct": false, "feedback": "Missing return is not a syntax error — the function is still valid Python, it just won't return a value."},
+      {"answer": "The function automatically returns the last variable it used", "correct": false, "feedback": "Python does not guess a return value — without return, it returns None."},
+      {"answer": "The function cannot be called at all", "correct": false, "feedback": "The function can be called fine; it just won't hand back a usable value."}
+    ]
+  },
+  {
+    "question": "Why does the syllabus expect labs to be broken into multiple cells with comments/markdown, rather than one dense block?",
+    "answers": [
+      {"answer": "It's part of what's graded, and it makes debugging with a student much easier", "correct": true, "feedback": "Correct — this is both a grading expectation and a practical CA-support benefit."},
+      {"answer": "Jupyter cannot execute more than a few lines per cell", "correct": false, "feedback": "There's no such technical limit — this is a course expectation about clarity, not a platform restriction."},
+      {"answer": "It makes the code run faster", "correct": false, "feedback": "Cell structure doesn't meaningfully affect runtime — it's about grading and clarity."},
+      {"answer": "It is purely optional with no bearing on grading", "correct": false, "feedback": "The syllabus explicitly expects commented, well-organized cells as part of the graded work."}
+    ]
+  },
+  {
+    "question": "Why might a student who can't solve a coding problem actually have a math problem instead?",
+    "answers": [
+      {"answer": "The code is often short but relies on a formula or concept (like probability rules) the student doesn't yet understand", "correct": true, "feedback": "Correct — this is especially common in probability, correlation, and regression material."},
+      {"answer": "Math and coding problems are always unrelated to each other", "correct": false, "feedback": "The opposite is often true — a coding struggle frequently reflects an underlying math gap."},
+      {"answer": "This never happens; all coding struggles are purely syntax issues", "correct": false, "feedback": "Math preparation varies a lot among students and is a real, common source of coding difficulty."},
+      {"answer": "Only advanced students experience this issue", "correct": false, "feedback": "This can affect students at any level, especially with unfamiliar statistical formulas."}
+    ]
+  },
+  {
+    "question": "What's a good habit to encourage before a student writes any code for a new problem?",
+    "answers": [
+      {"answer": "Work out how they'd solve it by hand, with actual numbers, on paper first", "correct": true, "feedback": "Correct — if they can't do it on paper, more time on the code syntax won't help; the gap is conceptual."},
+      {"answer": "Look up the answer using generative AI first", "correct": false, "feedback": "This bypasses the understanding the paper-first approach is meant to build."},
+      {"answer": "Start typing code immediately and debug as they go", "correct": false, "feedback": "Without first understanding the underlying math/logic, debugging syntax alone often won't resolve the real problem."},
+      {"answer": "Memorize the relevant numpy function names before starting", "correct": false, "feedback": "Memorizing function names doesn't address whether the student understands the underlying problem."}
+    ]
+  },
+  {
+    "question": "What does `Table()` create?",
+    "answers": [
+      {"answer": "An empty datascience Table with no rows or columns yet", "correct": true, "feedback": "Correct — columns are typically added afterward with .with_columns()."},
+      {"answer": "A pandas DataFrame", "correct": false, "feedback": "This course uses the datascience Table, not pandas, by default."},
+      {"answer": "A numpy array", "correct": false, "feedback": "Table() creates a Table object, not an array."},
+      {"answer": "A single-row record", "correct": false, "feedback": "It creates an empty Table, with no rows at all yet."}
+    ]
+  },
+  {
+    "question": "What does `.with_columns(\"N\", np.arange(5), \"2N\", np.arange(0,10,2))` do to a Table?",
+    "answers": [
+      {"answer": "Returns a new Table with two columns, \"N\" and \"2N\", added", "correct": true, "feedback": "Correct — with_columns takes alternating label/array pairs."},
+      {"answer": "Deletes all existing columns and replaces them with these two", "correct": false, "feedback": "It adds or replaces only the named columns — other existing columns are preserved."},
+      {"answer": "Creates a new Table object unrelated to the original", "correct": false, "feedback": "It builds on/returns a new version of the same Table with these columns added."},
+      {"answer": "Only works if the Table already has exactly 5 rows", "correct": false, "feedback": "There's no such row-count requirement — array lengths just need to be consistent with the Table."}
+    ]
+  },
+  {
+    "question": "What data type does `tbl.column(\"Name\")` return, compared to `tbl.select(\"Name\")`?",
+    "answers": [
+      {"answer": ".column() returns an array; .select() returns a Table", "correct": true, "feedback": "Correct — mixing these up is one of the most common sources of cryptic errors in this course."},
+      {"answer": "Both return the same type: a Table", "correct": false, "feedback": ".column() specifically returns a raw array, not a Table."},
+      {"answer": "Both return the same type: an array", "correct": false, "feedback": ".select() specifically returns a Table (even for one column), not a bare array."},
+      {"answer": ".column() returns a Table; .select() returns an array", "correct": false, "feedback": "This is backwards — .column() gives an array, .select() gives a Table."}
+    ]
+  },
+  {
+    "question": "What does `census.where(\"AGE\", are.equal_to(73))` return?",
+    "answers": [
+      {"answer": "A new Table containing only the rows where AGE equals 73", "correct": true, "feedback": "Correct — .where() filters rows and returns a Table."},
+      {"answer": "A single Boolean value", "correct": false, "feedback": ".where() returns a filtered Table, not one True/False value."},
+      {"answer": "The AGE column as an array", "correct": false, "feedback": "That would be census.column(\"AGE\") — where() filters rows instead."},
+      {"answer": "The original Table, completely unmodified", "correct": false, "feedback": ".where() returns a new, filtered copy, not the unfiltered original."}
+    ]
+  },
+  {
+    "question": "What does `tbl.sort(\"Tornados\", descending=True)` do?",
+    "answers": [
+      {"answer": "Returns a new Table with rows ordered from highest to lowest \"Tornados\" value", "correct": true, "feedback": "Correct."},
+      {"answer": "Sorts the Table in place and returns None", "correct": false, "feedback": "sort() returns a new sorted Table rather than modifying anything in place."},
+      {"answer": "Removes the \"Tornados\" column after sorting", "correct": false, "feedback": "sort() only reorders rows — it doesn't drop any columns."},
+      {"answer": "Sorts alphabetically by column name", "correct": false, "feedback": "sort() orders rows by the values in a column, not the column names themselves."}
+    ]
+  },
+  {
+    "question": "By default, what does `tbl.group(\"country\")` (no second argument) compute for each unique country?",
+    "answers": [
+      {"answer": "A count of how many rows share that value", "correct": true, "feedback": "Correct — group() defaults to counting; pass a function like np.mean for a different aggregation."},
+      {"answer": "The average of all numeric columns", "correct": false, "feedback": "That requires explicitly passing a function like np.mean as the second argument."},
+      {"answer": "It throws an error without a second argument", "correct": false, "feedback": "group() works fine with just a column label — it defaults to a count aggregation."},
+      {"answer": "It removes duplicate rows", "correct": false, "feedback": "group() aggregates by unique values — it doesn't just delete duplicates."}
+    ]
+  },
+  {
+    "question": "A student calls `census.sample(100)`. What does this return?",
+    "answers": [
+      {"answer": "A new Table of 100 rows randomly sampled with replacement", "correct": true, "feedback": "Correct."},
+      {"answer": "The first 100 rows of the Table in order", "correct": false, "feedback": "That would be .take(np.arange(100)) — .sample() draws randomly, not in original order."},
+      {"answer": "100 rows sampled without replacement, guaranteed unique", "correct": false, "feedback": ".sample() defaults to sampling WITH replacement."},
+      {"answer": "An error, since 100 exceeds a hidden row limit", "correct": false, "feedback": "There's no such row limit — .sample(n) works for any valid n."}
+    ]
+  },
+  {
+    "question": "A student calls `.sample()` with no arguments at all. What happens?",
+    "answers": [
+      {"answer": "It still resamples the entire Table, with replacement — not a no-op", "correct": true, "feedback": "Correct — this frequently surprises students (and CAs), especially in bootstrap contexts where it's exactly the intended behavior."},
+      {"answer": "It returns the Table completely unchanged", "correct": false, "feedback": "It's not a no-op — the whole table is still resampled with replacement."},
+      {"answer": "It throws an error requiring an argument", "correct": false, "feedback": "No argument is required — sample() with no argument still runs, sampling the full table size."},
+      {"answer": "It returns an empty Table", "correct": false, "feedback": "It returns a full-size resampled Table, not an empty one."}
+    ]
+  },
+  {
+    "question": "What does `tbl.take(0)` return?",
+    "answers": [
+      {"answer": "A Table containing just the first row (row 0)", "correct": true, "feedback": "Correct — .take() selects rows by position, zero-indexed."},
+      {"answer": "The number of rows in the Table", "correct": false, "feedback": "That would be .num_rows — .take() selects specific row(s)."},
+      {"answer": "An empty Table, since 0 means \"none\"", "correct": false, "feedback": "0 is a valid row index (the first row), not an instruction to take none."},
+      {"answer": "The last row of the Table", "correct": false, "feedback": "Index 0 refers to the first row, not the last."}
+    ]
+  },
+  {
+    "question": "What does `tbl.num_rows` give you?",
+    "answers": [
+      {"answer": "The number of rows currently in the Table", "correct": true, "feedback": "Correct."},
+      {"answer": "The number of columns in the Table", "correct": false, "feedback": "That would be .num_columns — num_rows is specifically about row count."},
+      {"answer": "A new Table with numbered rows", "correct": false, "feedback": "num_rows is a simple count (an integer), not a new Table."},
+      {"answer": "The index of the last row", "correct": false, "feedback": "It's the total row count, not a specific row's index (though the last index is num_rows - 1)."}
+    ]
+  },
+  {
+    "question": "A student's lab has a leftover `...` where a value should be. What error does this typically cause?",
+    "answers": [
+      {"answer": "A SyntaxError, since ... is a fill-in-the-blank placeholder, not valid code for that spot", "correct": true, "feedback": "Correct — checking for a stray ... is a fast first debugging step."},
+      {"answer": "No error at all — Python silently ignores ...", "correct": false, "feedback": "Left in an invalid spot, ... typically causes an error rather than being silently ignored."},
+      {"answer": "An infinite loop", "correct": false, "feedback": "A stray ellipsis causes a syntax/type error, not looping behavior."},
+      {"answer": "A warning, but the code still runs correctly", "correct": false, "feedback": "It's usually a hard error, not just a warning, when left in place of required code."}
+    ]
+  },
+  {
+    "question": "A student compares a column value to 'Yes' but the data actually contains 'yes' (lowercase). What happens?",
+    "answers": [
+      {"answer": "The comparison silently fails to match, since string comparisons are case-sensitive", "correct": true, "feedback": "Correct — case mismatches are one of the most common, hardest-to-spot data wrangling bugs."},
+      {"answer": "Python automatically ignores case when comparing strings", "correct": false, "feedback": "Python string comparisons are case-sensitive by default — 'Yes' != 'yes'."},
+      {"answer": "It raises a TypeError immediately", "correct": false, "feedback": "It doesn't error — it just silently returns no match, which is often more confusing to debug."},
+      {"answer": "It matches only if the rest of the row is also identical", "correct": false, "feedback": "String comparison only looks at the string value itself, not the rest of the row."}
+    ]
+  },
+  {
+    "question": "A student passes the result of `.select()` into `np.average()` and gets a strange error. What's the likely issue?",
+    "answers": [
+      {"answer": ".select() returns a Table, but np.average() expects an array — they likely meant .column() instead", "correct": true, "feedback": "Correct — mixing up array vs. Table return types is a very common source of cryptic numpy errors."},
+      {"answer": "np.average() cannot be used with the datascience library at all", "correct": false, "feedback": "np.average() works fine with datascience data — it just needs an array, not a Table."},
+      {"answer": "The column must be renamed before averaging", "correct": false, "feedback": "Renaming isn't the issue — the return type (Table vs. array) is."},
+      {"answer": "np.average() only works on Table objects, not arrays", "correct": false, "feedback": "It's the reverse — np.average() expects an array-like input, not a Table."}
+    ]
+  },
+  {
+    "question": "Why is `are.equal_to()` risky to use when filtering on a floating-point column?",
+    "answers": [
+      {"answer": "Floating-point rounding errors can mean two \"equal\" values differ at tiny decimal places", "correct": true, "feedback": "Correct — this is why a tolerance-based approach is often safer for floats."},
+      {"answer": "are.equal_to() only works on string columns", "correct": false, "feedback": "It works on numeric columns too — the issue is float precision, not type support."},
+      {"answer": "Table columns cannot store floats", "correct": false, "feedback": "Table columns handle floats fine — the concern is exact equality comparison, not storage."},
+      {"answer": "It's deprecated and no longer functions", "correct": false, "feedback": "are.equal_to() works normally — the concern is about precision, not deprecation."}
+    ]
+  },
+  {
+    "question": "What is the typical order of steps in a data-wrangling workflow with a Table?",
+    "answers": [
+      {"answer": "Load, inspect, filter, select/reshape, combine, visualize", "correct": true, "feedback": "Correct — this is the throughline used across most labs, from a raw .csv to a plotted result."},
+      {"answer": "Visualize, then load the data afterward", "correct": false, "feedback": "You need the data loaded before you can inspect or visualize it."},
+      {"answer": "Filter before loading the file", "correct": false, "feedback": "The Table must be loaded first before any filtering can happen."},
+      {"answer": "There is no consistent order — it varies randomly each lab", "correct": false, "feedback": "The load → inspect → filter → reshape → combine → visualize order is fairly consistent across labs."}
+    ]
+  },
+  {
+    "question": "A student's wrangling code runs without errors but gives an unexpected result. What's a good first debugging step?",
+    "answers": [
+      {"answer": "Print/show the Table before and after each step to see where the output diverges from what's expected", "correct": true, "feedback": "Correct — most wrangling bugs become visible the moment you look at intermediate output."},
+      {"answer": "Rewrite the entire cell from scratch immediately", "correct": false, "feedback": "Rewriting from scratch skips the chance to find exactly where the logic went wrong."},
+      {"answer": "Assume the dataset itself is corrupted", "correct": false, "feedback": "The dataset is rarely the actual problem — checking intermediate output first is more productive."},
+      {"answer": "Switch to using pandas instead", "correct": false, "feedback": "Switching libraries doesn't diagnose the actual logic error, and this course doesn't use pandas by default."}
+    ]
+  },
+  {
+    "question": "Why can grouping-then-filtering and filtering-then-grouping give different (both \"reasonable-looking\") results?",
+    "answers": [
+      {"answer": "Aggregating first can hide row-level detail that filtering afterward would have caught, and vice versa", "correct": true, "feedback": "Correct — this ordering mistake is a common, subtle conceptual bug in data wrangling."},
+      {"answer": "They always produce identical results, so order never matters", "correct": false, "feedback": "Order frequently does matter — that's exactly why this is a common point of confusion."},
+      {"answer": ".group() and .where() cannot be used in the same analysis", "correct": false, "feedback": "They're commonly used together — the issue is the order in which they're applied."},
+      {"answer": "This only happens with string columns, never numeric ones", "correct": false, "feedback": "This ordering issue can affect numeric aggregations just as much as categorical ones."}
+    ]
+  },
+  {
+    "question": "What do `tbl.hist('col')` and `tbl.scatter('x','y')` have in common?",
+    "answers": [
+      {"answer": "Both are quick, styled plotting methods built directly into the Table object", "correct": true, "feedback": "Correct — convenient one-liners that work without importing matplotlib directly."},
+      {"answer": "Both require first converting the Table to a pandas DataFrame", "correct": false, "feedback": "They work directly on the Table — no pandas conversion needed."},
+      {"answer": "Both only work on numeric data, never categorical", "correct": false, "feedback": "hist() is for numeric data, but scatter() plots two numeric columns against each other — the shared trait is that both are Table-native methods, not a data-type restriction."},
+      {"answer": "Both require explicitly creating a matplotlib figure first", "correct": false, "feedback": "Part of their convenience is that they don't require manual figure setup."}
+    ]
+  },
+  {
+    "question": "When would a CA reach for raw `plt.` calls instead of a Table's built-in `.hist()`/`.scatter()`?",
+    "answers": [
+      {"answer": "When a student needs more control — custom colors/sizes, annotations, or a regression line drawn over a scatter", "correct": true, "feedback": "Correct — many labs actually combine both: a Table plot, then a plt. layer on top."},
+      {"answer": "Never — Table methods can do everything plt. can do", "correct": false, "feedback": "Table methods are convenient but more limited than raw matplotlib for fine control."},
+      {"answer": "Only when working with non-numeric data", "correct": false, "feedback": "The choice is about needed control/customization, not data type."},
+      {"answer": "Only in the final group project, never in regular labs", "correct": false, "feedback": "Regular labs often mix both approaches in the same cell, not just the final project."}
+    ]
+  },
+  {
+    "question": "What's the difference between matplotlib's \"pyplot\" interface and its \"object-oriented\" interface?",
+    "answers": [
+      {"answer": "Pyplot (plt.scatter, plt.xlabel, ...) implicitly tracks a current figure; the OO interface (fig, ax = plt.subplots()) is explicit and used more in professional code", "correct": true, "feedback": "Correct — pyplot is more approachable for beginners, but the OO style scales better and is what most current examples use."},
+      {"answer": "They are two names for exactly the same thing with no functional difference", "correct": false, "feedback": "They're genuinely different coding styles — implicit \"current figure\" tracking vs. explicit figure/axes objects."},
+      {"answer": "The OO interface is deprecated in favor of pyplot", "correct": false, "feedback": "It's the reverse — the OO interface is the modern standard for more serious use, though pyplot remains common for quick plots."},
+      {"answer": "Pyplot can only make scatter plots; the OO interface is needed for anything else", "correct": false, "feedback": "Pyplot can make virtually any plot type — the difference is in how the figure/axes are managed, not what plot types are possible."}
+    ]
+  },
+  {
+    "question": "Why does this course lean on the pyplot (implicit) interface early on, even though the OO interface is the current professional standard?",
+    "answers": [
+      {"answer": "Pyplot is more approachable for a first-semester student, even though the OO interface scales better later", "correct": true, "feedback": "Correct — it's a deliberate simplicity tradeoff, worth explaining to a stronger student confused by online examples using the OO style."},
+      {"answer": "The OO interface doesn't work in Jupyter notebooks", "correct": false, "feedback": "The OO interface works perfectly well in notebooks — the choice is about learning-curve, not compatibility."},
+      {"answer": "Pyplot is strictly faster to execute", "correct": false, "feedback": "Performance isn't the reason — it's about approachability for beginners."},
+      {"answer": "There's no particular reason; it's arbitrary", "correct": false, "feedback": "It's a deliberate choice based on what's easier for a beginner to grasp first."}
+    ]
+  },
+  {
+    "question": "In `plt.savefig(\"scatter.png\")` followed by `plt.show()`, why does the order matter?",
+    "answers": [
+      {"answer": "Calling savefig() after show() can save a blank figure — savefig must come first", "correct": true, "feedback": "Correct — a common gotcha for students saving plots for lab submission."},
+      {"answer": "show() must always come before savefig(), or Python raises an error", "correct": false, "feedback": "It won't raise an error — the risk is a blank saved image, not a crash."},
+      {"answer": "Order doesn't matter at all", "correct": false, "feedback": "Order does matter in some backends — save before show is the safe pattern to teach."},
+      {"answer": "savefig() automatically calls show() internally", "correct": false, "feedback": "They're separate calls with separate effects — savefig doesn't trigger a display."}
+    ]
+  },
+  {
+    "question": "What does `plt.legend(bbox_to_anchor=(1.5, 0.8))` accomplish?",
+    "answers": [
+      {"answer": "Moves the legend outside the main plot area to a specified position", "correct": true, "feedback": "Correct — useful when the legend would otherwise overlap the data."},
+      {"answer": "Changes the color scheme of the whole plot", "correct": false, "feedback": "bbox_to_anchor only controls legend placement, not overall plot colors."},
+      {"answer": "Adds a second y-axis to the plot", "correct": false, "feedback": "That would require a different approach (like twinx()), not bbox_to_anchor."},
+      {"answer": "Removes the legend entirely", "correct": false, "feedback": "It repositions the legend — it doesn't remove it."}
+    ]
+  },
+  {
+    "question": "What's the purpose of `plt.annotate(\"Slope: 2.3\", xy=(35, 510))`?",
+    "answers": [
+      {"answer": "It places text at a specific data coordinate on the plot", "correct": true, "feedback": "Correct — commonly used to label slope/intercept values directly on a regression scatter plot."},
+      {"answer": "It draws an arrow from the origin to (35, 510) with no text", "correct": false, "feedback": "annotate() places the given text at that coordinate — it's a labeling tool, not just an arrow."},
+      {"answer": "It sets the axis limits of the plot", "correct": false, "feedback": "That would be plt.xlim()/plt.ylim() — annotate() places text, not axis bounds."},
+      {"answer": "It only works inside a Table's built-in .plot() method", "correct": false, "feedback": "annotate() is a general matplotlib.pyplot function, independent of Table methods."}
+    ]
+  },
+  {
+    "question": "What does `census.where(\"AGE\", are.between(18, 25))` select?",
+    "answers": [
+      {"answer": "Rows where AGE is at least 18 and less than 25", "correct": true, "feedback": "Correct — are.between(a, b) selects a ≤ value < b, matching Python's usual half-open range convention."},
+      {"answer": "Rows where AGE is exactly 18 or exactly 25", "correct": false, "feedback": "are.between selects a continuous range, not just the two endpoint values."},
+      {"answer": "Rows where AGE is strictly greater than 25", "correct": false, "feedback": "That would be are.above(25) — are.between selects a bounded range instead."},
+      {"answer": "All rows, since between() ignores its arguments", "correct": false, "feedback": "are.between() actively filters using the given bounds — it doesn't ignore them."}
+    ]
+  },
+  {
+    "question": "What does `np.std(t.column(\"salary\"))` compute?",
+    "answers": [
+      {"answer": "The standard deviation of the salary column's values", "correct": true, "feedback": "Correct — a measure of spread around the mean."},
+      {"answer": "The total sum of the salary column", "correct": false, "feedback": "That would be np.sum(), not np.std()."},
+      {"answer": "The number of rows in the Table", "correct": false, "feedback": "That's t.num_rows, unrelated to np.std()."},
+      {"answer": "The single largest salary value", "correct": false, "feedback": "That would be np.max(), not the standard deviation."}
+    ]
+  },
+  {
+    "question": "What does `cities.drop(\"Area_km2\")` return?",
+    "answers": [
+      {"answer": "A new Table identical to cities but without the Area_km2 column", "correct": true, "feedback": "Correct — drop() removes the named column(s) and returns a new Table."},
+      {"answer": "A new Table with only the Area_km2 column", "correct": false, "feedback": "That's the opposite of drop() — .select('Area_km2') would keep just that column instead."},
+      {"answer": "The Area_km2 column as a standalone array", "correct": false, "feedback": "drop() returns a Table without that column, not the column itself."},
+      {"answer": "An error, since columns can't be removed once added", "correct": false, "feedback": "drop() is a normal, supported Table operation for removing columns."}
+    ]
+  },
+  {
+    "question": "Why should students be reminded to Restart & Run All before submitting a lab or quiz?",
+    "answers": [
+      {"answer": "Re-running cells out of order can leave stale variable values that make the notebook look correct but not actually run correctly top-to-bottom", "correct": true, "feedback": "Correct — this is especially important on quizzes/labs with locking behavior, where a fresh run may behave differently than the cached state."},
+      {"answer": "It automatically fixes any incorrect answers", "correct": false, "feedback": "Restart & Run All doesn't fix wrong answers — it just ensures the notebook's stored outputs reflect a clean, in-order execution."},
+      {"answer": "It is required by Python syntax rules", "correct": false, "feedback": "This isn't a language requirement — it's a practical safeguard against out-of-order execution bugs."},
+      {"answer": "It deletes all of the student's code", "correct": false, "feedback": "It reruns the code from a clean kernel — it doesn't delete anything."}
+    ]
+  }
+]
