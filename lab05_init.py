@@ -23,6 +23,11 @@ _parent = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 if _parent not in sys.path:
     sys.path.insert(0, _parent)
 # ── standard imports ──────────────────────────────────────────────────────────
+import subprocess, sys
+try:
+    import gspread  # noqa: F401
+except ImportError:
+    subprocess.run([sys.executable, "-m", "pip", "install", "--quiet", "gspread"], check=False)
 import numpy as np
 import math
 import json, glob
